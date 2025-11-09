@@ -1,4 +1,4 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 import config from "../../config/index.js";
 import { logger } from "../../utils/logger.js";
 
@@ -9,7 +9,7 @@ let isConnected = false;
  * Logs warnings on missing configuration or errors.
  */
 const connectMongoose = async () => {
-  if (!config.mongoose.uri) {
+  if (!config.mongodb.uri) {
     logger.warn("MongoDB URI not configured, analytics disabled");
     return null;
   }
@@ -20,16 +20,17 @@ const connectMongoose = async () => {
 
   try {
     // Use config.mongodb.dbName if available, otherwise let URI define the default DB
+    // i have commented the depreceated code which is no longer
     const options = {
       maxPoolSize: 10,
       minPoolSize: 2,
       serverSelectionTimeoutMS: 5000,
-      dbName: config.mongodb.dbName,
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // dbName: config.mongodb.dbName,
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
     };
 
-    await mongoose.connect(config.mongoose.uri, options);
+    await mongoose.connect(config.mongodb.uri, options);
 
     isConnected = true;
     logger.info("Mongoose (MongoDB) connected successfully");

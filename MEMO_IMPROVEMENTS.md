@@ -7,7 +7,7 @@ Your MEMO is comprehensive, but here are the additions we've made to the actual 
 ### 1. **Error Handling Strategy** ✨ NEW
 ```javascript
 // Centralized error handling
-- AppError class for operational errors
+- ApiError class for operational errors
 - Global error handler middleware
 - Development vs Production error responses
 - Stack trace logging

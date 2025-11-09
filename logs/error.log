@@ -30,3 +30,14 @@
 2025-11-09 18:51:57:5157 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
 2025-11-09 18:52:05:525 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
 2025-11-09 18:52:05:525 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 19:13:52:1352 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 19:13:52:1352 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 19:17:34:1734 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-09 19:28:58:2858 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-09 19:30:10:3010 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-09 20:31:27:3127 [31merror[39m: [31mError: Route / not found[39m
+2025-11-09 20:31:27:3127 [31merror[39m: [31mError: Route / not found[39m
+2025-11-09 20:31:42:3142 [31merror[39m: [31mError: Route // not found[39m
+2025-11-09 20:31:42:3142 [31merror[39m: [31mError: Route // not found[39m
+2025-11-09 20:31:46:3146 [31merror[39m: [31mError: Route /300 not found[39m
+2025-11-09 20:31:46:3146 [31merror[39m: [31mError: Route /300 not found[39m

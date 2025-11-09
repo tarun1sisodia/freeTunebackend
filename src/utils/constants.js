@@ -1,12 +1,12 @@
 /**
  * Application-wide constants
  * Following MEMO.md specifications
- * 
+ *
  * NOTE: This file is the single source of truth for shared constants across
  * the entire backend codebase. Any new constant needed by core files like
  * apiError.js, apiResponse.js, errorHandler.js, logger.js, cacheHelper.js,
  * fileUpload.js or future modules must be defined here.
- * 
+ *
  * To extend: Simply append new keys under a suitable section or add a new
  * section header to maintain organization. Do NOT define constants scattered
  * in each util - import from here instead!
@@ -321,7 +321,7 @@ const REGEX = {
   UUID: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
   EMAIL: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   URL: /^https?:\/\/.+/i,
-  // Add new regex as needed for new validators  
+  // Add new regex as needed for new validators
 };
 
 // ============================================================================
