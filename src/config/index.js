@@ -26,7 +26,7 @@ const config = {
     accountId: process.env.R2_ACCOUNT_ID,
     accessKeyId: process.env.R2_ACCESS_KEY_ID,
     secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-    bucketName: process.env.R2_BUCKET_NAME || 'freetune-audio',
+    bucketName: process.env.R2_BUCKET_NAME || 'music',
     publicUrl: process.env.R2_PUBLIC_URL,
   },
 
@@ -39,7 +39,7 @@ const config = {
   // MongoDB
   mongodb: {
     uri: process.env.MONGODB_URI,
-    dbName: process.env.MONGODB_DB_NAME || 'freetune_analytics',
+    dbName: process.env.MONGODB_DB_NAME || 'freeTune',
   },
 
   // External APIs
