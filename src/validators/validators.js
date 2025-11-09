@@ -3,16 +3,16 @@
  * Reusable validation utilities for the application
  */
 
-import { z } from 'zod';
-import { LIMITS, REGEX, AUDIO_QUALITIES } from '../utils/constants.js';
-import ApiError from '../utils/apiError.js';
+import { z } from "zod";
+import { LIMITS, REGEX, AUDIO_QUALITIES } from "../utils/constants.js";
+import ApiError from "../utils/apiError.js";
 
 /**
  * Validate UUID format
  * @param {string} value - UUID string
  * @returns {boolean} Is valid UUID
  */
-export const isValidUUID = (value) => {
+const isValidUUID = value => {
   return REGEX.UUID.test(value);
 };
 
@@ -21,7 +21,7 @@ export const isValidUUID = (value) => {
  * @param {string} email - Email string
  * @returns {boolean} Is valid email
  */
-export const isValidEmail = (email) => {
+const isValidEmail = email => {
   return REGEX.EMAIL.test(email);
 };
 
@@ -30,7 +30,7 @@ export const isValidEmail = (email) => {
  * @param {string} url - URL string
  * @returns {boolean} Is valid URL
  */
-export const isValidUrl = (url) => {
+const isValidUrl = url => {
   return REGEX.URL.test(url);
 };
 
@@ -39,9 +39,9 @@ export const isValidUrl = (url) => {
  * @param {string} input - Input string
  * @returns {string} Sanitized string
  */
-export const sanitizeString = (input) => {
-  if (typeof input !== 'string') return '';
-  return input.trim().replace(/[<>]/g, '');
+const sanitizeString = input => {
+  if (typeof input !== "string") return "";
+  return input.trim().replace(/[<>]/g, "");
 };
 
 /**
@@ -50,7 +50,7 @@ export const sanitizeString = (input) => {
  * @param {number} limit - Items per page
  * @returns {Object} Validated pagination params
  */
-export const validatePagination = (page, limit) => {
+const validatePagination = (page, limit) => {
   const parsedPage = parseInt(page) || 1;
   const parsedLimit = parseInt(limit) || LIMITS.PAGINATION_DEFAULT_LIMIT;
 
@@ -65,7 +65,7 @@ export const validatePagination = (page, limit) => {
  * @param {string} quality - Quality string
  * @returns {string} Valid quality or default
  */
-export const validateQuality = (quality) => {
+const validateQuality = quality => {
   const validQualities = Object.values(AUDIO_QUALITIES);
   return validQualities.includes(quality) ? quality : AUDIO_QUALITIES.HIGH;
 };
@@ -77,26 +77,26 @@ export const validateQuality = (quality) => {
 /**
  * UUID Schema
  */
-export const uuidSchema = z.string().uuid('Invalid UUID format');
+const uuidSchema = z.string().uuid("Invalid UUID format");
 
 /**
  * Email Schema
  */
-export const emailSchema = z.string().email('Invalid email format');
+const emailSchema = z.string().email("Invalid email format");
 
 /**
  * Password Schema (min 8 chars, at least one letter and one number)
  */
-export const passwordSchema = z
+const passwordSchema = z
   .string()
-  .min(8, 'Password must be at least 8 characters')
-  .regex(/[A-Za-z]/, 'Password must contain at least one letter')
-  .regex(/[0-9]/, 'Password must contain at least one number');
+  .min(8, "Password must be at least 8 characters")
+  .regex(/[A-Za-z]/, "Password must contain at least one letter")
+  .regex(/[0-9]/, "Password must contain at least one number");
 
 /**
  * Pagination Schema
  */
-export const paginationSchema = z.object({
+const paginationSchema = z.object({
   page: z.coerce.number().int().min(1).optional().default(1),
   limit: z.coerce
     .number()
@@ -110,16 +110,22 @@ export const paginationSchema = z.object({
 /**
  * Search Query Schema
  */
-export const searchQuerySchema = z
+const searchQuerySchema = z
   .string()
-  .min(LIMITS.SEARCH_QUERY_MIN, `Search query must be at least ${LIMITS.SEARCH_QUERY_MIN} characters`)
-  .max(LIMITS.SEARCH_QUERY_MAX, `Search query must not exceed ${LIMITS.SEARCH_QUERY_MAX} characters`)
+  .min(
+    LIMITS.SEARCH_QUERY_MIN,
+    `Search query must be at least ${LIMITS.SEARCH_QUERY_MIN} characters`,
+  )
+  .max(
+    LIMITS.SEARCH_QUERY_MAX,
+    `Search query must not exceed ${LIMITS.SEARCH_QUERY_MAX} characters`,
+  )
   .transform(val => sanitizeString(val));
 
 /**
  * Audio Quality Schema
  */
-export const audioQualitySchema = z
+const audioQualitySchema = z
   .enum([
     AUDIO_QUALITIES.ORIGINAL,
     AUDIO_QUALITIES.HIGH,
@@ -133,34 +139,43 @@ export const audioQualitySchema = z
 /**
  * Song Title Schema
  */
-export const songTitleSchema = z
+const songTitleSchema = z
   .string()
-  .min(1, 'Title is required')
-  .max(LIMITS.SONG_TITLE_MAX, `Title must not exceed ${LIMITS.SONG_TITLE_MAX} characters`)
+  .min(1, "Title is required")
+  .max(
+    LIMITS.SONG_TITLE_MAX,
+    `Title must not exceed ${LIMITS.SONG_TITLE_MAX} characters`,
+  )
   .transform(val => sanitizeString(val));
 
 /**
  * Artist Name Schema
  */
-export const artistNameSchema = z
+const artistNameSchema = z
   .string()
-  .min(1, 'Artist name is required')
-  .max(LIMITS.ARTIST_NAME_MAX, `Artist name must not exceed ${LIMITS.ARTIST_NAME_MAX} characters`)
+  .min(1, "Artist name is required")
+  .max(
+    LIMITS.ARTIST_NAME_MAX,
+    `Artist name must not exceed ${LIMITS.ARTIST_NAME_MAX} characters`,
+  )
   .transform(val => sanitizeString(val));
 
 /**
  * Album Name Schema
  */
-export const albumNameSchema = z
+const albumNameSchema = z
   .string()
-  .max(LIMITS.ALBUM_NAME_MAX, `Album name must not exceed ${LIMITS.ALBUM_NAME_MAX} characters`)
+  .max(
+    LIMITS.ALBUM_NAME_MAX,
+    `Album name must not exceed ${LIMITS.ALBUM_NAME_MAX} characters`,
+  )
   .optional()
   .transform(val => (val ? sanitizeString(val) : undefined));
 
 /**
  * Genre Schema
  */
-export const genreSchema = z
+const genreSchema = z
   .string()
   .max(LIMITS.GENRE_MAX, `Genre must not exceed ${LIMITS.GENRE_MAX} characters`)
   .optional()
@@ -169,35 +184,41 @@ export const genreSchema = z
 /**
  * Duration Schema (in milliseconds)
  */
-export const durationSchema = z.coerce.number().int().positive('Duration must be positive');
+const durationSchema = z.coerce
+  .number()
+  .int()
+  .positive("Duration must be positive");
 
 /**
  * Year Schema
  */
-export const yearSchema = z.coerce
+const yearSchema = z.coerce
   .number()
   .int()
-  .min(1900, 'Year must be 1900 or later')
-  .max(new Date().getFullYear() + 1, 'Year cannot be in the future')
+  .min(1900, "Year must be 1900 or later")
+  .max(new Date().getFullYear() + 1, "Year cannot be in the future")
   .optional();
 
 /**
  * Playlist Name Schema
  */
-export const playlistNameSchema = z
+const playlistNameSchema = z
   .string()
-  .min(1, 'Playlist name is required')
-  .max(LIMITS.PLAYLIST_NAME_MAX, `Playlist name must not exceed ${LIMITS.PLAYLIST_NAME_MAX} characters`)
+  .min(1, "Playlist name is required")
+  .max(
+    LIMITS.PLAYLIST_NAME_MAX,
+    `Playlist name must not exceed ${LIMITS.PLAYLIST_NAME_MAX} characters`,
+  )
   .transform(val => sanitizeString(val));
 
 /**
  * Playlist Description Schema
  */
-export const playlistDescriptionSchema = z
+const playlistDescriptionSchema = z
   .string()
   .max(
     LIMITS.PLAYLIST_DESCRIPTION_MAX,
-    `Description must not exceed ${LIMITS.PLAYLIST_DESCRIPTION_MAX} characters`
+    `Description must not exceed ${LIMITS.PLAYLIST_DESCRIPTION_MAX} characters`,
   )
   .optional()
   .transform(val => (val ? sanitizeString(val) : undefined));
@@ -205,16 +226,16 @@ export const playlistDescriptionSchema = z
 /**
  * URL Schema
  */
-export const urlSchema = z.string().url('Invalid URL format').optional();
+const urlSchema = z.string().url("Invalid URL format").optional();
 
 /**
  * Boolean Schema with string coercion
  */
-export const booleanSchema = z
-  .union([z.boolean(), z.enum(['true', 'false'])])
+const booleanSchema = z
+  .union([z.boolean(), z.enum(["true", "false"])])
   .transform(val => {
-    if (typeof val === 'boolean') return val;
-    return val === 'true';
+    if (typeof val === "boolean") return val;
+    return val === "true";
   });
 
 // ============================================================================
@@ -228,13 +249,13 @@ export const booleanSchema = z
  * @throws {ApiError} If validation fails
  * @returns {Object} Validated data
  */
-export const validateRequest = (schema, data) => {
+const validateRequest = (schema, data) => {
   try {
     return schema.parse(data);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = error.errors.map(err => ({
-        field: err.path.join('.'),
+        field: err.path.join("."),
         message: err.message,
       }));
       throw ApiError.validation(errors);
@@ -249,13 +270,13 @@ export const validateRequest = (schema, data) => {
  * @param {Object} data - Data to validate
  * @returns {Promise<Object>} Validated data
  */
-export const validateAsync = async (schema, data) => {
+const validateAsync = async (schema, data) => {
   try {
     return await schema.parseAsync(data);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors = error.errors.map(err => ({
-        field: err.path.join('.'),
+        field: err.path.join("."),
         message: err.message,
       }));
       throw ApiError.validation(errors);
@@ -270,9 +291,9 @@ export const validateAsync = async (schema, data) => {
  * @param {Object} data - Data to validate
  * @returns {Object} { success: boolean, data?: any, errors?: array }
  */
-export const safeParse = (schema, data) => {
+const safeParse = (schema, data) => {
   const result = schema.safeParse(data);
-  
+
   if (result.success) {
     return {
       success: true,
@@ -283,7 +304,7 @@ export const safeParse = (schema, data) => {
   return {
     success: false,
     errors: result.error.errors.map(err => ({
-      field: err.path.join('.'),
+      field: err.path.join("."),
       message: err.message,
     })),
   };
@@ -294,7 +315,7 @@ export const safeParse = (schema, data) => {
  * @param {Array} ids - Array of UUID strings
  * @returns {boolean} All valid UUIDs
  */
-export const validateUUIDArray = (ids) => {
+const validateUUIDArray = ids => {
   if (!Array.isArray(ids)) return false;
   return ids.every(id => isValidUUID(id));
 };
@@ -305,20 +326,20 @@ export const validateUUIDArray = (ids) => {
  * @param {Date} endDate - End date
  * @throws {ApiError} If validation fails
  */
-export const validateDateRange = (startDate, endDate) => {
+const validateDateRange = (startDate, endDate) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
   if (isNaN(start.getTime())) {
-    throw ApiError.badRequest('Invalid start date');
+    throw ApiError.badRequest("Invalid start date");
   }
 
   if (isNaN(end.getTime())) {
-    throw ApiError.badRequest('Invalid end date');
+    throw ApiError.badRequest("Invalid end date");
   }
 
   if (start > end) {
-    throw ApiError.badRequest('Start date must be before end date');
+    throw ApiError.badRequest("Start date must be before end date");
   }
 };
 
@@ -329,22 +350,26 @@ export const validateDateRange = (startDate, endDate) => {
  * @param {Array} allowedFields - Allowed sort fields
  * @returns {Object} Validated sort params
  */
-export const validateSort = (sortBy, sortOrder = 'desc', allowedFields = []) => {
-  const order = ['asc', 'desc'].includes(sortOrder?.toLowerCase()) ? sortOrder.toLowerCase() : 'desc';
+const validateSort = (sortBy, sortOrder = "desc", allowedFields = []) => {
+  const order = ["asc", "desc"].includes(sortOrder?.toLowerCase())
+    ? sortOrder.toLowerCase()
+    : "desc";
 
   if (!sortBy) {
-    return { sortBy: allowedFields[0] || 'created_at', sortOrder: order };
+    return { sortBy: allowedFields[0] || "created_at", sortOrder: order };
   }
 
   if (allowedFields.length > 0 && !allowedFields.includes(sortBy)) {
-    throw ApiError.badRequest(`Invalid sort field. Allowed fields: ${allowedFields.join(', ')}`);
+    throw ApiError.badRequest(
+      `Invalid sort field. Allowed fields: ${allowedFields.join(", ")}`,
+    );
   }
 
   return { sortBy, sortOrder: order };
 };
 
 // ============================================================================
-// EXPORT DEFAULT VALIDATOR OBJECT
+//   DEFAULT VALIDATOR OBJECT
 // ============================================================================
 
 export default {

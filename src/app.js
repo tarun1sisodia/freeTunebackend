@@ -11,11 +11,12 @@ import compression from "compression";
 import morgan from "morgan";
 
 import config from "./config/index.js";
-import { errorHandler } from "./utils/errorHandler.js";
+import { errorHandler } from "./utils/apiError.js";
 import { apiLimiter } from "./middleware/rateLimiter.js";
 import { logger } from "./utils/logger.js";
 import ApiError from "./utils/apiError.js";
 import { successResponse } from "./utils/apiResponse.js";
+import { ENVIRONMENTS } from "./utils/constants.js";
 
 // Initialize Express app
 const app = express();
@@ -81,7 +82,7 @@ app.use(
 // ============================================================================
 // REQUEST LOGGING
 // ============================================================================
-if (config.env === "development") {
+if (config.env === ENVIRONMENTS.DEVELOPMENT) {
   app.use(morgan("dev"));
 } else {
   app.use(

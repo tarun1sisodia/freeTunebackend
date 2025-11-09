@@ -4,12 +4,17 @@
  */
 
 import ApiError from "./apiError.js";
+import { LOG_LEVELS, RESPONSE_STRUCTURE, SUCCESS_MESSAGES } from "./constants.js";
 
 /**
  * ApiResponse Class for structured responses
  */
 class ApiResponse {
-  constructor(statusCode, data = null, message = "Success") {
+  constructor(
+    statusCode,
+    data = null,
+    message = RESPONSE_STRUCTURE.SUCCESS_KEY,
+  ) {
     this.statusCode = statusCode;
     this.success = statusCode < 400;
     this.message = message;
@@ -25,7 +30,12 @@ class ApiResponse {
  * @param {string} message - Success message
  * @param {number} statusCode - HTTP status code
  */
-const successResponse = (res, data, message = "Success", statusCode = 200) => {
+const successResponse = (
+  res,
+  data,
+  message = RESPONSE_STRUCTURE.SUCCESS_KEY,
+  statusCode = 200,
+) => {
   const response = new ApiResponse(statusCode, data, message);
   return res.status(statusCode).json(response);
 };
@@ -39,7 +49,7 @@ const successResponse = (res, data, message = "Success", statusCode = 200) => {
  */
 const errorResponse = (
   res,
-  message = "Error",
+  message = LOG_LEVELS.ERROR,
   statusCode = 500,
   errors = [],
 ) => {
@@ -64,7 +74,7 @@ const paginatedResponse = (
   page,
   limit,
   total,
-  message = "Success",
+  message = RESPONSE_STRUCTURE.SUCCESS_KEY,
 ) => {
   const currentPage = parseInt(page, 10);
   const itemsPerPage = parseInt(limit, 10);
@@ -87,11 +97,7 @@ const paginatedResponse = (
 /**
  * Send created response (201) using ApiResponse
  */
-const createdResponse = (
-  res,
-  data,
-  message = "Resource created successfully",
-) => {
+const createdResponse = (res, data, message = SUCCESS_MESSAGES.CREATED) => {
   return successResponse(res, data, message, 201);
 };
 
@@ -105,7 +111,12 @@ const noContentResponse = res => {
 /**
  * Send cached response with cache info using ApiResponse
  */
-const cachedResponse = (res, data, cacheInfo, message = "Success") => {
+const cachedResponse = (
+  res,
+  data,
+  cacheInfo,
+  message = RESPONSE_STRUCTURE.SUCCESS_KEY,
+) => {
   const response = new ApiResponse(200, data, message);
   response.cache = {
     hit: true,

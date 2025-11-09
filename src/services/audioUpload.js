@@ -11,14 +11,14 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import config from "../config/index.js";
-import logger from "./logger.js";
-import ApiError from "./apiError.js";
+import { logger } from "../utils/logger.js";
+import ApiError from "../utils/apiError.js";
 import {
   AUDIO_QUALITIES,
   QUALITY_FOLDERS,
   R2_CONFIG,
   SUPPORTED_AUDIO_FORMATS,
-} from "./constants.js";
+} from "../utils/constants.js";
 import crypto from "crypto";
 import path from "path";
 
@@ -347,6 +347,3 @@ export default fileUploadHelper;
 
 // Export class for testing
 export { FileUploadHelper };
-
-// Import GetObjectCommand that was missing
-import { GetObjectCommand } from "@aws-sdk/client-s3";
