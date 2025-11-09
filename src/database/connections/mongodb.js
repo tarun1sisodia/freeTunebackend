@@ -1,50 +1,46 @@
-import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
 import config from '../../config/index.js';
 import logger from '../../utils/logger.js';
 
-let mongoClient = null;
-let db = null;
+let isConnected = false;
 
-const getMongoClient = async () => {
-  if (!mongoClient) {
+const getMongooseConnection = async () => {
+  if (!isConnected) {
     if (!config.mongodb.uri) {
       logger.warn('MongoDB URI not configured, analytics disabled');
       return null;
     }
 
     try {
-      mongoClient = new MongoClient(config.mongodb.uri, {
+      await mongoose.connect(config.mongodb.uri, {
+        dbName: config.mongodb.dbName,
         maxPoolSize: 10,
         minPoolSize: 2,
       });
-
-      await mongoClient.connect();
-      db = mongoClient.db(config.mongodb.dbName);
-      
-      logger.info('MongoDB connected successfully');
+      isConnected = true;
+      logger.info('Mongoose connected successfully');
     } catch (error) {
-      logger.error('MongoDB connection error:', error);
-      mongoClient = null;
-      db = null;
+      logger.error('Mongoose connection error:', error);
+      isConnected = false;
+      return null;
     }
   }
 
-  return db;
+  return mongoose.connection;
 };
 
 const getCollection = async collectionName => {
-  const database = await getMongoClient();
-  if (!database) return null;
-  return database.collection(collectionName);
+  const connection = await getMongooseConnection();
+  if (!connection) return null;
+  return mongoose.connection.db.collection(collectionName);
 };
 
 const closeMongoConnection = async () => {
-  if (mongoClient) {
-    await mongoClient.close();
-    mongoClient = null;
-    db = null;
-    logger.info('MongoDB connection closed');
+  if (isConnected) {
+    await mongoose.disconnect();
+    isConnected = false;
+    logger.info('Mongoose connection closed');
   }
 };
 
-export { getMongoClient, getCollection, closeMongoConnection };
+export { getMongooseConnection, getCollection, closeMongoConnection };
