@@ -3,6 +3,7 @@
 ## Prerequisites Checklist
 
 Before starting, ensure you have:
+
 - ✅ Node.js 20+ LTS installed
 - ✅ npm 10+ installed
 - ✅ Git installed
@@ -13,6 +14,7 @@ Before starting, ensure you have:
 ## Step 1: Services Setup (DO THIS FIRST!)
 
 ### 1.1 Supabase Setup ⚡
+
 **Time: 5 minutes**
 
 1. Go to [https://supabase.com](https://supabase.com)
@@ -31,17 +33,18 @@ Before starting, ensure you have:
    ```
 
 ### 1.2 Cloudflare R2 Setup 📦
+
 **Time: 10 minutes**
 
 1. Go to [https://dash.cloudflare.com](https://dash.cloudflare.com)
 2. Sign up/Login
 3. Navigate to **R2 Object Storage** (left sidebar)
 4. Click "Create bucket"
-   - Name: `freetune-audio`
+   - Name: `music`
    - Location: Automatic
 5. Click "Manage R2 API Tokens"
 6. Create API token:
-   - Name: `freetune-backend`
+   - Name: `freetune-audio-music`
    - Permissions: Object Read & Write
 7. Copy:
    ```
@@ -51,6 +54,7 @@ Before starting, ensure you have:
    ```
 
 ### 1.3 Upstash Redis Setup 🔥
+
 **Time: 3 minutes**
 
 1. Go to [https://upstash.com](https://upstash.com)
@@ -67,6 +71,7 @@ Before starting, ensure you have:
    ```
 
 ### 1.4 MongoDB Atlas Setup 🍃
+
 **Time: 5 minutes**
 
 1. Go to [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
@@ -90,16 +95,19 @@ Before starting, ensure you have:
 ### 1.5 External APIs (Optional - Can Skip for Now)
 
 #### Spotify API
+
 1. Go to [https://developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
 2. Create an app
 3. Copy Client ID and Client Secret
 
 #### Last.fm API
+
 1. Go to [https://www.last.fm/api/account/create](https://www.last.fm/api/account/create)
 2. Create API account
 3. Copy API Key
 
 #### Genius API
+
 1. Go to [https://genius.com/api-clients](https://genius.com/api-clients)
 2. Create API Client
 3. Copy Access Token
@@ -125,6 +133,7 @@ nano .env  # or use your preferred editor
 ```
 
 **Fill in these REQUIRED values:**
+
 ```env
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_anon_key
@@ -143,6 +152,7 @@ JWT_SECRET=generate_a_random_secret_here
 ```
 
 **Generate JWT Secret:**
+
 ```bash
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
@@ -167,11 +177,13 @@ npm run dev
 ```
 
 **Test it:**
+
 ```bash
 curl http://localhost:3000/health
 ```
 
 You should see:
+
 ```json
 {
   "success": true,
@@ -232,6 +244,7 @@ vercel --prod
 ### 5.4 Add Environment Variables
 
 In Vercel Dashboard:
+
 1. Go to your project
 2. Settings → Environment Variables
 3. Add all variables from your .env file
@@ -241,11 +254,13 @@ In Vercel Dashboard:
 ## Step 6: Verify Everything Works
 
 ### 6.1 Check Health
+
 ```bash
 curl https://your-vercel-domain.vercel.app/health
 ```
 
 ### 6.2 Check API
+
 ```bash
 curl https://your-vercel-domain.vercel.app/api
 ```
@@ -255,18 +270,19 @@ curl https://your-vercel-domain.vercel.app/api
 ## 🎯 Next Steps
 
 1. **Create your first feature branch:**
+
    ```bash
    git checkout develop
    git checkout -b feature/song-api
    ```
-
 2. **Start building endpoints:**
+
    - Song streaming API
    - User authentication
    - Search functionality
    - Recommendations engine
-
 3. **Read documentation:**
+
    - `docs/API.md` - API endpoints reference
    - `docs/DATABASE_SETUP.md` - Database details
    - `docs/GIT_WORKFLOW.md` - Git best practices
@@ -298,6 +314,7 @@ backend/
 ## 🐛 Troubleshooting
 
 ### Port already in use
+
 ```bash
 # Kill process on port 3000
 lsof -ti:3000 | xargs kill -9
@@ -307,15 +324,18 @@ PORT=3001
 ```
 
 ### MongoDB connection error
+
 - Check if IP is whitelisted (0.0.0.0/0)
 - Verify password in connection string
 - Check network connection
 
 ### Redis connection error
+
 - Verify REDIS_URL is correct
 - Check Upstash dashboard for status
 
 ### Supabase error
+
 - Check if project is active
 - Verify API keys are correct
 - Check Supabase dashboard logs
@@ -338,6 +358,7 @@ PORT=3001
 ## 📞 Need Help?
 
 Check these resources:
+
 - [Supabase Docs](https://supabase.com/docs)
 - [Cloudflare R2 Docs](https://developers.cloudflare.com/r2/)
 - [Upstash Docs](https://docs.upstash.com/)

@@ -1,3 +1,12 @@
+class ApiResponse {
+  constructor(res, data, message = 'Success', statusCode = 200) {
+    this.statusCode = statusCode;
+    this.success = true;
+    this.message = message;
+    this.data = data;
+  }
+}
+
 const successResponse = (res, data, message = 'Success', statusCode = 200) => {
   return res.status(statusCode).json({
     success: true,
@@ -35,4 +44,4 @@ const paginatedResponse = (res, data, page, limit, total, message = 'Success') =
   });
 };
 
-export { successResponse, errorResponse, paginatedResponse };
+export { successResponse, errorResponse, paginatedResponse, ApiResponse };
