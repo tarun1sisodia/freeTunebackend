@@ -4,9 +4,9 @@
  * Uses Upstash Redis REST API
  */
 
-import { getRedisClient } from '../database/connections/redis.js';
-import logger from './logger.js';
-import { CACHE_TTL, CACHE_KEYS } from './constants.js';
+import { getRedisClient } from "../database/connections/redis.js";
+import logger from "./logger.js";
+import { CACHE_TTL, CACHE_KEYS } from "./constants.js";
 
 class CacheHelper {
   constructor() {
@@ -22,7 +22,7 @@ class CacheHelper {
       this.client = getRedisClient();
       if (!this.client) {
         this.enabled = false;
-        logger.warn('Cache disabled: Redis client not available');
+        logger.warn("Cache disabled: Redis client not available");
       }
     }
     return this.client;
@@ -46,12 +46,12 @@ class CacheHelper {
     try {
       const client = this.getClient();
       const data = await client.get(key);
-      
+
       if (data) {
         logger.debug(`Cache HIT: ${key}`);
         return data;
       }
-      
+
       logger.debug(`Cache MISS: ${key}`);
       return null;
     } catch (error) {
@@ -114,7 +114,7 @@ class CacheHelper {
       logger.debug(`Cache DEL (${keys.length} keys)`);
       return true;
     } catch (error) {
-      logger.error('Cache DEL multiple keys error:', error);
+      logger.error("Cache DEL multiple keys error:", error);
       return false;
     }
   }
@@ -228,7 +228,7 @@ class CacheHelper {
 
       // Execute function to get fresh data
       const freshData = await fn();
-      
+
       // Cache the result
       if (freshData !== null && freshData !== undefined) {
         await this.set(key, freshData, ttl);
@@ -259,7 +259,9 @@ class CacheHelper {
       const client = this.getClient();
       // Note: Upstash Redis REST API might not support SCAN
       // This is a simplified version - implement based on your needs
-      logger.warn(`Pattern invalidation requested: ${pattern} - implement based on Upstash capabilities`);
+      logger.warn(
+        `Pattern invalidation requested: ${pattern} - implement based on Upstash capabilities`,
+      );
       return 0;
     } catch (error) {
       logger.error(`Cache pattern invalidation error for ${pattern}:`, error);
@@ -277,10 +279,10 @@ class CacheHelper {
     try {
       const client = this.getClient();
       await client.flushdb();
-      logger.warn('Cache FLUSHED - all keys deleted');
+      logger.warn("Cache FLUSHED - all keys deleted");
       return true;
     } catch (error) {
-      logger.error('Cache FLUSH error:', error);
+      logger.error("Cache FLUSH error:", error);
       return false;
     }
   }
@@ -313,10 +315,10 @@ class CacheHelper {
         const originalSend = res.json.bind(res);
 
         // Override send to cache response
-        res.json = (body) => {
+        res.json = body => {
           if (res.statusCode === 200 && body.success) {
             this.set(key, body, ttl).catch(err => {
-              logger.error('Cache middleware SET error:', err);
+              logger.error("Cache middleware SET error:", err);
             });
           }
           return originalSend(body);
@@ -324,7 +326,7 @@ class CacheHelper {
 
         next();
       } catch (error) {
-        logger.error('Cache middleware error:', error);
+        logger.error("Cache middleware error:", error);
         next();
       }
     };

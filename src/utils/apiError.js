@@ -15,13 +15,13 @@ class ApiError extends Error {
    */
   constructor(
     statusCode,
-    message = 'Something went wrong',
+    message = "Something went wrong",
     errors = [],
-    stack = '',
-    isOperational = true
+    stack = "",
+    isOperational = true,
   ) {
     super(message);
-    this.name = 'ApiError';
+    this.name = "ApiError";
     this.statusCode = statusCode;
     this.data = null;
     this.message = message;
@@ -40,36 +40,36 @@ class ApiError extends Error {
   /**
    * Static factory methods for common HTTP errors
    */
-  static badRequest(message = 'Bad Request', errors = []) {
+  static badRequest(message = "Bad Request", errors = []) {
     return new ApiError(400, message, errors);
   }
 
-  static unauthorized(message = 'Unauthorized') {
+  static unauthorized(message = "Unauthorized") {
     return new ApiError(401, message);
   }
 
-  static forbidden(message = 'Forbidden') {
+  static forbidden(message = "Forbidden") {
     return new ApiError(403, message);
   }
 
-  static notFound(message = 'Resource not found') {
+  static notFound(message = "Resource not found") {
     return new ApiError(404, message);
   }
 
-  static conflict(message = 'Conflict') {
+  static conflict(message = "Conflict") {
     return new ApiError(409, message);
   }
 
-  static tooManyRequests(message = 'Too many requests') {
+  static tooManyRequests(message = "Too many requests") {
     return new ApiError(429, message);
   }
 
-  static internal(message = 'Internal server error') {
-    return new ApiError(500, message, [], '', false);
+  static internal(message = "Internal server error") {
+    return new ApiError(500, message, [], "", false);
   }
 
   static validation(errors = []) {
-    return new ApiError(400, 'Validation failed', errors);
+    return new ApiError(400, "Validation failed", errors);
   }
 }
 

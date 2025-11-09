@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-import config from '../../config/index.js';
-import logger from '../../utils/logger.js';
+import { createClient } from "@supabase/supabase-js";
+import config from "../../config/index.js";
+import { logger } from "../../utils/logger.js";
 
 let supabaseClient = null;
 let supabaseAdminClient = null;
@@ -12,7 +12,9 @@ let supabaseAdminClient = null;
 const getSupabaseClient = () => {
   if (!supabaseClient) {
     if (!config.supabase.url || !config.supabase.anonKey) {
-      logger.error('Supabase configuration missing: URL or Anon Key are not set');
+      logger.error(
+        "Supabase configuration missing: URL or Anon Key are not set",
+      );
       return null;
     }
 
@@ -25,11 +27,11 @@ const getSupabaseClient = () => {
             autoRefreshToken: true,
             persistSession: false,
           },
-        }
+        },
       );
-      logger.info('Supabase client initialized');
+      logger.info("Supabase client initialized");
     } catch (error) {
-      logger.error('Failed to initialize Supabase client:', error);
+      logger.error("Failed to initialize Supabase client:", error);
       supabaseClient = null;
       return null;
     }
@@ -45,7 +47,9 @@ const getSupabaseClient = () => {
 const getSupabaseAdmin = () => {
   if (!supabaseAdminClient) {
     if (!config.supabase.url || !config.supabase.serviceRoleKey) {
-      logger.error('Supabase admin configuration missing: URL or Service Role Key are not set');
+      logger.error(
+        "Supabase admin configuration missing: URL or Service Role Key are not set",
+      );
       return null;
     }
 
@@ -58,11 +62,11 @@ const getSupabaseAdmin = () => {
             autoRefreshToken: false,
             persistSession: false,
           },
-        }
+        },
       );
-      logger.info('Supabase admin client initialized');
+      logger.info("Supabase admin client initialized");
     } catch (error) {
-      logger.error('Failed to initialize Supabase admin client:', error);
+      logger.error("Failed to initialize Supabase admin client:", error);
       supabaseAdminClient = null;
       return null;
     }

@@ -3,11 +3,13 @@
  * Provides consistent response formats across the application
  */
 
+import ApiError from "./apiError.js";
+
 /**
  * ApiResponse Class for structured responses
  */
 class ApiResponse {
-  constructor(statusCode, data, message = 'Success') {
+  constructor(statusCode, data = null, message = "Success") {
     this.statusCode = statusCode;
     this.success = statusCode < 400;
     this.message = message;
@@ -17,78 +19,79 @@ class ApiResponse {
 }
 
 /**
- * Send success response
+ * Send success response using ApiResponse
  * @param {Object} res - Express response object
  * @param {*} data - Response data
  * @param {string} message - Success message
  * @param {number} statusCode - HTTP status code
  */
-const successResponse = (res, data, message = 'Success', statusCode = 200) => {
-  return res.status(statusCode).json({
-    success: true,
-    message,
-    data,
-    timestamp: new Date().toISOString(),
-  });
+const successResponse = (res, data, message = "Success", statusCode = 200) => {
+  const response = new ApiResponse(statusCode, data, message);
+  return res.status(statusCode).json(response);
 };
 
 /**
- * Send error response
+ * Send error response using ApiError
  * @param {Object} res - Express response object
  * @param {string} message - Error message
  * @param {number} statusCode - HTTP status code
  * @param {Array} errors - Array of error details
  */
-const errorResponse = (res, message = 'Error', statusCode = 500, errors = null) => {
-  const response = {
-    success: false,
-    message,
-    timestamp: new Date().toISOString(),
-  };
-
-  if (errors && errors.length > 0) {
-    response.errors = errors;
-  }
-
-  return res.status(statusCode).json(response);
+const errorResponse = (
+  res,
+  message = "Error",
+  statusCode = 500,
+  errors = [],
+) => {
+  const error = new ApiError(statusCode, message, errors);
+  // Remove stack from response for security (optional: keep if needed)
+  const { stack, ...resp } = error;
+  return res.status(statusCode).json(resp);
 };
 
 /**
- * Send paginated response
+ * Send paginated response using ApiResponse
  * @param {Object} res - Express response object
  * @param {Array} data - Array of items
- * @param {number} page - Current page number
- * @param {number} limit - Items per page
+ * @param {number|string} page - Current page number
+ * @param {number|string} limit - Items per page
  * @param {number} total - Total number of items
  * @param {string} message - Success message
  */
-const paginatedResponse = (res, data, page, limit, total, message = 'Success') => {
-  const currentPage = parseInt(page);
-  const itemsPerPage = parseInt(limit);
+const paginatedResponse = (
+  res,
+  data,
+  page,
+  limit,
+  total,
+  message = "Success",
+) => {
+  const currentPage = parseInt(page, 10);
+  const itemsPerPage = parseInt(limit, 10);
   const totalPages = Math.ceil(total / itemsPerPage);
 
-  return res.status(200).json({
-    success: true,
-    message,
-    data,
-    pagination: {
-      page: currentPage,
-      limit: itemsPerPage,
-      total,
-      totalPages,
-      hasNext: currentPage < totalPages,
-      hasPrev: currentPage > 1,
-      nextPage: currentPage < totalPages ? currentPage + 1 : null,
-      prevPage: currentPage > 1 ? currentPage - 1 : null,
-    },
-    timestamp: new Date().toISOString(),
-  });
+  const response = new ApiResponse(200, data, message);
+  response.pagination = {
+    page: currentPage,
+    limit: itemsPerPage,
+    total,
+    totalPages,
+    hasNext: currentPage < totalPages,
+    hasPrev: currentPage > 1,
+    nextPage: currentPage < totalPages ? currentPage + 1 : null,
+    prevPage: currentPage > 1 ? currentPage - 1 : null,
+  };
+  return res.status(200).json(response);
 };
 
 /**
- * Send created response (201)
+ * Send created response (201) using ApiResponse
  */
-const createdResponse = (res, data, message = 'Resource created successfully') => {
+const createdResponse = (
+  res,
+  data,
+  message = "Resource created successfully",
+) => {
   return successResponse(res, data, message, 201);
 };
 
@@ -100,19 +103,15 @@ const noContentResponse = res => {
 };
 
 /**
- * Send cached response with cache info
+ * Send cached response with cache info using ApiResponse
  */
-const cachedResponse = (res, data, cacheInfo, message = 'Success') => {
-  return res.status(200).json({
-    success: true,
-    message,
-    data,
-    cache: {
-      hit: true,
-      ...cacheInfo,
-    },
-    timestamp: new Date().toISOString(),
-  });
+const cachedResponse = (res, data, cacheInfo, message = "Success") => {
+  const response = new ApiResponse(200, data, message);
+  response.cache = {
+    hit: true,
+    ...cacheInfo,
+  };
+  return res.status(200).json(response);
 };
 
 export {

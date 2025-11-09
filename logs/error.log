@@ -7,3 +7,26 @@
 2025-11-09 13:47:42:4742 [31merror[39m: [31mRedis connection error: connect EACCES /[39m
 2025-11-09 13:47:43:4743 [31merror[39m: [31mRedis connection error: connect EACCES /[39m
 2025-11-09 13:47:43:4743 [31merror[39m: [31mRedis connection error: connect EACCES /[39m
+2025-11-09 18:28:44:2844 [31merror[39m: [31mError: Route /favicon.ico not found[39m
+2025-11-09 18:48:39:4839 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:48:39:4839 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:48:46:4846 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:48:46:4846 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:49:35:4935 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:49:35:4935 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:49:48:4948 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:49:48:4948 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:51:14:5114 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:51:14:5114 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:51:20:5120 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:51:20:5120 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:51:25:5125 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:51:25:5125 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:51:35:5135 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:51:35:5135 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:51:50:5150 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:51:50:5150 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:51:57:5157 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:51:57:5157 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-09 18:52:05:525 [31merror[39m: [31mMongoose connection error: Cannot read properties of undefined (reading 'dbName')[39m
+2025-11-09 18:52:05:525 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m

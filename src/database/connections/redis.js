@@ -1,13 +1,13 @@
-import { Redis } from '@upstash/redis';
-import config from '../../config/index.js';
-import logger from '../../utils/logger.js';
+import { Redis } from "@upstash/redis";
+import config from "../../config/index.js";
+import { logger } from "../../utils/logger.js";
 
 let redisClient = null;
 
 const getRedisClient = () => {
   if (!redisClient) {
     if (!config.redis.url || !config.redis.token) {
-      logger.warn('Redis URL/Token not configured, caching disabled');
+      logger.warn("Redis URL/Token not configured, caching disabled");
       return null;
     }
 
@@ -17,9 +17,9 @@ const getRedisClient = () => {
         token: config.redis.token,
       });
 
-      logger.info('Upstash Redis initialized');
+      logger.info("Upstash Redis initialized");
     } catch (error) {
-      logger.error('Redis initialization error:', error);
+      logger.error("Redis initialization error:", error);
       return null;
     }
   }
@@ -74,7 +74,7 @@ const cacheFlush = async () => {
     await client.flushdb();
     return true;
   } catch (error) {
-    logger.error('Cache FLUSH error:', error);
+    logger.error("Cache FLUSH error:", error);
     return false;
   }
 };
