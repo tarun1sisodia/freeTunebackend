@@ -4,8 +4,8 @@
  */
 
 import { z } from 'zod';
-import { LIMITS, REGEX, AUDIO_QUALITIES } from './constants.js';
-import ApiError from './apiError.js';
+import { LIMITS, REGEX, AUDIO_QUALITIES } from '../utils/constants.js';
+import ApiError from '../utils/apiError.js';
 
 /**
  * Validate UUID format

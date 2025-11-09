@@ -1,72 +1,73 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/index.js';
-import { AppError } from '../utils/errorHandler.js';
 import { getSupabaseClient } from '../database/connections/supabase.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
+import ApiError from '../utils/apiError.js';
 
-const authMiddleware = async (req, res, next) => {
+const authMiddleware = asyncHandler(async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    throw ApiError.unauthorized('No token provided');
+  }
+
+  const token = authHeader.split(' ')[1];
+
+  let decoded;
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new AppError('No token provided', 401);
+    decoded = await jwt.verify(token, config.jwt.secret);
+  } catch (err) {
+    if (err.name === 'JsonWebTokenError') {
+      throw ApiError.unauthorized('Invalid token');
     }
+    if (err.name === 'TokenExpiredError') {
+      throw ApiError.unauthorized('Token expired');
+    }
+    throw ApiError.internal('Authentication error');
+  }
 
+  const supabase = getSupabaseClient();
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+
+  if (error || !user) {
+    throw ApiError.unauthorized('Invalid or expired token');
+  }
+
+  req.user = {
+    id: user.id,
+    email: user.email,
+    ...decoded,
+  };
+
+  next();
+});
+
+const optionalAuth = asyncHandler(async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
+    let decoded;
+    try {
+      decoded = jwt.verify(token, config.jwt.secret);
+    } catch (err) {
+      // Ignore token errors for optionalAuth; just don't attach user
+      return next();
+    }
 
-    // Verify JWT token
-    const decoded = jwt.verify(token, config.jwt.secret);
-
-    // Verify with Supabase
     const supabase = getSupabaseClient();
-    const { data: { user }, error } = await supabase.auth.getUser(token);
+    const { data: { user } } = await supabase.auth.getUser(token);
 
-    if (error || !user) {
-      throw new AppError('Invalid or expired token', 401);
+    if (user) {
+      req.user = {
+        id: user.id,
+        email: user.email,
+        ...decoded,
+      };
     }
-
-    req.user = {
-      id: user.id,
-      email: user.email,
-      ...decoded,
-    };
-
-    next();
-  } catch (error) {
-    if (error.name === 'JsonWebTokenError') {
-      return next(new AppError('Invalid token', 401));
-    }
-    if (error.name === 'TokenExpiredError') {
-      return next(new AppError('Token expired', 401));
-    }
-    next(error);
   }
-};
 
-const optionalAuth = async (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization;
-
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.split(' ')[1];
-      const decoded = jwt.verify(token, config.jwt.secret);
-      
-      const supabase = getSupabaseClient();
-      const { data: { user } } = await supabase.auth.getUser(token);
-
-      if (user) {
-        req.user = {
-          id: user.id,
-          email: user.email,
-          ...decoded,
-        };
-      }
-    }
-
-    next();
-  } catch (error) {
-    // Continue without auth for optional routes
-    next();
-  }
-};
+  next();
+});
 
 export { authMiddleware, optionalAuth };
