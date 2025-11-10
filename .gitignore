@@ -63,7 +63,7 @@ build/Release
 node_modules/
 *node_modules/
 *.node_modules/
-jspm_packages/
+jspm_packages/9
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
