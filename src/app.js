@@ -129,33 +129,4 @@ app.use("*", (req, res, next) => {
 // ============================================================================
 app.use(errorHandler);
 
-// ============================================================================
-// GRACEFUL SHUTDOWN HANDLER
-// ============================================================================
-const gracefulShutdown = signal => {
-  logger.info(`${signal} received, starting graceful shutdown...`);
-
-  // Close server
-  process.exit(0);
-};
-
-process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
-process.on("SIGINT", () => gracefulShutdown("SIGINT"));
-
-// ============================================================================
-// UNCAUGHT EXCEPTION HANDLER
-// ============================================================================
-process.on("uncaughtException", err => {
-  logger.error("UNCAUGHT EXCEPTION! 💥 Shutting down...");
-  logger.error(err.name, err.message);
-  logger.error(err.stack);
-  process.exit(1);
-});
-
-process.on("unhandledRejection", err => {
-  logger.error("UNHANDLED REJECTION! 💥 Shutting down...");
-  logger.error(err);
-  process.exit(1);
-});
-
 export default app;

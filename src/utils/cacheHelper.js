@@ -4,9 +4,9 @@
  * Uses Upstash Redis REST API
  */
 
-import { getRedisClient } from "../database/connections/redis.js";
-import logger from "./logger.js";
-import { CACHE_TTL, CACHE_KEYS } from "./constants.js";
+import { getRedisClient } from '../database/connections/redis.js';
+import logger from './logger.js';
+import { CACHE_TTL, CACHE_KEYS } from './constants.js';
 
 class CacheHelper {
   constructor() {
@@ -22,7 +22,7 @@ class CacheHelper {
       this.client = getRedisClient();
       if (!this.client) {
         this.enabled = false;
-        logger.warn("Cache disabled: Redis client not available");
+        logger.warn('Cache disabled: Redis client not available');
       }
     }
     return this.client;
@@ -114,7 +114,7 @@ class CacheHelper {
       logger.debug(`Cache DEL (${keys.length} keys)`);
       return true;
     } catch (error) {
-      logger.error("Cache DEL multiple keys error:", error);
+      logger.error('Cache DEL multiple keys error:', error);
       return false;
     }
   }
@@ -241,7 +241,7 @@ class CacheHelper {
       try {
         return await fn();
       } catch (fnError) {
-        logger.error(`Function execution error in getOrSet:`, fnError);
+        logger.error('Function execution error in getOrSet:', fnError);
         throw fnError;
       }
     }
@@ -279,10 +279,10 @@ class CacheHelper {
     try {
       const client = this.getClient();
       await client.flushdb();
-      logger.warn("Cache FLUSHED - all keys deleted");
+      logger.warn('Cache FLUSHED - all keys deleted');
       return true;
     } catch (error) {
-      logger.error("Cache FLUSH error:", error);
+      logger.error('Cache FLUSH error:', error);
       return false;
     }
   }
@@ -318,7 +318,7 @@ class CacheHelper {
         res.json = body => {
           if (res.statusCode === 200 && body.success) {
             this.set(key, body, ttl).catch(err => {
-              logger.error("Cache middleware SET error:", err);
+              logger.error('Cache middleware SET error:', err);
             });
           }
           return originalSend(body);
@@ -326,7 +326,7 @@ class CacheHelper {
 
         next();
       } catch (error) {
-        logger.error("Cache middleware error:", error);
+        logger.error('Cache middleware error:', error);
         next();
       }
     };

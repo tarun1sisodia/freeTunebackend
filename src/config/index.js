@@ -1,22 +1,22 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import {
   AUDIO_BITRATES,
   AUDIO_QUALITIES,
   ENVIRONMENTS,
-} from "../utils/constants.js";
+} from '../utils/constants.js';
 
 dotenv.config();
 
 const config = {
   // Server
   env: process.env.NODE_ENV || ENVIRONMENTS.DEVELOPMENT,
-  port: parseInt(process.env.PORT || "3000", 10),
-  apiVersion: process.env.API_VERSION || "v1",
+  port: parseInt(process.env.PORT || '3000', 10),
+  apiVersion: process.env.API_VERSION || 'v1',
 
   // JWT
   jwt: {
-    secret: process.env.JWT_SECRET || "dev-secret-change-in-production",
-    expiresIn: process.env.JWT_EXPIRES_IN || "7d",
+    secret: process.env.JWT_SECRET,
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
   },
 
   // Supabase
@@ -31,7 +31,7 @@ const config = {
     accountId: process.env.R2_ACCOUNT_ID,
     accessKeyId: process.env.R2_ACCESS_KEY_ID,
     secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-    bucketName: process.env.R2_BUCKET_NAME || "music",
+    bucketName: process.env.R2_BUCKET_NAME || 'music',
     publicUrl: process.env.R2_PUBLIC_URL,
   },
 
@@ -44,7 +44,13 @@ const config = {
   // MongoDB
   mongodb: {
     uri: process.env.MONGODB_URI,
-    dbName: process.env.MONGODB_DB_NAME || "freeTune",
+    dbName: process.env.MONGODB_DB_NAME || 'freeTune',
+  },
+
+  // Mongoose
+  mongoose: {
+    uri: process.env.MONGODB_URI,
+    dbName: process.env.MONGODB_DB_NAME || 'freeTune',
   },
 
   // External APIs
@@ -63,21 +69,21 @@ const config = {
 
   // CORS
   cors: {
-    allowedOrigins: process.env.ALLOWED_ORIGINS?.split(",") || [
-      "http://localhost:3000",
-      "http://localhost:8080",
+    allowedOrigins: process.env.ALLOWED_ORIGINS?.split(',') || [
+      'http://localhost:3000',
+      'http://localhost:8080',
     ],
   },
 
   // Rate Limiting
   rateLimit: {
-    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || "900000", 10), // 15 min
-    maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "100", 10),
+    windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 min
+    maxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100', 10),
   },
 
   // Logging
   logging: {
-    level: process.env.LOG_LEVEL || "info",
+    level: process.env.LOG_LEVEL || 'info',
   },
 
   // Cache TTL (in seconds)
@@ -119,7 +125,7 @@ const validateConfig = () => {
 
   if (missing.length > 0 && config.env === ENVIRONMENTS.PRODUCTION) {
     throw new Error(
-      `Missing required environment variables: ${missing.join(", ")}`,
+      `Missing required environment variables: ${missing.join(', ')}`,
     );
   }
 };
