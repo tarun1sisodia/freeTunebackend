@@ -1,11 +1,3 @@
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.localgi
-.env.production.local
-.env.local
-env.*
-*.env
 
 .clinerules/byterover-rules.md
 .kilocode/rules/byterover-rules.md
@@ -16,7 +8,6 @@ env.*
 .qoder/rules/byterover-rules.md
 .augment/rules/byterover-rules.md
 AGENT.md
-node_modules/*
 
 ### Node ###
 # Logs
@@ -156,6 +147,10 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node.env
-.env.local
-.env.production
 .env.*
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.localgi
+.env.production.local
+.env.local
