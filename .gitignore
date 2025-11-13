@@ -46,12 +46,12 @@ bower_components
 
 # node-waf configuration
 .lock-wscript
-
+/home/gargi/Cursor/freeTunebackend/node_modules
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
-node_modules/
+node_modugit les/
 *node_modules/
 *.node_modules/
 jspm_packages/9
