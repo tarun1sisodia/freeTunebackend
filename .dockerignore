@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Editor
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+.env.*
+!/.env.example
+
+# Other
+README.md
+MEMO.md
+MEMO_IMPROVEMENTS.md
+COMMANDS.md
+HOW_design.md
+QUICKSTART.txt
+SETUP_GUIDE.md
+SUMMARY.md
+TODO.md
+.prettierrc
+.prettierignore
+.eslintrc.json
+jest.config.json
+.cursor/
+docs/
+scripts/
