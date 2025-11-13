@@ -110,78 +110,12 @@ app.use((req, res, next) => {
 app.use("/api", apiLimiter);
 
 // ============================================================================
-// HEALTH CHECK ENDPOINT
+// API ROUTES
 // ============================================================================
-app.get("/health", (req, res) => {
-  const healthStatus = {
-    status: "ok",
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: config.env,
-    memory: {
-      used: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
-      total: Math.round(process.memoryUsage().heapTotal / 1024 / 1024),
-      unit: "MB",
-    },
-    services: {
-      database: "connected", // Will be updated with actual checks
-      redis: "connected",
-      r2: "configured",
-    },
-  };
+import apiRouter from "./routes/index.js";
 
-  res.json({
-    success: true,
-    message: "Server is healthy",
-    data: healthStatus,
-  });
-});
+app.use("/api/v1", apiRouter);
 
-// ============================================================================
-// API INFO ENDPOINT
-// ============================================================================
-app.get("/api", (req, res) => {
-  successResponse(
-    res,
-    {
-      name: "FreeTune API",
-      version: "1.0.0",
-      description: "Ultra-performance music streaming platform",
-      documentation: "/api/docs",
-      endpoints: {
-        health: "/health",
-        auth: "/api/auth",
-        songs: "/api/songs",
-        playlists: "/api/playlists",
-        stream: "/api/stream",
-        search: "/api/search",
-        recommendations: "/api/recommendations",
-        user: "/api/user",
-      },
-      status: "operational",
-    },
-    "Welcome to FreeTune API",
-  );
-});
-
-// ============================================================================
-// API ROUTES (to be added)
-// ============================================================================
-// import authRoutes from './routes/auth.js';
-// import songRoutes from './routes/songs.js';
-// import playlistRoutes from './routes/playlists.js';
-// import streamRoutes from './routes/stream.js';
-// import searchRoutes from './routes/search.js';
-// import recommendationRoutes from './routes/recommendations.js';
-// import userRoutes from './routes/user.js';
-
-// app.use('/api/auth', authRoutes);
-// app.use('/api/songs', songRoutes);
-// app.use('/api/playlists', playlistRoutes);
-// app.use('/api/stream', streamRoutes);
-// app.use('/api/search', searchRoutes);
-// app.use('/api/recommendations', recommendationRoutes);
-// app.use('/api/user', userRoutes);
 
 // ============================================================================
 // 404 HANDLER
