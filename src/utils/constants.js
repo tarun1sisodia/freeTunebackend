@@ -16,11 +16,11 @@
 // AUDIO QUALITY SETTINGS
 // ============================================================================
 const AUDIO_QUALITIES = {
-  ORIGINAL: "original",
-  HIGH: "high", // 320kbps
-  MEDIUM: "medium", // 128kbps
-  LOW: "low", // 64kbps
-  PREVIEW: "preview", // 30s clips
+  ORIGINAL: 'original',
+  HIGH: 'high', // 320kbps
+  MEDIUM: 'medium', // 128kbps
+  LOW: 'low', // 64kbps
+  PREVIEW: 'preview', // 30s clips
 };
 
 const AUDIO_BITRATES = {
@@ -30,11 +30,11 @@ const AUDIO_BITRATES = {
 };
 
 const QUALITY_FOLDERS = {
-  [AUDIO_QUALITIES.ORIGINAL]: "original/",
-  [AUDIO_QUALITIES.HIGH]: "high/",
-  [AUDIO_QUALITIES.MEDIUM]: "medium/",
-  [AUDIO_QUALITIES.LOW]: "low/",
-  [AUDIO_QUALITIES.PREVIEW]: "previews/",
+  [AUDIO_QUALITIES.ORIGINAL]: 'original/',
+  [AUDIO_QUALITIES.HIGH]: 'high/',
+  [AUDIO_QUALITIES.MEDIUM]: 'medium/',
+  [AUDIO_QUALITIES.LOW]: 'low/',
+  [AUDIO_QUALITIES.PREVIEW]: 'previews/',
 };
 
 // ============================================================================
@@ -57,7 +57,7 @@ const CACHE_TTL = {
 const CACHE_KEYS = {
   HOT_SONG: id => `hot:song:${id}`,
   USER_RECENT: userId => `user:recent:${userId}`,
-  TRENDING_DAILY: () => "trending:daily",
+  TRENDING_DAILY: () => 'trending:daily',
   CDN_URL: (songId, quality) => `cdn:url:${songId}:${quality}`,
   SEARCH: query => `search:${query.toLowerCase()}`,
   RECOMMENDATIONS: userId => `rec:${userId}`,
@@ -70,22 +70,22 @@ const CACHE_KEYS = {
 // USER INTERACTION TYPES
 // ============================================================================
 const INTERACTION_TYPES = {
-  PLAY: "play",
-  LIKE: "like",
-  SKIP: "skip",
-  DOWNLOAD: "download",
-  SHARE: "share",
+  PLAY: 'play',
+  LIKE: 'like',
+  SKIP: 'skip',
+  DOWNLOAD: 'download',
+  SHARE: 'share',
 };
 
 // ============================================================================
 // PLAYLIST TYPES
 // ============================================================================
 const PLAYLIST_TYPES = {
-  USER_CREATED: "user_created",
-  AUTO_GENERATED: "auto_generated",
-  FAVORITES: "favorites",
-  RECENTLY_PLAYED: "recently_played",
-  TOP_TRACKS: "top_tracks",
+  USER_CREATED: 'user_created',
+  AUTO_GENERATED: 'auto_generated',
+  FAVORITES: 'favorites',
+  RECENTLY_PLAYED: 'recently_played',
+  TOP_TRACKS: 'top_tracks',
 };
 
 // ============================================================================
@@ -110,14 +110,14 @@ const HTTP_STATUS = {
 // ============================================================================
 const ERROR_CODES = {
   // Standard error codes (extend as needed)
-  BAD_REQUEST: "BAD_REQUEST",
-  UNAUTHORIZED: "UNAUTHORIZED",
-  FORBIDDEN: "FORBIDDEN",
-  NOT_FOUND: "NOT_FOUND",
-  CONFLICT: "CONFLICT",
-  TOO_MANY_REQUESTS: "TOO_MANY_REQUESTS",
-  INTERNAL_ERROR: "INTERNAL_ERROR",
-  VALIDATION_FAILED: "VALIDATION_FAILED",
+  BAD_REQUEST: 'BAD_REQUEST',
+  UNAUTHORIZED: 'UNAUTHORIZED',
+  FORBIDDEN: 'FORBIDDEN',
+  NOT_FOUND: 'NOT_FOUND',
+  CONFLICT: 'CONFLICT',
+  TOO_MANY_REQUESTS: 'TOO_MANY_REQUESTS',
+  INTERNAL_ERROR: 'INTERNAL_ERROR',
+  VALIDATION_FAILED: 'VALIDATION_FAILED',
   // Add custom business error codes here
 };
 
@@ -145,22 +145,22 @@ const LIMITS = {
 // SUPPORTED FILE TYPES (for uploads, fileUpload.js, etc.)
 // ============================================================================
 const SUPPORTED_AUDIO_FORMATS = [
-  "audio/mpeg", // MP3
-  "audio/mp3",
-  "audio/flac", // FLAC
-  "audio/x-flac",
-  "audio/wav", // WAV
-  "audio/x-wav",
-  "audio/aac", // AAC
-  "audio/ogg", // OGG
-  "audio/webm", // WebM
+  'audio/mpeg', // MP3
+  'audio/mp3',
+  'audio/flac', // FLAC
+  'audio/x-flac',
+  'audio/wav', // WAV
+  'audio/x-wav',
+  'audio/aac', // AAC
+  'audio/ogg', // OGG
+  'audio/webm', // WebM
 ];
 
 const SUPPORTED_IMAGE_FORMATS = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
 ];
 
 // ============================================================================
@@ -206,34 +206,34 @@ const RATE_LIMITS = {
 // ============================================================================
 const ERROR_MESSAGES = {
   // Auth
-  UNAUTHORIZED: "Authentication required",
-  INVALID_CREDENTIALS: "Invalid email or password",
-  TOKEN_EXPIRED: "Token has expired",
-  TOKEN_INVALID: "Invalid token",
+  UNAUTHORIZED: 'Authentication required',
+  INVALID_CREDENTIALS: 'Invalid email or password',
+  TOKEN_EXPIRED: 'Token has expired',
+  TOKEN_INVALID: 'Invalid token',
 
   // Validation
-  VALIDATION_FAILED: "Validation failed",
-  INVALID_INPUT: "Invalid input provided",
-  REQUIRED_FIELD: "This field is required",
+  VALIDATION_FAILED: 'Validation failed',
+  INVALID_INPUT: 'Invalid input provided',
+  REQUIRED_FIELD: 'This field is required',
 
   // Resources
-  NOT_FOUND: "Resource not found",
-  SONG_NOT_FOUND: "Song not found",
-  PLAYLIST_NOT_FOUND: "Playlist not found",
-  USER_NOT_FOUND: "User not found",
+  NOT_FOUND: 'Resource not found',
+  SONG_NOT_FOUND: 'Song not found',
+  PLAYLIST_NOT_FOUND: 'Playlist not found',
+  USER_NOT_FOUND: 'User not found',
 
   // Operations
-  OPERATION_FAILED: "Operation failed",
-  UPLOAD_FAILED: "File upload failed",
-  DELETE_FAILED: "Delete operation failed",
-  UPDATE_FAILED: "Update operation failed",
+  OPERATION_FAILED: 'Operation failed',
+  UPLOAD_FAILED: 'File upload failed',
+  DELETE_FAILED: 'Delete operation failed',
+  UPDATE_FAILED: 'Update operation failed',
 
   // Rate limiting
-  RATE_LIMIT_EXCEEDED: "Too many requests. Please try again later",
+  RATE_LIMIT_EXCEEDED: 'Too many requests. Please try again later',
 
   // Server
-  INTERNAL_ERROR: "Internal server error",
-  SERVICE_UNAVAILABLE: "Service temporarily unavailable",
+  INTERNAL_ERROR: 'Internal server error',
+  SERVICE_UNAVAILABLE: 'Service temporarily unavailable',
   // Extend for new features/modules as required
 };
 
@@ -241,26 +241,26 @@ const ERROR_MESSAGES = {
 // SUCCESS MESSAGES (apiResponse.js, response objects, etc.)
 // ============================================================================
 const SUCCESS_MESSAGES = {
-  CREATED: "Resource created successfully",
-  UPDATED: "Resource updated successfully",
-  DELETED: "Resource deleted successfully",
-  OPERATION_SUCCESS: "Operation completed successfully",
+  CREATED: 'Resource created successfully',
+  UPDATED: 'Resource updated successfully',
+  DELETED: 'Resource deleted successfully',
+  OPERATION_SUCCESS: 'Operation completed successfully',
 
   // Auth
-  LOGIN_SUCCESS: "Login successful",
-  LOGOUT_SUCCESS: "Logout successful",
-  REGISTER_SUCCESS: "Registration successful",
+  LOGIN_SUCCESS: 'Login successful',
+  LOGOUT_SUCCESS: 'Logout successful',
+  REGISTER_SUCCESS: 'Registration successful',
 
   // Songs
-  SONG_UPLOADED: "Song uploaded successfully",
-  SONG_DELETED: "Song deleted successfully",
+  SONG_UPLOADED: 'Song uploaded successfully',
+  SONG_DELETED: 'Song deleted successfully',
 
   // Playlists
-  PLAYLIST_CREATED: "Playlist created successfully",
-  PLAYLIST_UPDATED: "Playlist updated successfully",
-  PLAYLIST_DELETED: "Playlist deleted successfully",
-  SONG_ADDED_TO_PLAYLIST: "Song added to playlist",
-  SONG_REMOVED_FROM_PLAYLIST: "Song removed from playlist",
+  PLAYLIST_CREATED: 'Playlist created successfully',
+  PLAYLIST_UPDATED: 'Playlist updated successfully',
+  PLAYLIST_DELETED: 'Playlist deleted successfully',
+  SONG_ADDED_TO_PLAYLIST: 'Song added to playlist',
+  SONG_REMOVED_FROM_PLAYLIST: 'Song removed from playlist',
   // Add more domain-specific success messages as features grow
 };
 
@@ -328,20 +328,20 @@ const REGEX = {
 // ENVIRONMENT
 // ============================================================================
 const ENVIRONMENTS = {
-  DEVELOPMENT: "development",
-  PRODUCTION: "production",
-  TEST: "test",
+  DEVELOPMENT: 'development',
+  PRODUCTION: 'production',
+  TEST: 'test',
 };
 
 // ============================================================================
 // LOG LEVELS (for logger.js and related utils)
 // ============================================================================
 const LOG_LEVELS = {
-  ERROR: "error",
-  WARN: "warn",
-  INFO: "info",
-  HTTP: "http",
-  DEBUG: "debug",
+  ERROR: 'error',
+  WARN: 'warn',
+  INFO: 'info',
+  HTTP: 'http',
+  DEBUG: 'debug',
 };
 
 // ============================================================================
@@ -350,13 +350,13 @@ const LOG_LEVELS = {
 const RESPONSE_STRUCTURE = {
   DEFAULT_SUCCESS_MESSAGE: SUCCESS_MESSAGES.OPERATION_SUCCESS,
   DEFAULT_ERROR_MESSAGE: ERROR_MESSAGES.INTERNAL_ERROR,
-  DATA_KEY: "data",
-  MESSAGE_KEY: "message",
-  STATUS_CODE_KEY: "statusCode",
-  SUCCESS_KEY: "success",
-  TIMESTAMP_KEY: "timestamp",
-  ERROR_KEY: "errors",
-  CACHE_KEY: "cache",
+  DATA_KEY: 'data',
+  MESSAGE_KEY: 'message',
+  STATUS_CODE_KEY: 'statusCode',
+  SUCCESS_KEY: 'success',
+  TIMESTAMP_KEY: 'timestamp',
+  ERROR_KEY: 'errors',
+  CACHE_KEY: 'cache',
   // Add more mapping keys as new requirements emerge
 };
 
@@ -366,7 +366,7 @@ const RESPONSE_STRUCTURE = {
 const LOGGER_CONFIG = {
   LOG_TO_CONSOLE: true,
   LOG_TO_FILE: false,
-  LOG_FILE_PATH: "logs/app.log",
+  LOG_FILE_PATH: 'logs/app.log',
   MAX_FILE_SIZE: 5 * 1024 * 1024, // 5 MB
   MAX_FILES: 3,
   // Additional options for future transports (DB, Cloud, etc.)
@@ -376,8 +376,8 @@ const LOGGER_CONFIG = {
 // GENERAL PURPOSE CONSTANTS
 // ============================================================================
 const YES_NO = {
-  YES: "yes",
-  NO: "no",
+  YES: 'yes',
+  NO: 'no',
 };
 
 const BOOLEAN_INT = {

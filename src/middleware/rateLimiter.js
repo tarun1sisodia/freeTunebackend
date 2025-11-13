@@ -33,7 +33,7 @@ const streamLimiter = createRateLimiter(
 const searchLimiter = createRateLimiter(
   60 * 1000, // 1 minute
   20,
-  "Too many search requests"
+  'Too many search requests'
 );
 
 export { apiLimiter, authLimiter, streamLimiter, searchLimiter };

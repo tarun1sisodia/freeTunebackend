@@ -1,17 +1,15 @@
-import { Router } from "express";
-import healthCheckRouter from "./healthcheck/index.js";
-import songsRouter from "./songs/index.js";
-import userRouter from "./user/index.js";
-import recommendationsRouter from "./recommendations/index.js";
+import { Router } from 'express';
+import healthCheckRouter from './healthcheck/index.js';
+import authRouter from './user/auth.routes.js';
 
 const router = Router();
 
 // Mount healthcheck routes
-router.use("/healthcheck", healthCheckRouter);
+router.use('/healthcheck', healthCheckRouter);
 
-// Mount other routes
-router.use("/songs", songsRouter);
-router.use("/users", userRouter);
-router.use("/recommendations", recommendationsRouter);
+// Mount auth routes
+router.use('/auth', authRouter);
+
+// TODO: Mount other routes (songs, recommendations) here
 
 export default router;

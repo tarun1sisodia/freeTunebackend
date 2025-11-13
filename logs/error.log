@@ -43,3 +43,10 @@
 2025-11-09 20:31:46:3146 [31merror[39m: [31mError: Route /300 not found[39m
 2025-11-09 20:58:15:5815 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
 2025-11-13 18:59:54:5954 [31merror[39m: [31mError: Route /health not found[39m
+2025-11-13 19:21:50:2150 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
+2025-11-13 19:22:36:2236 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-13 19:22:53:2253 [31merror[39m: [31mError inserting song Song Title 1: Could not find the 'available_qualities' column of 'songs' in the schema cache[39m
+2025-11-13 19:22:53:2253 [31merror[39m: [31mError inserting song Song Title 2: Could not find the 'available_qualities' column of 'songs' in the schema cache[39m
+2025-11-13 19:22:53:2253 [31merror[39m: [31mError inserting song Song Title 3: Could not find the 'available_qualities' column of 'songs' in the schema cache[39m
+2025-11-13 19:22:59:2259 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-13 19:25:17:2517 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m

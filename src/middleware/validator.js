@@ -1,5 +1,5 @@
-import { z } from "zod";
-import ApiError from "../utils/apiError.js";
+import { z } from 'zod';
+import ApiError from '../utils/apiError.js';
 
 /**
  * Higher-order middleware for validating request payloads using a Zod schema.
@@ -21,16 +21,16 @@ const validate = schema => {
       if (!result.success) {
         // Zod validation errors are returned as a consistent, useful structure
         const errors = result.error.errors.map(err => ({
-          field: err.path.length ? err.path.join(".") : "(root)",
+          field: err.path.length ? err.path.join('.') : '(root)',
           message: err.message,
         }));
-        return next(new ApiError("Validation failed", 400, errors));
+        return next(ApiError.validation(errors));
       }
 
       // Overwrite only if validated (avoid clobbering req.field with undefined)
-      if ("body" in result.data) req.body = result.data.body;
-      if ("query" in result.data) req.query = result.data.query;
-      if ("params" in result.data) req.params = result.data.params;
+      if ('body' in result.data) req.body = result.data.body;
+      if ('query' in result.data) req.query = result.data.query;
+      if ('params' in result.data) req.params = result.data.params;
 
       return next();
     } catch (err) {
@@ -40,4 +40,5 @@ const validate = schema => {
   };
 };
 
+export { validate };
 export default validate;

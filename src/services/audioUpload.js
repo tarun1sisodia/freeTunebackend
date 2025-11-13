@@ -8,19 +8,20 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
   HeadObjectCommand,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import config from "../config/index.js";
-import { logger } from "../utils/logger.js";
-import ApiError from "../utils/apiError.js";
+  GetObjectCommand
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import config from '../config/index.js';
+import { logger } from '../utils/logger.js';
+import ApiError from '../utils/apiError.js';
 import {
   AUDIO_QUALITIES,
   QUALITY_FOLDERS,
   R2_CONFIG,
   SUPPORTED_AUDIO_FORMATS,
-} from "../utils/constants.js";
-import crypto from "crypto";
-import path from "path";
+} from '../utils/constants.js';
+import crypto from 'crypto';
+import path from 'path';
 
 class FileUploadHelper {
   constructor() {
@@ -40,11 +41,11 @@ class FileUploadHelper {
         !config.r2.accessKeyId ||
         !config.r2.secretAccessKey
       ) {
-        throw new Error("R2 configuration missing");
+        throw new Error('R2 configuration missing');
       }
 
       this.s3Client = new S3Client({
-        region: "auto",
+        region: 'auto',
         endpoint: `https://${config.r2.accountId}.r2.cloudflarestorage.com`,
         credentials: {
           accessKeyId: config.r2.accessKeyId,
@@ -53,10 +54,10 @@ class FileUploadHelper {
       });
 
       this.initialized = true;
-      logger.info("R2 S3 client initialized successfully");
+      logger.info('R2 S3 client initialized successfully');
     } catch (error) {
-      logger.error("Failed to initialize R2 client:", error);
-      throw new ApiError(500, "Storage service initialization failed");
+      logger.error('Failed to initialize R2 client:', error);
+      throw new ApiError(500, 'Storage service initialization failed');
     }
   }
 
@@ -78,10 +79,10 @@ class FileUploadHelper {
    */
   generateFileKey(originalFilename, quality = AUDIO_QUALITIES.ORIGINAL) {
     const timestamp = Date.now();
-    const randomString = crypto.randomBytes(8).toString("hex");
+    const randomString = crypto.randomBytes(8).toString('hex');
     const ext = path.extname(originalFilename);
     const baseName = path.basename(originalFilename, ext);
-    const sanitizedName = baseName.replace(/[^a-zA-Z0-9-_]/g, "_");
+    const sanitizedName = baseName.replace(/[^a-zA-Z0-9-_]/g, '_');
 
     return `${QUALITY_FOLDERS[quality]}${timestamp}-${randomString}-${sanitizedName}${ext}`;
   }
@@ -108,7 +109,7 @@ class FileUploadHelper {
 
     // Check minimum size (1KB)
     if (fileSize < 1024) {
-      throw ApiError.badRequest("File too small. Minimum size: 1KB");
+      throw ApiError.badRequest('File too small. Minimum size: 1KB');
     }
   }
 
@@ -148,7 +149,7 @@ class FileUploadHelper {
       };
     } catch (error) {
       logger.error(`File upload failed for ${fileKey}:`, error);
-      throw new ApiError(500, "File upload failed", [error.message]);
+      throw new ApiError(500, 'File upload failed', [error.message]);
     }
   }
 
@@ -175,7 +176,7 @@ class FileUploadHelper {
       return signedUrl;
     } catch (error) {
       logger.error(`Failed to generate signed URL for ${fileKey}:`, error);
-      throw new ApiError(500, "Failed to generate stream URL");
+      throw new ApiError(500, 'Failed to generate stream URL');
     }
   }
 
@@ -250,7 +251,7 @@ class FileUploadHelper {
       return true;
     } catch (error) {
       if (
-        error.name === "NotFound" ||
+        error.name === 'NotFound' ||
         error.$metadata?.httpStatusCode === 404
       ) {
         return false;
@@ -284,7 +285,7 @@ class FileUploadHelper {
       };
     } catch (error) {
       logger.error(`Failed to get metadata for ${fileKey}:`, error);
-      throw new ApiError(404, "File not found");
+      throw new ApiError(404, 'File not found');
     }
   }
 
@@ -317,7 +318,7 @@ class FileUploadHelper {
     }
 
     if (errors.length > 0) {
-      logger.warn(`Some quality uploads failed:`, errors);
+      logger.warn('Some quality uploads failed:', errors);
     }
 
     return {
@@ -334,7 +335,7 @@ class FileUploadHelper {
    */
   getPublicUrl(fileKey) {
     if (!config.r2.publicUrl) {
-      logger.warn("R2 public URL not configured");
+      logger.warn('R2 public URL not configured');
       return null;
     }
     return `${config.r2.publicUrl}/${fileKey}`;
