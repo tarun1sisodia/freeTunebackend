@@ -1,0 +1,765 @@
+{
+  "info": {
+    "name": "FreeTune Songs API - Complete Tests",
+    "description": "Complete test collection for FreeTune Songs API with 24 tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:3000/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "ACCESS_TOKEN",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "USER_EMAIL",
+      "value": "test@example.com",
+      "type": "string"
+    },
+    {
+      "key": "USER_PASSWORD",
+      "value": "Test123456!",
+      "type": "string"
+    },
+    {
+      "key": "SONG_ID",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "PLAYLIST_ID",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "1.1 Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has access token\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.accessToken).to.exist;",
+                  "    pm.collectionVariables.set(\"ACCESS_TOKEN\", jsonData.data.accessToken);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{USER_EMAIL}}\",\n  \"password\": \"{{USER_PASSWORD}}\",\n  \"username\": \"testuser\",\n  \"fullName\": \"Test User\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/register",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "1.2 Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Access token saved\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.accessToken).to.exist;",
+                  "    pm.collectionVariables.set(\"ACCESS_TOKEN\", jsonData.data.accessToken);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{USER_EMAIL}}\",\n  \"password\": \"{{USER_PASSWORD}}\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/login",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Song Management",
+      "item": [
+        {
+          "name": "2.1 Upload Song",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Song ID saved\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.song.id).to.exist;",
+                  "    pm.collectionVariables.set(\"SONG_ID\", jsonData.data.song.id);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "audio",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "title",
+                  "value": "Test Song",
+                  "type": "text"
+                },
+                {
+                  "key": "artist",
+                  "value": "Test Artist",
+                  "type": "text"
+                },
+                {
+                  "key": "album",
+                  "value": "Test Album",
+                  "type": "text"
+                },
+                {
+                  "key": "duration_ms",
+                  "value": "240000",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/songs/upload",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "upload"]
+            }
+          }
+        },
+        {
+          "name": "2.2 Get All Songs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Has pagination\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.pagination).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs?page=1&limit=20",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2.3 Get Song by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "2.4 Update Song Metadata",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Test Song\",\n  \"artist\": \"Updated Artist\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/metadata",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "metadata"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Streaming",
+      "item": [
+        {
+          "name": "3.1 Get Stream URL",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Has stream URL\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.streamUrl).to.exist;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/stream-url?quality=high",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "stream-url"],
+              "query": [
+                {
+                  "key": "quality",
+                  "value": "high"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "3.2 Track Song Play",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"test-session-123\",\n  \"metadata\": {\n    \"device\": \"postman\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/play",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "play"]
+            }
+          }
+        },
+        {
+          "name": "3.3 Track Playback Progress",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"progress_ms\": 120000,\n  \"duration_ms\": 240000,\n  \"completed\": false,\n  \"session_id\": \"test-session-123\",\n  \"quality\": \"high\",\n  \"device_type\": \"postman\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/playback",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "playback"]
+            }
+          }
+        },
+        {
+          "name": "3.4 Get File Info",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/file-info",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "file-info"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Search & Discovery",
+      "item": [
+        {
+          "name": "4.1 Search Songs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/search?q=test&page=1&limit=10",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "search"],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "test"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "4.2 Get Popular Songs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/popular?page=1&limit=20",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "popular"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "4.3 Get Recently Played",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/recently-played?limit=20",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "recently-played"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Favorites",
+      "item": [
+        {
+          "name": "5.1 Add to Favorites",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/favorite",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "favorite"]
+            }
+          }
+        },
+        {
+          "name": "5.2 Get Favorites",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/favorites?page=1&limit=50",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "favorites"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "5.3 Remove from Favorites",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}/favorite",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}", "favorite"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Playlists",
+      "item": [
+        {
+          "name": "6.1 Create Playlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(\"Playlist ID saved\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set(\"PLAYLIST_ID\", jsonData.data.id);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Playlist\",\n  \"description\": \"My test playlist\",\n  \"is_public\": false\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/playlists",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists"]
+            }
+          }
+        },
+        {
+          "name": "6.2 Get User Playlists",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/playlists?page=1&limit=20",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "6.3 Get Playlist by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/playlists/{{PLAYLIST_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists", "{{PLAYLIST_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "6.4 Add Song to Playlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"song_id\": \"{{SONG_ID}}\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/playlists/{{PLAYLIST_ID}}/songs",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists", "{{PLAYLIST_ID}}", "songs"]
+            }
+          }
+        },
+        {
+          "name": "6.5 Update Playlist",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Playlist Name\",\n  \"is_public\": true\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/playlists/{{PLAYLIST_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists", "{{PLAYLIST_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "6.6 Remove Song from Playlist",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/playlists/{{PLAYLIST_ID}}/songs/{{SONG_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists", "{{PLAYLIST_ID}}", "songs", "{{SONG_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "6.7 Delete Playlist",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/playlists/{{PLAYLIST_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["playlists", "{{PLAYLIST_ID}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Cleanup",
+      "item": [
+        {
+          "name": "7.1 Delete Song",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{ACCESS_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/songs/{{SONG_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["songs", "{{SONG_ID}}"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
