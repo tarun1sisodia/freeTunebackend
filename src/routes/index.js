@@ -3,6 +3,8 @@ import healthCheckRouter from './healthcheck/index.js';
 import authRouter from './user/auth.routes.js';
 import songsRouter from './songs/index.js';
 import playlistsRouter from './playlists/index.js';
+import recommendationsRouter from './recommendations/index.js';
+import analyticsRouter from './analytics/index.js';
 
 const router = Router();
 
@@ -18,6 +20,10 @@ router.use('/songs', songsRouter);
 // Mount playlists routes
 router.use('/playlists', playlistsRouter);
 
-// TODO: Mount recommendations routes
+// Mount recommendations routes
+router.use('/recommendations', recommendationsRouter);
+
+// Mount analytics routes
+router.use('/analytics', analyticsRouter);
 
 export default router;
