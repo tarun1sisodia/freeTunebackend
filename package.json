@@ -26,6 +26,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.931.0",
+    "@aws-sdk/s3-request-presigner": "^3.931.0",
     "@supabase/supabase-js": "^2.39.3",
     "@upstash/redis": "^1.35.6",
     "bcryptjs": "^2.4.3",
@@ -38,6 +40,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.3",
+    "mongoose-aggregate-paginate-v2": "^1.1.4",
     "morgan": "^1.10.0",
     "multer": "^2.0.2",
     "uuid": "^13.0.0",
@@ -47,7 +50,7 @@
   "devDependencies": {
     "@types/node": "^20.10.6",
     "eslint": "^8.56.0",
-    "jest": "^29.7.0",
+    "jest": "^25.0.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.1.1"
   },

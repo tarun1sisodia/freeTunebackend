@@ -25,7 +25,7 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
 
   const { data: { user }, error } = await supabase.auth.getUser(token);
 
-  if (error || !user) {
+  if (error || !user) { 
     throw ApiError.unauthorized('Invalid or expired token');
   }
 
