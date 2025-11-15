@@ -136,7 +136,6 @@ const recommendationCacheSchema = new mongoose.Schema(
     expiresAt: {
       type: Date,
       required: true,
-      index: true,
     },
     refreshAfter: {
       type: Date,

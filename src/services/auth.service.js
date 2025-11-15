@@ -117,7 +117,7 @@ class AuthService {
       if (authError) {
         logger.error("Supabase auth user creation failed:", authError);
 
-        if (authError.message.includes("already registered")) {
+        if (authError.message.includes("already been registered")) {
           throw ApiError.conflict("User with this email already exists");
         }
 

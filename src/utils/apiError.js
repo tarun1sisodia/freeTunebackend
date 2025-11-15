@@ -101,8 +101,9 @@ const errorHandler = (err, req, res, _next) => {
   };
 
   // In development, show the full error object
-  if (process.env.NODE_ENV === ENVIRONMENTS.DEVELOPMENT) {
+  if (process.env.NODE_ENV === ENVIRONMENTS.DEVELOPMENT || process.env.NODE_ENV === 'test') {
     logger.error(`Error: ${message}`, logMeta);
+    console.log(err); // Added for debugging tests
     return res.status(statusCode).json({
       success: false,
       status: LOG_LEVELS.ERROR,

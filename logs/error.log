@@ -50,3 +50,37 @@
 2025-11-13 19:22:53:2253 [31merror[39m: [31mError inserting song Song Title 3: Could not find the 'available_qualities' column of 'songs' in the schema cache[39m
 2025-11-13 19:22:59:2259 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
 2025-11-13 19:25:17:2517 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-15 17:32:04:324 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-15 17:32:04:324 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 17:36:38:3638 [31merror[39m: [31mOperational Error: Validation failed[39m
+2025-11-15 17:36:55:3655 [31merror[39m: [31mOperational Error: Invalid email or password[39m
+2025-11-15 19:29:46:2946 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-15 19:29:46:2946 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 19:33:36:3336 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-15 19:33:36:3336 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 19:34:40:3440 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-15 19:34:40:3440 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 19:36:31:3631 [31merror[39m: [31mMongoose connection error: Socket 'secureConnect' timed out after 30011ms (connectTimeoutMS: 30000)[39m
+2025-11-15 19:36:31:3631 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 19:37:32:3732 [31merror[39m: [31mSupabase auth user creation failed: A user with this email address has already been registered[39m
+2025-11-15 19:37:32:3732 [31merror[39m: [31mError: Failed to create user account[39m
+2025-11-15 19:37:32:3732 [31merror[39m: [31mError: Invalid email or password[39m
+2025-11-15 19:37:33:3733 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-15 19:37:33:3733 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-15 19:37:34:3734 [31merror[39m: [31mError: Invalid or expired refresh token[39m
+2025-11-15 19:37:34:3734 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-15 19:37:56:3756 [31merror[39m: [31mMongoose connection error: Socket 'secureConnect' timed out after 30007ms (connectTimeoutMS: 30000)[39m
+2025-11-15 19:37:56:3756 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 19:43:42:4342 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-15 19:54:05:545 [31merror[39m: [31mSupabase auth user creation failed: A user with this email address has already been registered[39m
+2025-11-15 19:54:06:546 [31merror[39m: [31mError: Failed to create user account[39m
+2025-11-15 19:56:17:5617 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
+2025-11-15 19:56:17:5617 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 19:59:45:5945 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
+2025-11-15 19:59:45:5945 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 20:00:22:022 [31merror[39m: [31mSupabase auth user creation failed: A user with this email address has already been registered[39m
+2025-11-15 20:00:22:022 [31merror[39m: [31mError: Failed to create user account[39m
+2025-11-15 20:04:16:416 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
+2025-11-15 20:04:16:416 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-15 21:03:01:31 [31merror[39m: [31m❌ Port 54112 is already in use[39m
+2025-11-15 21:30:17:3017 [31merror[39m: [31m❌ Port 54112 is already in use[39m
