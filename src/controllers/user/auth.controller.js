@@ -156,6 +156,7 @@ export const updateProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       username: updatedUser.username,
       fullName: updatedUser.full_name,
+      displayName: updatedUser.displayName,
       bio: updatedUser.bio,
       avatarUrl: updatedUser.avatar_url,
     },

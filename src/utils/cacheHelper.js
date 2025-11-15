@@ -5,7 +5,7 @@
  */
 
 import { getRedisClient } from '../database/connections/redis.js';
-import logger from './logger.js';
+import { logger } from './logger.js';
 import { CACHE_TTL, CACHE_KEYS } from './constants.js';
 
 class CacheHelper {

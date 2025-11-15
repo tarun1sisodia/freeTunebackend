@@ -2,9 +2,9 @@ import {
   SongFeature,
   RecommendationCache,
   ListeningPattern,
-} from '../database/models/index.js';
-import { logger } from '../utils/logger.js';
-import { getCachedData, setCachedData } from '../utils/cacheHelper.js';
+} from "../database/models/index.js";
+import { logger } from "../utils/logger.js";
+import cacheHelper from "../utils/cacheHelper.js";
 
 /**
  * Recommendation Service using hybrid ML approach
@@ -22,13 +22,13 @@ class RecommendationService {
       if (!refresh) {
         const { cache } = await RecommendationCache.getOrCreate(
           userId,
-          'personalized',
+          "personalized",
           {},
           24,
         );
 
         if (cache.recommendations.length > 0) {
-          await RecommendationCache.trackEngagement(cache._id, 'view');
+          await RecommendationCache.trackEngagement(cache._id, "view");
           return cache.recommendations.slice(0, limit);
         }
       }
@@ -42,7 +42,7 @@ class RecommendationService {
       // Cache the results
       const { cache } = await RecommendationCache.getOrCreate(
         userId,
-        'personalized',
+        "personalized",
         {},
         24,
       );
@@ -51,13 +51,13 @@ class RecommendationService {
         cache._id,
         recommendations,
         {
-          version: '1.0',
-          modelType: 'hybrid',
+          version: "1.0",
+          modelType: "hybrid",
           features: [
-            'content_based',
-            'collaborative',
-            'listening_history',
-            'time_context',
+            "content_based",
+            "collaborative",
+            "listening_history",
+            "time_context",
           ],
         },
         {
@@ -68,7 +68,7 @@ class RecommendationService {
 
       return recommendations;
     } catch (error) {
-      logger.error('Error getting personalized recommendations:', error);
+      logger.error("Error getting personalized recommendations:", error);
       throw error;
     }
   }
@@ -96,17 +96,17 @@ class RecommendationService {
 
       // 1. Content-based recommendations (40%)
       const contentBased = await this.getContentBasedRecommendations(
-        topSongs.map((s) => s.songId),
+        topSongs.map(s => s.songId),
         Math.ceil(limit * weights.contentBased * 2),
       );
-      contentBased.forEach((rec) => {
+      contentBased.forEach(rec => {
         const existing = recommendations.get(rec.songId) || {
           songId: rec.songId,
           score: 0,
           reasons: [],
         };
         existing.score += rec.score * weights.contentBased;
-        existing.reasons.push('similar_features');
+        existing.reasons.push("similar_features");
         recommendations.set(rec.songId, existing);
       });
 
@@ -115,14 +115,14 @@ class RecommendationService {
         userId,
         Math.ceil(limit * weights.collaborative * 2),
       );
-      collaborative.forEach((rec) => {
+      collaborative.forEach(rec => {
         const existing = recommendations.get(rec.songId) || {
           songId: rec.songId,
           score: 0,
           reasons: [],
         };
         existing.score += rec.score * weights.collaborative;
-        existing.reasons.push('listening_history');
+        existing.reasons.push("listening_history");
         recommendations.set(rec.songId, existing);
       });
 
@@ -130,14 +130,14 @@ class RecommendationService {
       const trending = await this.getTrendingRecommendations(
         Math.ceil(limit * weights.trending * 2),
       );
-      trending.forEach((rec) => {
+      trending.forEach(rec => {
         const existing = recommendations.get(rec.songId) || {
           songId: rec.songId,
           score: 0,
           reasons: [],
         };
         existing.score += rec.score * weights.trending;
-        existing.reasons.push('trending');
+        existing.reasons.push("trending");
         recommendations.set(rec.songId, existing);
       });
 
@@ -146,35 +146,35 @@ class RecommendationService {
         userId,
         Math.ceil(limit * weights.timeContext * 2),
       );
-      timeContext.forEach((rec) => {
+      timeContext.forEach(rec => {
         const existing = recommendations.get(rec.songId) || {
           songId: rec.songId,
           score: 0,
           reasons: [],
         };
         existing.score += rec.score * weights.timeContext;
-        existing.reasons.push('time_pattern');
+        existing.reasons.push("time_pattern");
         recommendations.set(rec.songId, existing);
       });
 
       // Filter out already listened songs
-      const listenedSongs = new Set(topSongs.map((s) => s.songId));
+      const listenedSongs = new Set(topSongs.map(s => s.songId));
       const filtered = Array.from(recommendations.values()).filter(
-        (rec) => !listenedSongs.has(rec.songId),
+        rec => !listenedSongs.has(rec.songId),
       );
 
       // Sort by score and return top N
       return filtered
         .sort((a, b) => b.score - a.score)
         .slice(0, limit)
-        .map((rec) => ({
+        .map(rec => ({
           songId: rec.songId,
           score: rec.score,
           reason: rec.reasons[0],
           confidence: Math.min(rec.score, 1),
         }));
     } catch (error) {
-      logger.error('Error generating hybrid recommendations:', error);
+      logger.error("Error generating hybrid recommendations:", error);
       throw error;
     }
   }
@@ -201,20 +201,20 @@ class RecommendationService {
         tempo: 0,
       };
 
-      seedFeatures.forEach((feature) => {
+      seedFeatures.forEach(feature => {
         avgFeatures.energy += feature.energy || 0;
         avgFeatures.valence += feature.valence || 0;
         avgFeatures.danceability += feature.danceability || 0;
         avgFeatures.tempo += feature.tempo || 0;
       });
 
-      Object.keys(avgFeatures).forEach((key) => {
+      Object.keys(avgFeatures).forEach(key => {
         avgFeatures[key] /= seedFeatures.length;
       });
 
       // Get primary genre
       const genreCounts = {};
-      seedFeatures.forEach((f) => {
+      seedFeatures.forEach(f => {
         if (f.primaryGenre) {
           genreCounts[f.primaryGenre] = (genreCounts[f.primaryGenre] || 0) + 1;
         }
@@ -241,13 +241,13 @@ class RecommendationService {
                     $add: [
                       {
                         $pow: [
-                          { $subtract: ['$energy', avgFeatures.energy] },
+                          { $subtract: ["$energy", avgFeatures.energy] },
                           2,
                         ],
                       },
                       {
                         $pow: [
-                          { $subtract: ['$valence', avgFeatures.valence] },
+                          { $subtract: ["$valence", avgFeatures.valence] },
                           2,
                         ],
                       },
@@ -255,7 +255,7 @@ class RecommendationService {
                         $pow: [
                           {
                             $subtract: [
-                              '$danceability',
+                              "$danceability",
                               avgFeatures.danceability,
                             ],
                           },
@@ -266,7 +266,7 @@ class RecommendationService {
                         $pow: [
                           {
                             $subtract: [
-                              { $divide: ['$tempo', 200] },
+                              { $divide: ["$tempo", 200] },
                               avgFeatures.tempo / 200,
                             ],
                           },
@@ -295,12 +295,12 @@ class RecommendationService {
         },
       ]);
 
-      return similar.map((s) => ({
+      return similar.map(s => ({
         songId: s.songId,
         score: s.similarity,
       }));
     } catch (error) {
-      logger.error('Error getting content-based recommendations:', error);
+      logger.error("Error getting content-based recommendations:", error);
       throw error;
     }
   }
@@ -312,7 +312,7 @@ class RecommendationService {
     try {
       // Get user's listened songs
       const userSongs = await ListeningPattern.find({ userId }).distinct(
-        'songId',
+        "songId",
       );
 
       if (userSongs.length === 0) {
@@ -329,15 +329,15 @@ class RecommendationService {
         },
         {
           $group: {
-            _id: '$userId',
-            commonSongs: { $addToSet: '$songId' },
+            _id: "$userId",
+            commonSongs: { $addToSet: "$songId" },
             totalPlays: { $sum: 1 },
           },
         },
         {
           $addFields: {
             similarity: {
-              $divide: [{ $size: '$commonSongs' }, userSongs.length],
+              $divide: [{ $size: "$commonSongs" }, userSongs.length],
             },
           },
         },
@@ -353,7 +353,7 @@ class RecommendationService {
         return [];
       }
 
-      const similarUserIds = similarUsers.map((u) => u._id);
+      const similarUserIds = similarUsers.map(u => u._id);
 
       // Get songs listened by similar users but not by current user
       const recommendations = await ListeningPattern.aggregate([
@@ -365,17 +365,17 @@ class RecommendationService {
         },
         {
           $group: {
-            _id: '$songId',
+            _id: "$songId",
             listenCount: { $sum: 1 },
-            avgCompletionRate: { $avg: '$completionRate' },
+            avgCompletionRate: { $avg: "$completionRate" },
           },
         },
         {
           $addFields: {
             score: {
               $add: [
-                { $multiply: ['$listenCount', 0.6] },
-                { $multiply: ['$avgCompletionRate', 0.4] },
+                { $multiply: ["$listenCount", 0.6] },
+                { $multiply: ["$avgCompletionRate", 0.4] },
               ],
             },
           },
@@ -388,7 +388,7 @@ class RecommendationService {
         },
         {
           $project: {
-            songId: '$_id',
+            songId: "$_id",
             score: 1,
             _id: 0,
           },
@@ -397,12 +397,12 @@ class RecommendationService {
 
       // Normalize scores to 0-1
       const maxScore = recommendations[0]?.score || 1;
-      return recommendations.map((rec) => ({
+      return recommendations.map(rec => ({
         songId: rec.songId,
         score: rec.score / maxScore,
       }));
     } catch (error) {
-      logger.error('Error getting collaborative recommendations:', error);
+      logger.error("Error getting collaborative recommendations:", error);
       throw error;
     }
   }
@@ -413,12 +413,12 @@ class RecommendationService {
   static async getTrendingRecommendations(limit = 20) {
     try {
       const trending = await SongFeature.getTrendingSongs(null, limit);
-      return trending.map((song) => ({
+      return trending.map(song => ({
         songId: song.songId,
         score: song.trendScore / 100,
       }));
     } catch (error) {
-      logger.error('Error getting trending recommendations:', error);
+      logger.error("Error getting trending recommendations:", error);
       throw error;
     }
   }
@@ -444,15 +444,14 @@ class RecommendationService {
       }
 
       // Get song features for these patterns
-      const songIds = [...new Set(patterns.map((p) => p.songId))];
+      const songIds = [...new Set(patterns.map(p => p.songId))];
       const features = await SongFeature.find({
         songId: { $in: songIds },
       });
 
       // Calculate average mood/energy for this time
       const avgEnergy =
-        features.reduce((sum, f) => sum + (f.energy || 0), 0) /
-        features.length;
+        features.reduce((sum, f) => sum + (f.energy || 0), 0) / features.length;
       const avgValence =
         features.reduce((sum, f) => sum + (f.valence || 0), 0) /
         features.length;
@@ -473,8 +472,8 @@ class RecommendationService {
                 1,
                 {
                   $add: [
-                    { $abs: { $subtract: ['$energy', avgEnergy] } },
-                    { $abs: { $subtract: ['$valence', avgValence] } },
+                    { $abs: { $subtract: ["$energy", avgEnergy] } },
+                    { $abs: { $subtract: ["$valence", avgValence] } },
                   ],
                 },
               ],
@@ -498,7 +497,7 @@ class RecommendationService {
 
       return similar;
     } catch (error) {
-      logger.error('Error getting time context recommendations:', error);
+      logger.error("Error getting time context recommendations:", error);
       throw error;
     }
   }
@@ -509,25 +508,25 @@ class RecommendationService {
   static async getSimilarSongs(songId, limit = 20) {
     try {
       const cacheKey = `similar:${songId}:${limit}`;
-      const cached = await getCachedData(cacheKey);
+      const cached = await cacheHelper.get(cacheKey);
 
       if (cached) {
         return cached;
       }
 
       const similar = await SongFeature.findSimilarSongs(songId, limit);
-      const recommendations = similar.map((s) => ({
+      const recommendations = similar.map(s => ({
         songId: s.songId,
         score: s.similarity,
-        reason: 'similar_features',
+        reason: "similar_features",
         confidence: s.similarity,
       }));
 
-      await setCachedData(cacheKey, recommendations, 3600);
+      await cacheHelper.set(cacheKey, recommendations, 3600);
 
       return recommendations;
     } catch (error) {
-      logger.error('Error getting similar songs:', error);
+      logger.error("Error getting similar songs:", error);
       throw error;
     }
   }
@@ -539,7 +538,7 @@ class RecommendationService {
     try {
       const { cache } = await RecommendationCache.getOrCreate(
         userId,
-        'mood_based',
+        "mood_based",
         { mood },
         24,
       );
@@ -555,21 +554,21 @@ class RecommendationService {
 
       // Get user's genre preferences
       const userSongs = await ListeningPattern.find({ userId }).distinct(
-        'songId',
+        "songId",
       );
       const userFeatures = await SongFeature.find({
         songId: { $in: userSongs },
       });
 
       const genrePrefs = {};
-      userFeatures.forEach((f) => {
+      userFeatures.forEach(f => {
         if (f.primaryGenre) {
           genrePrefs[f.primaryGenre] = (genrePrefs[f.primaryGenre] || 0) + 1;
         }
       });
 
       // Score songs based on genre preference
-      const recommendations = songs.map((song) => {
+      const recommendations = songs.map(song => {
         const genreScore = genrePrefs[song.primaryGenre] || 0;
         const popScore = song.popularityScore / 100;
         const score = genreScore * 0.6 + popScore * 0.4;
@@ -577,7 +576,7 @@ class RecommendationService {
         return {
           songId: song.songId,
           score: Math.min(score, 1),
-          reason: 'mood_match',
+          reason: "mood_match",
           confidence: song.moodScore || 0.5,
         };
       });
@@ -588,13 +587,13 @@ class RecommendationService {
       await RecommendationCache.updateRecommendations(
         cache._id,
         topRecs,
-        { version: '1.0', modelType: 'content_based', features: ['mood'] },
+        { version: "1.0", modelType: "content_based", features: ["mood"] },
         { generationTime: Date.now(), dataPoints: topRecs.length },
       );
 
       return topRecs;
     } catch (error) {
-      logger.error('Error getting mood-based recommendations:', error);
+      logger.error("Error getting mood-based recommendations:", error);
       throw error;
     }
   }
@@ -606,7 +605,7 @@ class RecommendationService {
     try {
       return await RecommendationCache.trackEngagement(cacheId, event);
     } catch (error) {
-      logger.error('Error tracking recommendation engagement:', error);
+      logger.error("Error tracking recommendation engagement:", error);
       throw error;
     }
   }
@@ -630,9 +629,9 @@ class RecommendationService {
             cache._id,
             recommendations,
             {
-              version: '1.0',
-              modelType: 'hybrid',
-              features: ['content_based', 'collaborative', 'trending'],
+              version: "1.0",
+              modelType: "hybrid",
+              features: ["content_based", "collaborative", "trending"],
             },
             { generationTime: Date.now(), dataPoints: recommendations.length },
           );
@@ -646,7 +645,7 @@ class RecommendationService {
       logger.info(`Refreshed ${refreshed} recommendation caches`);
       return { refreshed, total: stale.length };
     } catch (error) {
-      logger.error('Error refreshing stale recommendations:', error);
+      logger.error("Error refreshing stale recommendations:", error);
       throw error;
     }
   }

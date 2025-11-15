@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "healthcheck api health status",
+    "description": "Test the healthcheck endpoint to verify it returns the server status as OK, includes uptime as a number, and a valid timestamp, ensuring the server is healthy and responsive."
+  },
+  {
+    "id": "TC002",
+    "title": "user registration with valid and invalid data",
+    "description": "Test the user registration endpoint with valid email, password, username, and fullName to ensure successful registration. Also test with invalid data and duplicate users to verify validation errors and conflict responses."
+  },
+  {
+    "id": "TC003",
+    "title": "user login with correct and incorrect credentials",
+    "description": "Test the login endpoint with correct email and password to ensure successful login and token issuance. Test with incorrect credentials to verify proper unauthorized error response."
+  },
+  {
+    "id": "TC004",
+    "title": "refresh access token with valid and invalid tokens",
+    "description": "Test the refresh-token endpoint to ensure it successfully refreshes access tokens with valid refresh tokens and returns an error for invalid or expired tokens."
+  },
+  {
+    "id": "TC005",
+    "title": "get current user with valid and invalid jwt",
+    "description": "Test the get current user endpoint with a valid JWT token to retrieve user data and with invalid or missing token to verify unauthorized access handling."
+  },
+  {
+    "id": "TC006",
+    "title": "logout user and invalidate session",
+    "description": "Test the logout endpoint to ensure it properly logs out the user, invalidates the session or tokens, and returns a successful logout response."
+  },
+  {
+    "id": "TC007",
+    "title": "upload song with valid and invalid audio files",
+    "description": "Test the song upload endpoint with valid audio files and metadata to ensure successful upload to Cloudflare R2. Test with invalid file formats or sizes to verify rejection and proper error responses."
+  },
+  {
+    "id": "TC008",
+    "title": "get presigned streaming url with quality parameter",
+    "description": "Test the endpoint to get presigned streaming URLs for songs with different quality parameters (high, medium, low) ensuring URLs are valid, authorized, and expire after 1 hour."
+  },
+  {
+    "id": "TC009",
+    "title": "create new playlist with required fields",
+    "description": "Test the create playlist endpoint by providing required fields like name and optional description and isPublic flag to ensure playlist creation and proper response."
+  },
+  {
+    "id": "TC010",
+    "title": "get personalized recommendations for user",
+    "description": "Test the recommendations endpoint to retrieve personalized song recommendations using hybrid ML algorithms, ensuring the response contains a list of recommended songs relevant to the user."
+  }
+]
