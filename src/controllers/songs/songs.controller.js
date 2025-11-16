@@ -3,6 +3,7 @@ import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION } from "../../utils/constants.j
 import { getSupabaseClient } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
+import { transformSong, transformArray } from "../../utils/modelTransformers.js";
 
 /**
  * @description Get a list of songs
@@ -40,9 +41,11 @@ const getSongs = async (req, res) => {
       );
     }
 
+    const transformedData = transformArray(data, transformSong);
+
     return paginatedResponse(
       res,
-      data,
+      transformedData,
       page,
       limit,
       count,
@@ -97,7 +100,9 @@ const getSongById = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
-    return successResponse(res, data, "Song fetched successfully", HTTP_STATUS.OK);
+    const transformedData = transformSong(data);
+
+    return successResponse(res, transformedData, "Song fetched successfully", HTTP_STATUS.OK);
   } catch (error) {
     logger.error(`Error in getSongById controller for ID ${id}:`, error);
     if (error instanceof ApiError) {
@@ -155,9 +160,11 @@ const searchSongs = async (req, res) => {
       );
     }
 
+    const transformedData = transformArray(data, transformSong);
+
     return paginatedResponse(
       res,
-      data,
+      transformedData,
       page,
       limit,
       count,

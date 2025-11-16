@@ -8,6 +8,7 @@ import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION } from "../../utils/constants.j
 import { getSupabaseClient } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
+import { transformPlaylist, transformSong, transformArray } from "../../utils/modelTransformers.js";
 
 /**
  * @description Get user's playlists
@@ -54,9 +55,11 @@ const getUserPlaylists = async (req, res) => {
       );
     }
 
+    const transformedData = transformArray(data, transformPlaylist);
+
     return paginatedResponse(
       res,
-      data,
+      transformedData,
       page,
       limit,
       count,
@@ -120,13 +123,15 @@ const getPlaylistById = async (req, res) => {
         .in("id", data.song_ids);
 
       if (!songsError) {
-        data.songs = songs;
+        data.songs = transformArray(songs, transformSong);
       }
     }
 
+    const transformedData = transformPlaylist(data);
+
     return successResponse(
       res,
-      data,
+      transformedData,
       "Playlist fetched successfully",
       HTTP_STATUS.OK,
     );
