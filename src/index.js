@@ -1,322 +1,155 @@
-/**
- * FreeTune Backend - Entry Point
- * Main server initialization with environment validation and service checks
- * Following MEMO.md specifications for ultra-performance music streaming
- */
-
-import "dotenv/config";
-import app from "./app.js";
-import config from "./config/index.js";
-import { logger } from "./utils/logger.js";
-import { getSupabaseClient } from "./database/connections/supabase.js";
-import { getRedisClient } from "./database/connections/redis.js";
-
-// ---- Mongoose import ----
+import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
+import multer from "multer";
+import fs from "fs";
+import { promises as fsp } from "fs";
+import path from "path";
+import { pipeline } from "stream";
+import { promisify } from "util";
+import mime from "mime-types";
 import {
-  connectMongoose,
-  getMongoose,
-  closeMongooseConnection,
-} from "./database/connections/mongodb.js";
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-// ============================================================================
-// BANNER
-// ============================================================================
-const printBanner = () => {
-  console.log(`
-╔════════════════════════════════════════════════════════════════╗
-║                                                                ║
-║              🎵 FreeTune Backend Server 🎵                     ║
-║                                                                ║
-║     Ultra-Performance Music Streaming Platform                 ║
-║                                                                ║
-╚════════════════════════════════════════════════════════════════╝
-  `);
-};
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+const app = express();
+const PORT = process.env.PORT || 3000;
+const pipe = promisify(pipeline);
 
-// ============================================================================
-// ENVIRONMENT VALIDATION
-// ============================================================================
-const validateEnvironment = () => {
-  logger.info("🔍 Validating environment variables...");
+// --- Setup uploads directory (local temporary store) ---
+const uploadDir = path.join(__dirname, "uploads");
+await fsp.mkdir(uploadDir, { recursive: true });
 
-  const requiredVars = [
-    "NODE_ENV",
-    "PORT",
-    "SUPABASE_URL",
-    "SUPABASE_ANON_KEY",
-    "JWT_SECRET",
-  ];
+// --- Multer config (disk storage) ---
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const ext =
+      path.extname(file.originalname) ||
+      `.${mime.extension(file.mimetype) || "mp3"}`;
+    const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
+    cb(null, safeName);
+  },
+});
+const upload = multer({ storage });
 
-  const missingVars = [];
+// --- S3 (R2) client configuration ---
+const s3 = new S3Client({
+  region: process.env.R2_REGION || "auto",
+  endpoint: process.env.R2_S3_API_URL, // e.g. https://<ACCOUNT_ID>.r2.cloudflarestorage.com
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID,
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+  },
+  forcePathStyle: false,
+});
 
-  requiredVars.forEach(varName => {
-    if (!process.env[varName]) {
-      missingVars.push(varName);
-    }
-  });
+const BUCKET = process.env.R2_BUCKET_NAME;
+if (!BUCKET) {
+  console.warn("R2_BUCKET not set. Set it in .env");
+}
 
-  if (missingVars.length > 0) {
-    logger.error("❌ Missing required environment variables:");
-    missingVars.forEach(varName => {
-      logger.error(`   - ${varName}`);
-    });
-    logger.error("\n💡 Please check your .env file");
-    throw new Error("Environment validation failed");
-  }
+// --- Health check ---
+app.get("/health", (req, res) => {
+  return res.json({ status: "ok", time: new Date().toISOString() });
+});
 
-  // Warn about optional but recommended variables
-  const optionalVars = [
-    { name: "REDIS_URL", service: "Redis (caching)" },
-    { name: "MONGODB_URI", service: "MongoDB (analytics)" },
-    { name: "R2_ACCOUNT_ID", service: "Cloudflare R2 (storage)" },
-  ];
-
-  optionalVars.forEach(({ name, service }) => {
-    if (!process.env[name]) {
-      logger.warn(`⚠️  ${name} not set - ${service} disabled`);
-    }
-  });
-
-  logger.info("✅ Environment variables validated");
-};
-
-// ============================================================================
-// DATABASE CONNECTION CHECKS
-// ============================================================================
-const checkDatabaseConnections = async () => {
-  logger.info("🔌 Checking database connections...");
-
-  const connectionStatus = {
-    supabase: false,
-    redis: false,
-    mongodb: false,
-  };
-
-  // Check Supabase (PostgreSQL)
+// --- Upload endpoint: client -> server (temp) -> R2 ---
+app.post("/upload", upload.single("song"), async (req, res) => {
   try {
-    const supabase = getSupabaseClient();
-    const { error } = await supabase
-      .from("songs")
-      .select("count", { count: "exact", head: true });
+    if (!req.file)
+      return res
+        .status(400)
+        .json({ error: "no file uploaded (field name: song)" });
 
-    if (!error) {
-      connectionStatus.supabase = true;
-      logger.info("  ✅ Supabase (PostgreSQL) connected");
-    } else {
-      throw error;
-    }
-  } catch (error) {
-    logger.error("  ❌ Supabase connection failed:", error.message);
-    throw new Error("Supabase connection required for operation");
-  }
+    const localPath = req.file.path;
+    const key = `songs/${req.file.filename}`;
 
-  // Check Redis (Optional)
-  try {
-    const redis = getRedisClient();
-    if (redis) {
-      await redis.ping();
-      connectionStatus.redis = true;
-      logger.info("  ✅ Redis (Upstash) connected");
-    } else {
-      logger.warn("  ⚠️  Redis not configured (caching disabled)");
-    }
-  } catch (error) {
-    logger.warn(
-      "  ⚠️  Redis connection failed (caching disabled):",
-      error.message,
-    );
-  }
+    // Stream file to R2
+    const fileStream = fs.createReadStream(localPath);
 
-  // Check MongoDB (Mongoose) (Optional)
-  try {
-    const mongooseInstance = await connectMongoose();
-    if (mongooseInstance && mongooseInstance.connection.readyState === 1) {
-      connectionStatus.mongodb = true;
-      logger.info("  ✅ MongoDB (Mongoose) connected");
-    } else if (config.mongoose && config.mongoose.uri) {
-      logger.error("  ❌ MongoDB (Mongoose) URI set but connection failed");
-    } else {
-      logger.warn("  ⚠️  MongoDB not configured (analytics disabled)");
-    }
-  } catch (error) {
-    logger.warn(
-      "  ⚠️  Mongoose connection failed (analytics disabled):",
-      error.message,
-    );
-  }
-
-  return connectionStatus;
-};
-
-// ============================================================================
-// SERVICE STATUS CHECK
-// ============================================================================
-const checkServiceStatus = () => {
-  logger.info("🔧 Checking service configurations...");
-
-  // Check R2 Configuration
-  if (
-    config.r2.accountId &&
-    config.r2.accessKeyId &&
-    config.r2.secretAccessKey
-  ) {
-    logger.info("  ✅ Cloudflare R2 configured");
-  } else {
-    logger.warn(
-      "  ⚠️  Cloudflare R2 not fully configured (file uploads disabled)",
-    );
-  }
-
-  // Check JWT Configuration
-  if (config.jwt.secret && config.jwt.secret.length >= 32) {
-    logger.info("  ✅ JWT authentication configured");
-  } else {
-    logger.error("  ❌ JWT secret not configured or too short (min 32 chars)");
-    throw new Error("JWT configuration required");
-  }
-
-  // Check CORS
-  if (config.cors.allowedOrigins && config.cors.allowedOrigins.length > 0) {
-    logger.info(
-      `  ✅ CORS configured (${config.cors.allowedOrigins.length} origins)`,
-    );
-  } else {
-    logger.warn("  ⚠️  CORS origins not configured (allowing all)");
-  }
-
-  logger.info("✅ Service configurations checked");
-};
-
-// ============================================================================
-// SYSTEM INFO
-// ============================================================================
-const printSystemInfo = () => {
-  logger.info("📊 System Information:");
-  logger.info(`  • Node.js: ${process.version}`);
-  logger.info(`  • Platform: ${process.platform}`);
-  logger.info(`  • Architecture: ${process.arch}`);
-  logger.info(
-    `  • Memory: ${Math.round(process.memoryUsage().heapTotal / 1024 / 1024)}MB`,
-  );
-  logger.info(`  • Environment: ${config.env}`);
-  logger.info(`  • Port: ${config.port}`);
-};
-
-// ============================================================================
-// SERVER STARTUP
-// ============================================================================
-const startServer = async () => {
-  try {
-    // Print banner
-    printBanner();
-
-    // Step 1: Validate environment
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    logger.info("STEP 1: Environment Validation");
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    validateEnvironment();
-
-    // Step 2: Check database connections
-    logger.info("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    logger.info("STEP 2: Database Connections");
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    const connectionStatus = await checkDatabaseConnections();
-
-    // Step 3: Check service configurations
-    logger.info("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    logger.info("STEP 3: Service Configuration");
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    checkServiceStatus();
-
-    // Step 4: Print system info
-    logger.info("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    logger.info("STEP 4: System Information");
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    printSystemInfo();
-
-    // Step 5: Start HTTP server
-    logger.info("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    logger.info("STEP 5: Starting HTTP Server");
-    logger.info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-
-    const PORT = config.port;
-    const server = app.listen(PORT, () => {
-      logger.info(`\n🚀 Server started successfully!`);
-      logger.info(`\n📍 Endpoints:`);
-      logger.info(`   • Health Check: http://localhost:${PORT}/health`);
-      logger.info(`   • API Info:     http://localhost:${PORT}/api`);
-      logger.info(`   • API Base:     http://localhost:${PORT}/api/*`);
-
-      logger.info(`\n🔧 Services Status:`);
-      logger.info(
-        `   • Database:     ${connectionStatus.supabase ? "✅ Connected" : "❌ Disconnected"}`,
-      );
-      logger.info(
-        `   • Cache:        ${connectionStatus.redis ? "✅ Connected" : "⚠️  Disabled"}`,
-      );
-      logger.info(
-        `   • Analytics:    ${connectionStatus.mongodb ? "✅ Connected" : "⚠️  Disabled"}`,
-      );
-
-      logger.info(
-        "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-      );
-      logger.info("✅ FreeTune Backend is ready to serve requests!");
-      logger.info(
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
-      );
-    });
-
-    // Handle server errors
-    server.on("error", error => {
-      if (error.code === "EADDRINUSE") {
-        logger.error(`❌ Port ${PORT} is already in use`);
-        logger.error(
-          "💡 Try killing the process: lsof -ti:" + PORT + " | xargs kill -9",
-        );
-      } else {
-        logger.error("❌ Server error:", error);
-      }
-      process.exit(1);
-    });
-
-    // Graceful shutdown
-    const gracefulShutdown = async signal => {
-      logger.info(`\n${signal} received. Starting graceful shutdown...`);
-
-      server.close(async () => {
-        logger.info("HTTP server closed");
-
-        // Close database connections
-        try {
-          await closeMongooseConnection();
-        } catch (error) {
-          logger.error("Error closing MongoDB (Mongoose):", error.message);
-        }
-
-        logger.info("Graceful shutdown completed");
-        process.exit(0);
-      });
-
-      // Force shutdown after 10 seconds
-      setTimeout(() => {
-        logger.error("Forced shutdown after timeout");
-        process.exit(1);
-      }, 10000);
+    const putParams = {
+      Bucket: BUCKET,
+      Key: key,
+      Body: fileStream,
+      ContentType: req.file.mimetype,
     };
 
-    process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
-    process.on("SIGINT", () => gracefulShutdown("SIGINT"));
-  } catch (error) {
-    logger.error("❌ Failed to start server:", error.message);
-    logger.error(error.stack);
-    process.exit(1);
+    await s3.send(new PutObjectCommand(putParams));
+
+    // Generate signed GET URL (valid 1 hour)
+    const signedUrl = await getSignedUrl(
+      s3,
+      new GetObjectCommand({ Bucket: BUCKET, Key: key }),
+      { expiresIn: 60 * 60 },
+    );
+
+    // Delete local temp file asynchronously (don't block response)
+    fsp
+      .unlink(localPath)
+      .catch(err => console.warn("Failed to delete local file", err));
+
+    return res.json({ message: "uploaded to R2", key, url: signedUrl });
+  } catch (err) {
+    console.error("Upload error", err);
+    return res
+      .status(500)
+      .json({ error: "upload failed", details: err?.message || String(err) });
   }
-};
+});
 
-// ============================================================================
-// START THE APPLICATION
-// ============================================================================
-startServer();
+// --- Stream/proxy endpoint: server fetches from R2 and pipes to client ---
+app.get("/songs/:filename", async (req, res) => {
+  try {
+    const filename = req.params.filename; // expect just filename (not full key)
+    const key = `songs/${filename}`;
 
-export default app;
+    const getParams = { Bucket: BUCKET, Key: key };
+    const data = await s3.send(new GetObjectCommand(getParams)); // returns Body as stream/Blob
+
+    // Set headers if available
+    if (data.ContentType) res.setHeader("Content-Type", data.ContentType);
+    if (data.ContentLength) res.setHeader("Content-Length", data.ContentLength);
+
+    // Pipe the body stream to response
+    // data.Body is a stream.Readable in Node
+    await pipe(data.Body, res);
+  } catch (err) {
+    console.error("Stream error", err);
+    return res.status(404).json({
+      error: "not found or failed to fetch from R2",
+      details: err?.message || String(err),
+    });
+  }
+});
+
+// --- Optional: presign upload (server issues upload URL, client uploads directly to R2) ---
+app.get("/presign-upload", async (req, res) => {
+  try {
+    const filename = req.query.filename || `upload-${Date.now()}.mp3`;
+    const key = `songs/${filename}`;
+
+    const putCmd = new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+      // Client must set correct Content-Type when uploading directly
+    });
+
+    const uploadUrl = await getSignedUrl(s3, putCmd, { expiresIn: 60 * 5 }); // 5 minutes
+    return res.json({ uploadUrl, key });
+  } catch (err) {
+    console.error("Presign error", err);
+    return res.status(500).json({
+      error: "failed to generate presigned url",
+      details: err?.message || String(err),
+    });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`ESM server running on http://localhost:${PORT}`);
+});
