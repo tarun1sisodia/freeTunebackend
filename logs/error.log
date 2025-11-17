@@ -84,3 +84,13 @@
 2025-11-15 20:04:16:416 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
 2025-11-15 21:03:01:31 [31merror[39m: [31m❌ Port 54112 is already in use[39m
 2025-11-15 21:30:17:3017 [31merror[39m: [31m❌ Port 54112 is already in use[39m
+2025-11-16 21:13:25:1325 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-16 21:47:53:4753 [31merror[39m: [31mError: Invalid email or password[39m
+2025-11-16 21:50:01:501 [31merror[39m: [31mError: Invalid email or password[39m
+2025-11-16 21:52:54:5254 [31merror[39m: [31mError: Invalid email or password[39m
+2025-11-16 22:09:11:911 [31merror[39m: [31mError: Validation failed[39m
+2025-11-16 22:13:42:1342 [31merror[39m: [31mError: Validation failed[39m
+2025-11-16 22:13:49:1349 [31merror[39m: [31mError: Validation failed[39m
+2025-11-16 22:19:54:1954 [31merror[39m: [31mError: Validation failed[39m
+2025-11-16 22:46:23:4623 [31merror[39m: [31mError: Invalid email or password[39m
+2025-11-16 22:48:00:480 [31merror[39m: [31mError: Invalid or expired token[39m
