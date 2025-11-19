@@ -225,7 +225,7 @@ description: Ultra-performance music streaming app
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -241,12 +241,12 @@ dependencies:
 
   # Audio Player
   just_audio: ^0.9.36
-  audio_service: ^0.18.11  # Background playback
-  audio_session: ^0.1.18    # Audio session management
+  audio_service: ^0.18.11 # Background playback
+  audio_session: ^0.1.18 # Audio session management
 
   # HTTP Client
   dio: ^5.4.0
-  pretty_dio_logger: ^1.3.1  # Dev only
+  pretty_dio_logger: ^1.3.1 # Dev only
 
   # Caching
   flutter_cache_manager: ^3.3.1
@@ -623,6 +623,7 @@ class AuthApi {
   }
 }
 ```
+
 #### **Songs APIs** (`data/datasources/remote/songs_api.dart`)
 
 ```dart
@@ -1003,7 +1004,7 @@ class CacheManager {
   Future<void> autoCacheTopSongs(List<SongModel> songs) async {
     final isar = await IsarDatabase.getInstance();
     final top100 = songs.take(100).toList();
-    
+
     await isar.writeTxn(() async {
       await isar.songModels.putAll(top100);
     });
@@ -1013,10 +1014,10 @@ class CacheManager {
   Future<void> evictIfNeeded() async {
     final isar = await IsarDatabase.getInstance();
     final cachedSongs = await isar.songModels.where().findAll();
-    
+
     // Calculate current cache size (simplified)
     final currentSizeMB = cachedSongs.length * 3.6; // ~3.6MB per song (medium quality)
-    
+
     if (currentSizeMB > maxCacheSizeMB) {
       // Sort by: play_count (desc) → cached_at (desc)
       cachedSongs.sort((a, b) {
@@ -1028,7 +1029,7 @@ class CacheManager {
       // Remove oldest/least played songs
       final toRemove = cachedSongs.length - (targetCacheSizeMB ~/ 3.6).toInt();
       final songsToDelete = cachedSongs.sublist(cachedSongs.length - toRemove);
-      
+
       await isar.writeTxn(() async {
         await isar.songModels.deleteAll(songsToDelete.map((s) => s.id).toList());
       });
@@ -1058,6 +1059,7 @@ class CacheManager {
 ```
 
 ---
+
 ## 🎵 Audio Player Implementation
 
 ### Audio Player Service (`services/audio/audio_player_service.dart`)
@@ -1111,7 +1113,7 @@ class AudioPlayerService {
 
   Future<void> play(SongModel song) async {
     _currentSong = song;
-    
+
     // Check local cache first
     final cachedPath = await _getCachedPath(song.id);
     if (cachedPath != null) {
@@ -1144,7 +1146,7 @@ class AudioPlayerService {
 
   Future<void> _trackPlaybackProgress(Duration position) async {
     if (_currentSong == null) return;
-    
+
     final duration = _player.duration ?? Duration.zero;
     final progress = duration.inMilliseconds > 0
         ? position.inMilliseconds / duration.inMilliseconds
@@ -1190,7 +1192,7 @@ class AudioPlayerService {
   Stream<Duration?> get durationStream => _player.durationStream;
   Stream<bool> get playingStream => _player.playingStream;
   Stream<PlayerState> get playerStateStream => _player.playerStateStream;
-  
+
   Duration get position => _player.position;
   Duration? get duration => _player.duration;
   bool get playing => _player.playing;
@@ -1215,7 +1217,7 @@ class QualitySelectorService {
 
   Future<AudioQuality> selectQuality() async {
     final connectivityResult = await _connectivity.checkConnectivity();
-    
+
     if (connectivityResult.contains(ConnectivityResult.wifi)) {
       return AudioQuality.high; // 320kbps
     } else if (connectivityResult.contains(ConnectivityResult.mobile)) {
@@ -1266,7 +1268,7 @@ class PrefetchService {
   // Prefetch first 30 seconds of next 3 songs
   Future<void> prefetchNext(List<SongModel> queue, int currentIndex) async {
     final nextSongs = queue.skip(currentIndex + 1).take(3).toList();
-    
+
     for (final song in nextSongs) {
       final quality = await _qualitySelector.selectQuality();
       // Prefetch only first 256KB (~30 seconds @ 64kbps)
@@ -2131,6 +2133,7 @@ void main() {
 ## 📝 Implementation Checklist
 
 ### Phase 1: Core Setup (Week 1)
+
 - [ ] Initialize Flutter project
 - [ ] Setup dependencies (Getx, Isar, just_audio, Dio)
 - [ ] Configure API client with interceptors
@@ -2139,6 +2142,7 @@ void main() {
 - [ ] Implement authentication flow
 
 ### Phase 2: Audio Player (Week 2)
+
 - [ ] Implement AudioPlayerService
 - [ ] Setup quality selector
 - [ ] Implement prefetch service
@@ -2147,6 +2151,7 @@ void main() {
 - [ ] Test playback with backend
 
 ### Phase 3: Core Features (Week 3)
+
 - [ ] Songs list screen with pagination
 - [ ] Search functionality
 - [ ] Playlists management
@@ -2155,6 +2160,7 @@ void main() {
 - [ ] Recommendations integration
 
 ### Phase 4: Caching & Optimization (Week 4)
+
 - [ ] Implement cache manager
 - [ ] Setup LRU eviction
 - [ ] Implement offline mode
@@ -2163,6 +2169,7 @@ void main() {
 - [ ] Performance profiling
 
 ### Phase 5: Polish & Testing (Week 5)
+
 - [ ] UI/UX improvements
 - [ ] Error handling
 - [ ] Loading states
@@ -2175,12 +2182,13 @@ void main() {
 ## 🔗 Backend API Integration Summary
 
 ### Base URL Configuration
+
 ```dart
 // config/api_config.dart
 class ApiConfig {
   static const String baseUrl = 'http://localhost:3000/api/v1';
   // Production: 'https://your-domain.vercel.app/api/v1'
-  
+
   static const bool isDevelopment = true;
 }
 ```
@@ -2188,6 +2196,7 @@ class ApiConfig {
 ### All API Endpoints Mapped
 
 ✅ **Authentication** (11 endpoints)
+
 - Register, Login, Logout
 - Get Current User, Update Profile
 - Change Password, Refresh Token
@@ -2195,20 +2204,24 @@ class ApiConfig {
 - Verify Email, Resend Verification
 
 ✅ **Songs** (15 endpoints)
+
 - List, Search, Popular, Recently Played, Favorites
 - Get by ID, Upload, Update Metadata, Delete
 - Stream URL, Stream, File Info
 - Toggle Favorite, Track Play, Track Playback
 
 ✅ **Playlists** (7 endpoints)
+
 - List, Create, Get by ID, Update, Delete
 - Add Song, Remove Song
 
 ✅ **Recommendations** (6 endpoints)
+
 - Get Personalized, Similar Songs, Mood-based
 - Trending, Stats, Top Songs
 
 ✅ **Analytics** (7 endpoints)
+
 - Track Listening, Get Stats, Top Songs
 - Time Patterns, Genre Preferences, Mood Preferences, Trending
 
@@ -2216,19 +2229,20 @@ class ApiConfig {
 
 ## 🎯 Key Performance Targets
 
-| Metric | Target | Implementation |
-|--------|--------|----------------|
-| **Time to First Play** | <800ms | Cache-first + Prefetch |
-| **Search Latency** | <100ms | Debounced + Cached results |
-| **App Start Time** | <2s | Lazy loading + Code splitting |
-| **Data Usage (1hr)** | <50MB | Adaptive bitrate (avg 128kbps) |
-| **Cache Hit Rate** | >70% | Aggressive caching + LRU |
+| Metric                 | Target | Implementation                 |
+| ---------------------- | ------ | ------------------------------ |
+| **Time to First Play** | <800ms | Cache-first + Prefetch         |
+| **Search Latency**     | <100ms | Debounced + Cached results     |
+| **App Start Time**     | <2s    | Lazy loading + Code splitting  |
+| **Data Usage (1hr)**   | <50MB  | Adaptive bitrate (avg 128kbps) |
+| **Cache Hit Rate**     | >70%   | Aggressive caching + LRU       |
 
 ---
 
 ## 📚 Additional Resources
 
 ### Code Generation Commands
+
 ```bash
 # Generate Riverpod providers
 flutter pub run build_runner build --delete-conflicting-outputs
@@ -2241,6 +2255,7 @@ flutter pub run build_runner watch
 ```
 
 ### Environment Setup
+
 ```dart
 // lib/config/app_config.dart
 class AppConfig {
@@ -2248,7 +2263,7 @@ class AppConfig {
     'API_BASE_URL',
     defaultValue: 'http://localhost:3000/api/v1',
   );
-  
+
   static const bool enableLogging = bool.fromEnvironment(
     'ENABLE_LOGGING',
     defaultValue: true,

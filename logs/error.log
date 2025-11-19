@@ -84,3 +84,20 @@
 2025-11-15 20:04:16:416 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
 2025-11-15 21:03:01:31 [31merror[39m: [31m❌ Port 54112 is already in use[39m
 2025-11-15 21:30:17:3017 [31merror[39m: [31m❌ Port 54112 is already in use[39m
+2025-11-17 15:00:41:041 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-17 15:01:42:142 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-18 20:54:41:5441 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-18 21:12:54:1254 [31merror[39m: [31mError fetching song with ID recent from Supabase: invalid input syntax for type uuid: "recent"[39m
+2025-11-18 21:12:54:1254 [31merror[39m: [31mError in getSongById controller for ID recent: Operation failed[39m
+2025-11-18 21:12:54:1254 [31merror[39m: [31mError: Operation failed[39m
+2025-11-18 21:16:10:1610 [31merror[39m: [31mError fetching song with ID recent from Supabase: invalid input syntax for type uuid: "recent"[39m
+2025-11-18 21:16:10:1610 [31merror[39m: [31mError in getSongById controller for ID recent: Operation failed[39m
+2025-11-18 21:16:10:1610 [31merror[39m: [31mError: Operation failed[39m
+2025-11-18 22:17:02:172 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-18 22:18:08:188 [31merror[39m: [31mError fetching song with ID recent from Supabase: invalid input syntax for type uuid: "recent"[39m
+2025-11-18 22:18:08:188 [31merror[39m: [31mError in getSongById controller for ID recent: Operation failed[39m
+2025-11-18 22:18:08:188 [31merror[39m: [31mError: Operation failed[39m
+2025-11-18 22:18:34:1834 [31merror[39m: [31mError fetching song with ID recent from Supabase: invalid input syntax for type uuid: "recent"[39m
+2025-11-18 22:18:34:1834 [31merror[39m: [31mError in getSongById controller for ID recent: Operation failed[39m
+2025-11-18 22:18:34:1834 [31merror[39m: [31mError: Operation failed[39m
+2025-11-18 22:20:29:2029 [31merror[39m: [31mError: No token provided[39m
