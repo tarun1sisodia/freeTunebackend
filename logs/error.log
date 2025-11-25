@@ -101,3 +101,15 @@
 2025-11-18 22:18:34:1834 [31merror[39m: [31mError in getSongById controller for ID recent: Operation failed[39m
 2025-11-18 22:18:34:1834 [31merror[39m: [31mError: Operation failed[39m
 2025-11-18 22:20:29:2029 [31merror[39m: [31mError: No token provided[39m
+2025-11-25 18:48:49:4849 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-25 18:48:57:4857 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-25 18:49:03:493 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-25 18:56:25:5625 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-25 18:57:00:570 [31merror[39m: [31m  ❌ Supabase connection failed:[39m
+2025-11-25 19:19:20:1920 [31merror[39m: [31mError: Unexpected field[39m
+2025-11-25 19:37:12:3712 [31merror[39m: [31mError: Unexpected field[39m
+2025-11-25 19:49:11:4911 [31merror[39m: [31mError: Unexpected field[39m
+2025-11-25 20:06:15:615 [31merror[39m: [31mError saving song metadata: new row violates row-level security policy for table "songs"[39m
+2025-11-25 20:06:16:616 [31merror[39m: [31mError in uploadSong controller: Operation failed[39m
+2025-11-25 20:06:16:616 [31merror[39m: [31mError: Operation failed[39m
+2025-11-25 20:48:42:4842 [31merror[39m: [31mError: Invalid or expired token[39m
