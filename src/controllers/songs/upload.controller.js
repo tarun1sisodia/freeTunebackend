@@ -9,6 +9,7 @@ import { getSupabaseClient, getSupabaseAdmin } from "../../database/connections/
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import fileUploadHelper from "../../services/audioUpload.js";
+import cacheHelper from "../../utils/cacheHelper.js";
 
 /**
  * @description Upload song to Cloudflare R2 and save metadata to database
@@ -201,6 +202,10 @@ const updateSongMetadata = async (req, res) => {
       );
     }
 
+    // Invalidate song cache after update
+    await cacheHelper.del(`song:${id}`);
+    logger.debug(`Cache invalidated for updated song: ${id}`);
+
     return successResponse(
       res,
       data,
@@ -273,6 +278,13 @@ const deleteSong = async (req, res) => {
     if (!fileDeleted) {
       logger.warn(`Failed to delete file from R2: ${song.r2_key}`);
     }
+
+    // Invalidate all caches related to this song
+    await cacheHelper.del(`song:${id}`);
+    await cacheHelper.del(`cdn:url:${id}:high`);
+    await cacheHelper.del(`cdn:url:${id}:medium`);
+    await cacheHelper.del(`cdn:url:${id}:low`);
+    logger.debug(`All caches invalidated for deleted song: ${id}`);
 
     return successResponse(
       res,

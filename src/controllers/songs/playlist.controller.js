@@ -1,17 +1,20 @@
 /**
  * Playlist Controller
  * Handles playlist CRUD operations and song management
+ * With Redis caching for improved performance
  */
 
 import { successResponse, errorResponse, paginatedResponse } from "../../utils/apiResponse.js";
-import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION } from "../../utils/constants.js";
+import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION, CACHE_TTL, CACHE_KEYS } from "../../utils/constants.js";
 import { getSupabaseClient } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import { transformPlaylist, transformSong, transformArray } from "../../utils/modelTransformers.js";
+import cacheHelper from "../../utils/cacheHelper.js";
 
 /**
  * @description Get user's playlists
+ * With Redis caching
  * @param {object} req - Express request object
  * @param {object} res - Express response object
  */
@@ -39,6 +42,24 @@ const getUserPlaylists = async (req, res) => {
   const endIndex = page * limit - 1;
 
   try {
+    // Try cache first (only for first page for simplicity)
+    const cacheKey = `user:playlists:${userId}:page:${page}`;
+    
+    if (page === 1) {
+      const cached = await cacheHelper.get(cacheKey);
+      if (cached) {
+        logger.debug(`Cache HIT: ${cacheKey}`);
+        return res.json({
+          success: true,
+          ...JSON.parse(cached),
+          message: "Playlists fetched from cache",
+          cached: true,
+        });
+      }
+    }
+
+    logger.debug(`Cache MISS: ${cacheKey}`);
+
     const { data, error, count } = await supabase
       .from("playlists")
       .select("*", { count: "exact" })
@@ -56,6 +77,21 @@ const getUserPlaylists = async (req, res) => {
     }
 
     const transformedData = transformArray(data, transformPlaylist);
+
+    // Cache first page results
+    if (page === 1 && transformedData.length > 0) {
+      const cacheData = {
+        data: transformedData,
+        pagination: {
+          page,
+          limit,
+          total: count,
+          totalPages: Math.ceil(count / limit),
+        },
+      };
+      await cacheHelper.set(cacheKey, JSON.stringify(cacheData), CACHE_TTL.PLAYLIST);
+      logger.debug(`Cache SET: ${cacheKey} (TTL: ${CACHE_TTL.PLAYLIST}s)`);
+    }
 
     return paginatedResponse(
       res,
@@ -79,6 +115,7 @@ const getUserPlaylists = async (req, res) => {
 
 /**
  * @description Get single playlist by ID
+ * With Redis caching
  * @param {object} req - Express request object
  * @param {object} res - Express response object
  */
@@ -96,6 +133,28 @@ const getPlaylistById = async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Try cache first
+    const cacheKey = CACHE_KEYS.PLAYLIST(id);
+    const cached = await cacheHelper.get(cacheKey);
+    
+    if (cached) {
+      const cachedData = JSON.parse(cached);
+      // Verify user still has access
+      if (cachedData.user_id === userId || cachedData.is_public) {
+        logger.debug(`Cache HIT: ${cacheKey}`);
+        return successResponse(
+          res,
+          cachedData,
+          "Playlist fetched from cache",
+          HTTP_STATUS.OK,
+        );
+      }
+      // Access changed, invalidate cache
+      await cacheHelper.del(cacheKey);
+    }
+
+    logger.debug(`Cache MISS: ${cacheKey}`);
+
     const { data, error } = await supabase
       .from("playlists")
       .select("*")
@@ -128,6 +187,10 @@ const getPlaylistById = async (req, res) => {
     }
 
     const transformedData = transformPlaylist(data);
+
+    // Cache playlist data (1 hour TTL)
+    await cacheHelper.set(cacheKey, JSON.stringify(transformedData), CACHE_TTL.PLAYLIST);
+    logger.debug(`Cache SET: ${cacheKey} (TTL: ${CACHE_TTL.PLAYLIST}s)`);
 
     return successResponse(
       res,
@@ -201,6 +264,10 @@ const createPlaylist = async (req, res) => {
         [error.message],
       );
     }
+
+    // Invalidate user's playlists cache
+    await cacheHelper.del(`user:playlists:${userId}:page:1`);
+    logger.debug(`Cache invalidated: user:playlists:${userId} (new playlist created)`);
 
     return successResponse(
       res,
@@ -288,6 +355,11 @@ const updatePlaylist = async (req, res) => {
       );
     }
 
+    // Invalidate caches for updated playlist
+    await cacheHelper.del(CACHE_KEYS.PLAYLIST(id));
+    await cacheHelper.del(`user:playlists:${userId}:page:1`);
+    logger.debug(`Cache invalidated: playlist:${id} and user playlists`);
+
     return successResponse(
       res,
       data,
@@ -365,6 +437,11 @@ const deletePlaylist = async (req, res) => {
         [error.message],
       );
     }
+
+    // Invalidate caches for deleted playlist
+    await cacheHelper.del(CACHE_KEYS.PLAYLIST(id));
+    await cacheHelper.del(`user:playlists:${userId}:page:1`);
+    logger.debug(`Cache invalidated: playlist:${id} deleted`);
 
     return successResponse(
       res,
@@ -477,6 +554,10 @@ const addSongToPlaylist = async (req, res) => {
       );
     }
 
+    // Invalidate playlist cache (song added)
+    await cacheHelper.del(CACHE_KEYS.PLAYLIST(id));
+    logger.debug(`Cache invalidated: playlist:${id} (song added)`);
+
     return successResponse(
       res,
       data,
@@ -566,6 +647,10 @@ const removeSongFromPlaylist = async (req, res) => {
         [error.message],
       );
     }
+
+    // Invalidate playlist cache (song removed)
+    await cacheHelper.del(CACHE_KEYS.PLAYLIST(id));
+    logger.debug(`Cache invalidated: playlist:${id} (song removed)`);
 
     return successResponse(
       res,
