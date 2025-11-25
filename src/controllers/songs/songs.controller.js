@@ -82,6 +82,22 @@ const getSongById = async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Try cache first
+    const cacheKey = `song:${id}`;
+    const cached = await cacheHelper.get(cacheKey);
+    
+    if (cached) {
+      logger.debug(`Cache HIT: song:${id}`);
+      return successResponse(
+        res,
+        JSON.parse(cached),
+        "Song fetched from cache",
+        HTTP_STATUS.OK,
+      );
+    }
+
+    logger.debug(`Cache MISS: song:${id}`);
+
     const { data, error } = await supabase
       .from("songs")
       .select("*")
@@ -102,6 +118,10 @@ const getSongById = async (req, res) => {
     }
 
     const transformedData = transformSong(data);
+
+    // Cache song data (1 hour TTL)
+    await cacheHelper.set(cacheKey, JSON.stringify(transformedData), CACHE_TTL.HOT_SONGS);
+    logger.debug(`Cache SET: song:${id} (TTL: ${CACHE_TTL.HOT_SONGS}s)`);
 
     return successResponse(res, transformedData, "Song fetched successfully", HTTP_STATUS.OK);
   } catch (error) {
@@ -245,6 +265,22 @@ const getRecentlyPlayed = async (req, res) => {
   const limit = parseInt(req.query.limit, 10) || 20;
 
   try {
+    // Try cache first
+    const cacheKey = CACHE_KEYS.USER_RECENT(userId);
+    const cached = await cacheHelper.get(cacheKey);
+    
+    if (cached) {
+      logger.debug(`Cache HIT: ${cacheKey}`);
+      return successResponse(
+        res,
+        JSON.parse(cached),
+        "Recently played songs fetched from cache",
+        HTTP_STATUS.OK,
+      );
+    }
+
+    logger.debug(`Cache MISS: ${cacheKey}`);
+
     const { data, error } = await supabase
       .from("user_interactions")
       .select("song_id, created_at, songs(*)")
@@ -267,9 +303,15 @@ const getRecentlyPlayed = async (req, res) => {
       played_at: item.created_at,
     }));
 
+    const responseData = { songs, count: songs.length };
+
+    // Cache recently played (7 days TTL)
+    await cacheHelper.set(cacheKey, JSON.stringify(responseData), CACHE_TTL.USER_RECENT);
+    logger.debug(`Cache SET: ${cacheKey} (TTL: ${CACHE_TTL.USER_RECENT}s)`);
+
     return successResponse(
       res,
-      { songs, count: songs.length },
+      responseData,
       "Recently played songs fetched successfully",
       HTTP_STATUS.OK,
     );
