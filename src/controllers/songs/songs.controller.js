@@ -1,9 +1,10 @@
 import { successResponse, errorResponse, paginatedResponse } from "../../utils/apiResponse.js";
-import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION } from "../../utils/constants.js";
+import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION, CACHE_TTL } from "../../utils/constants.js";
 import { getSupabaseClient } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import { transformSong, transformArray } from "../../utils/modelTransformers.js";
+import cacheHelper from "../../utils/cacheHelper.js";
 
 /**
  * @description Get a list of songs
@@ -145,6 +146,27 @@ const searchSongs = async (req, res) => {
   const endIndex = page * limit - 1;
 
   try {
+    // Generate cache key (normalize query)
+    const normalizedQuery = q.toLowerCase().trim();
+    const cacheKey = `search:${normalizedQuery}:page:${page}:limit:${limit}`;
+    
+    // Try cache first (only for first page)
+    if (page === 1) {
+      const cached = await cacheHelper.get(cacheKey);
+      if (cached) {
+        logger.info(`Cache HIT: Search results for "${q}"`);
+        return res.json({
+          success: true,
+          data: cached.data,
+          pagination: cached.pagination,
+          message: "Search results fetched from cache",
+          cached: true,
+        });
+      }
+    }
+
+    logger.debug(`Cache MISS: Searching for "${q}" in database`);
+
     const { data, error, count } = await supabase
       .from("songs")
       .select("*", { count: "exact" })
@@ -161,6 +183,21 @@ const searchSongs = async (req, res) => {
     }
 
     const transformedData = transformArray(data, transformSong);
+
+    // Cache first page results
+    if (page === 1 && transformedData.length > 0) {
+      const cacheData = {
+        data: transformedData,
+        pagination: {
+          page,
+          limit,
+          total: count,
+          totalPages: Math.ceil(count / limit),
+        },
+      };
+      await cacheHelper.set(cacheKey, cacheData, CACHE_TTL.SEARCH_RESULTS);
+      logger.info(`Cached search results for "${q}" (TTL: ${CACHE_TTL.SEARCH_RESULTS}s)`);
+    }
 
     return paginatedResponse(
       res,
@@ -537,6 +574,26 @@ const getPopularSongs = async (req, res) => {
   const endIndex = page * limit - 1;
 
   try {
+    // Cache key for popular songs (page-specific)
+    const cacheKey = `popular:songs:page:${page}:limit:${limit}`;
+    
+    // Try cache first (only for first page for simplicity)
+    if (page === 1) {
+      const cached = await cacheHelper.get(cacheKey);
+      if (cached) {
+        logger.info(`Cache HIT: Popular songs page ${page}`);
+        return res.json({
+          success: true,
+          data: cached.data,
+          pagination: cached.pagination,
+          message: "Popular songs fetched from cache",
+          cached: true,
+        });
+      }
+    }
+
+    logger.debug(`Cache MISS: Fetching popular songs page ${page} from DB`);
+
     const { data, error, count } = await supabase
       .from("songs")
       .select("*", { count: "exact" })
@@ -551,6 +608,21 @@ const getPopularSongs = async (req, res) => {
         ERROR_MESSAGES.OPERATION_FAILED,
         [error.message],
       );
+    }
+
+    // Cache first page results
+    if (page === 1 && data.length > 0) {
+      const cacheData = {
+        data,
+        pagination: {
+          page,
+          limit,
+          total: count,
+          totalPages: Math.ceil(count / limit),
+        },
+      };
+      await cacheHelper.set(cacheKey, cacheData, CACHE_TTL.HOT_SONGS);
+      logger.info(`Cached popular songs page ${page} (TTL: ${CACHE_TTL.HOT_SONGS}s)`);
     }
 
     return paginatedResponse(
