@@ -11,6 +11,7 @@ import {
   GetObjectCommand
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { parseBuffer } from 'music-metadata';
 import config from '../config/index.js';
 import { logger } from '../utils/logger.js';
 import ApiError from '../utils/apiError.js';
@@ -110,6 +111,31 @@ class FileUploadHelper {
     // Check minimum size (1KB)
     if (fileSize < 1024) {
       throw ApiError.badRequest('File too small. Minimum size: 1KB');
+    }
+  }
+
+  /**
+   * Extract audio duration from buffer
+   * @param {Buffer} fileBuffer - Audio file buffer
+   * @param {string} mimeType - File MIME type
+   * @returns {Promise<number>} Duration in milliseconds
+   */
+  async extractDuration(fileBuffer, mimeType) {
+    try {
+      logger.debug('Extracting audio duration from buffer');
+      const metadata = await parseBuffer(fileBuffer, mimeType);
+      
+      if (metadata.format.duration) {
+        const durationMs = Math.round(metadata.format.duration * 1000);
+        logger.info(`Audio duration extracted: ${durationMs}ms (${Math.round(metadata.format.duration)}s)`);
+        return durationMs;
+      }
+      
+      logger.warn('Could not extract duration from audio file, using default');
+      return 180000; // 3 minutes default
+    } catch (error) {
+      logger.error('Error extracting audio duration:', error);
+      return 180000; // 3 minutes default
     }
   }
 

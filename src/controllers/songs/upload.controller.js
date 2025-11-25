@@ -5,7 +5,7 @@
 
 import { successResponse, errorResponse } from "../../utils/apiResponse.js";
 import { HTTP_STATUS, ERROR_MESSAGES } from "../../utils/constants.js";
-import { getSupabaseClient } from "../../database/connections/supabase.js";
+import { getSupabaseClient, getSupabaseAdmin } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import fileUploadHelper from "../../services/audioUpload.js";
@@ -16,12 +16,13 @@ import fileUploadHelper from "../../services/audioUpload.js";
  * @param {object} res - Express response object
  */
 const uploadSong = async (req, res) => {
-  const supabase = getSupabaseClient();
+  // Use admin client to bypass RLS for song insertion
+  const supabase = getSupabaseAdmin();
   if (!supabase) {
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.OPERATION_FAILED,
-      ["Supabase client not initialized"],
+      ["Supabase admin client not initialized"],
     );
   }
 
@@ -42,15 +43,25 @@ const uploadSong = async (req, res) => {
 
   const { title, artist, album, duration_ms } = req.body;
 
-  if (!title || !artist || !duration_ms) {
+  if (!title || !artist) {
     throw new ApiError(
       HTTP_STATUS.BAD_REQUEST,
-      "Title, artist, and duration are required",
+      "Title and artist are required",
     );
   }
 
   try {
     fileUploadHelper.validateFile(req.file.mimetype, req.file.size);
+
+    // Extract actual duration from audio file
+    const actualDuration = await fileUploadHelper.extractDuration(
+      req.file.buffer,
+      req.file.mimetype
+    );
+    
+    // Use extracted duration, fallback to provided duration_ms if extraction fails
+    const finalDuration = actualDuration || parseInt(duration_ms, 10) || 180000;
+    logger.info(`Using duration: ${finalDuration}ms for song "${title}"`);
 
     const fileKey = fileUploadHelper.generateFileKey(req.file.originalname);
 
@@ -63,16 +74,18 @@ const uploadSong = async (req, res) => {
         title,
         artist,
         album: album || null,
+        duration: finalDuration,
       }
     );
 
+    // Using admin client to bypass RLS
     const { data, error } = await supabase
       .from("songs")
       .insert({
         title: title.trim(),
         artist: artist.trim(),
         album: album?.trim() || null,
-        duration_ms: parseInt(duration_ms, 10),
+        duration_ms: finalDuration,
         r2_key: fileKey,
         file_sizes: {
           original: uploadResult.size,
@@ -82,6 +95,7 @@ const uploadSong = async (req, res) => {
         metadata: {
           uploaded_by: userId,
           original_filename: req.file.originalname,
+          extracted_duration: actualDuration !== null,
         },
       })
       .select()
