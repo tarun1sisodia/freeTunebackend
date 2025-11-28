@@ -7510,3 +7510,289 @@
 2025-11-25 22:17:45:1745 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
 2025-11-25 22:33:24:3324 [32minfo[39m: [32m[39m
 [32mSIGINT received. Starting graceful shutdown...[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-26 14:47:09:479 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-26 14:47:10:4710 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-11-26 14:47:10:4710 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-11-26 14:47:11:4711 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-11-26 14:47:16:4716 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-26 14:47:16:4716 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m📊 System Information:[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  • Platform: linux[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  • Memory: 65MB[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  • Environment: development[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m  • Port: 3000[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m   • Analytics:    ⚠️  Disabled[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-11-26 14:47:16:4716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-11-26 14:49:30:4930 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-11-26 14:49:30:4930 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 14:49:31:4931 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 14:49:31:4931 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-11-26 14:49:32:4932 [31merror[39m: [31mError in getRecentlyPlayed controller: CACHE_KEYS is not defined[39m
+2025-11-26 14:49:32:4932 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 14:49:32:4932 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-26 14:49:32:4932 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-26 14:50:44:5044 [31merror[39m: [31mError in getRecentlyPlayed controller: CACHE_KEYS is not defined[39m
+2025-11-26 14:50:44:5044 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 14:50:45:5045 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-26 14:50:45:5045 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-26 14:57:10:5710 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 14:57:10:5710 [31merror[39m: [31mGet user error: "[object Object]" is not valid JSON[39m
+2025-11-26 14:57:10:5710 [31merror[39m: [31mError: Failed to retrieve user[39m
+2025-11-26 14:58:09:589 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-11-26 14:58:14:5814 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 14:58:14:5814 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 14:58:14:5814 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-11-26 14:58:15:5815 [31merror[39m: [31mError in getRecentlyPlayed controller: CACHE_KEYS is not defined[39m
+2025-11-26 14:58:15:5815 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 14:58:16:5816 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-26 14:58:16:5816 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-26 15:03:36:336 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-26 15:03:48:348 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-11-26 15:03:48:348 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-11-26 15:03:55:355 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-11-26 15:04:01:41 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
+2025-11-26 15:04:01:41 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m📊 System Information:[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  • Platform: linux[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  • Memory: 36MB[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  • Environment: development[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m  • Port: 3000[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m   • Analytics:    ⚠️  Disabled[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-11-26 15:04:01:41 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-26 15:05:44:544 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-26 15:05:45:545 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-26 15:05:46:546 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-11-26 15:05:46:546 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-11-26 15:05:47:547 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m📊 System Information:[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  • Platform: linux[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  • Memory: 64MB[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  • Environment: development[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m  • Port: 3000[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-11-26 15:05:48:548 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-11-26 15:06:08:68 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 15:06:11:611 [37mdebug[39m: [37mCache MISS: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 15:06:11:611 [37mdebug[39m: [37mCache MISS: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 15:06:11:611 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-26 15:06:11:611 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-26 15:06:11:611 [37mdebug[39m: [37mCache SET: user:recent:a7db039c-7535-4265-9954-3e4464d74eec (TTL: 604800s)[39m
+2025-11-26 15:06:11:611 [37mdebug[39m: [37mCache SET: user:recent:a7db039c-7535-4265-9954-3e4464d74eec (TTL: 604800s)[39m
+2025-11-26 15:07:10:710 [32minfo[39m: [32mSupabase admin client initialized[39m
+2025-11-26 15:07:10:710 [37mdebug[39m: [37mExtracting audio duration from buffer[39m
+2025-11-26 15:07:10:710 [32minfo[39m: [32mAudio duration extracted: 283128ms (283s)[39m
+2025-11-26 15:07:10:710 [32minfo[39m: [32mUsing duration: 283128ms for song "one"[39m
+2025-11-26 15:07:10:710 [32minfo[39m: [32mR2 S3 client initialized successfully[39m
+2025-11-26 15:09:46:946 [32minfo[39m: [32mFile uploaded successfully: original/1764149830677-153e29d4066bb14e-One_Thousand_Miles_Full_AUDIO_Song_____Yo_Yo_Honey_Singh__Desi_Kalakaar__Honey_Singh_New_Songs_2014.mp3[39m
+2025-11-26 15:13:11:1311 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-26 15:13:17:1317 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-26 15:13:19:1319 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-11-26 15:13:19:1319 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-11-26 15:13:19:1319 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m📊 System Information:[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  • Platform: linux[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  • Memory: 68MB[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  • Environment: development[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m  • Port: 3000[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-11-26 15:13:20:1320 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-11-26 15:13:23:1323 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 15:13:28:1328 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-26 15:13:28:1328 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-26 15:13:29:1329 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 15:13:29:1329 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-26 15:13:29:1329 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-11-26 15:13:29:1329 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 15:16:24:1624 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m

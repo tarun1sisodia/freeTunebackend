@@ -85,7 +85,7 @@ const getSongById = async (req, res) => {
     // Try cache first
     const cacheKey = `song:${id}`;
     const cached = await cacheHelper.get(cacheKey);
-    
+
     if (cached) {
       logger.debug(`Cache HIT: song:${id}`);
       return successResponse(
@@ -169,7 +169,7 @@ const searchSongs = async (req, res) => {
     // Generate cache key (normalize query)
     const normalizedQuery = q.toLowerCase().trim();
     const cacheKey = `search:${normalizedQuery}:page:${page}:limit:${limit}`;
-    
+
     // Try cache first (only for first page)
     if (page === 1) {
       const cached = await cacheHelper.get(cacheKey);
@@ -266,9 +266,9 @@ const getRecentlyPlayed = async (req, res) => {
 
   try {
     // Try cache first
-    const cacheKey = CACHE_KEYS.USER_RECENT(userId);
+    const cacheKey = `user:recent:${userId}`;
     const cached = await cacheHelper.get(cacheKey);
-    
+
     if (cached) {
       logger.debug(`Cache HIT: ${cacheKey}`);
       return successResponse(
@@ -297,7 +297,7 @@ const getRecentlyPlayed = async (req, res) => {
         [error.message],
       );
     }
-// We need to test how much is best or not.
+    // We need to test how much is best or not.
     const songs = data.map((item) => ({
       ...item.songs,
       played_at: item.created_at,
@@ -618,7 +618,7 @@ const getPopularSongs = async (req, res) => {
   try {
     // Cache key for popular songs (page-specific)
     const cacheKey = `popular:songs:page:${page}:limit:${limit}`;
-    
+
     // Try cache first (only for first page for simplicity)
     if (page === 1) {
       const cached = await cacheHelper.get(cacheKey);

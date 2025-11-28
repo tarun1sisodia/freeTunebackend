@@ -116,3 +116,17 @@
 2025-11-25 21:01:35:135 [31merror[39m: [31mError: Invalid email or password[39m
 2025-11-25 21:01:42:142 [31merror[39m: [31mError: Invalid email or password[39m
 2025-11-25 22:16:20:1620 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-26 14:47:16:4716 [31merror[39m: [31mMongoose connection error: Server selection timed out after 5000 ms[39m
+2025-11-26 14:47:16:4716 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-26 14:49:32:4932 [31merror[39m: [31mError in getRecentlyPlayed controller: CACHE_KEYS is not defined[39m
+2025-11-26 14:49:32:4932 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 14:50:44:5044 [31merror[39m: [31mError in getRecentlyPlayed controller: CACHE_KEYS is not defined[39m
+2025-11-26 14:50:44:5044 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 14:57:10:5710 [31merror[39m: [31mGet user error: "[object Object]" is not valid JSON[39m
+2025-11-26 14:57:10:5710 [31merror[39m: [31mError: Failed to retrieve user[39m
+2025-11-26 14:58:15:5815 [31merror[39m: [31mError in getRecentlyPlayed controller: CACHE_KEYS is not defined[39m
+2025-11-26 14:58:15:5815 [31merror[39m: [31mError: Internal server error[39m
+2025-11-26 15:04:01:41 [31merror[39m: [31mMongoose connection error: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/[39m
+2025-11-26 15:04:01:41 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-11-26 15:13:29:1329 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-11-26 15:13:29:1329 [31merror[39m: [31mError: Internal server error[39m
