@@ -374,8 +374,16 @@ class AuthService {
       // Try to get from Redis cache first
       const cachedUser = await cacheGet(`user:${userId}`);
       if (cachedUser) {
+        // CACHE_KEYS.USER_RECENT(userId)
         logger.debug(`Cache HIT: user:${userId}`);
-        return JSON.parse(cachedUser);
+        // Handle both string and object responses from Redis
+        try {
+          return typeof cachedUser === 'string' ? JSON.parse(cachedUser) : cachedUser;
+        } catch (parseError) {
+          logger.error(`JSON parse error for cached user: ${parseError.message}`);
+          // Clear invalid cache and continue to fetch from DB
+          await cacheDel(`user:${userId}`);
+        }
       }
 
       logger.debug(`Cache MISS: user:${userId}`);
