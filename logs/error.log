@@ -130,3 +130,9 @@
 2025-11-26 15:04:01:41 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
 2025-11-26 15:13:29:1329 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2025-11-26 15:13:29:1329 [31merror[39m: [31mError: Internal server error[39m
+2025-11-28 20:13:12:1312 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-28 20:14:16:1416 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-11-28 20:14:16:1416 [31merror[39m: [31mError: Internal server error[39m
+2025-11-28 21:48:04:484 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-28 21:48:25:4825 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-11-28 21:48:25:4825 [31merror[39m: [31mError: Internal server error[39m

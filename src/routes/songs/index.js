@@ -85,7 +85,7 @@ router.delete("/:id", authMiddleware, asyncHandler(deleteSong));
 
 /**
  * Streaming Routes
- 
+ */
 
 // GET /api/v1/songs/:id/stream-url - Get presigned streaming URL
 router.get("/:id/stream-url", authMiddleware, asyncHandler(getStreamUrl));

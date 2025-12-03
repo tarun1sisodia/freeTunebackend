@@ -7796,3 +7796,171 @@
 2025-11-26 15:13:29:1329 [31merror[39m: [31mError: Internal server error[39m
 2025-11-26 15:16:24:1624 [32minfo[39m: [32m[39m
 [32mSIGINT received. Starting graceful shutdown...[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:24:1224 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-28 20:12:25:1225 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-28 20:12:26:1226 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-11-28 20:12:26:1226 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-11-28 20:12:27:1227 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m📊 System Information:[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  • Platform: linux[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  • Memory: 64MB[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  • Environment: development[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m  • Port: 3000[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-11-28 20:12:29:1229 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-11-28 20:13:12:1312 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-28 20:14:13:1413 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-11-28 20:14:14:1414 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 20:14:14:1414 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 20:14:14:1414 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-11-28 20:14:16:1416 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 20:14:16:1416 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 20:14:16:1416 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-11-28 20:14:16:1416 [31merror[39m: [31mError: Internal server error[39m
+2025-11-28 20:14:16:1416 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-28 20:14:16:1416 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-28 20:27:30:2730 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-28 21:42:33:4233 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-28 21:42:35:4235 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-11-28 21:42:35:4235 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-11-28 21:42:35:4235 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m📊 System Information:[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  • Platform: linux[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  • Memory: 68MB[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  • Environment: development[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m  • Port: 3000[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-11-28 21:42:37:4237 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-11-28 21:42:38:4238 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-11-28 21:48:04:484 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-11-28 21:48:23:4823 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-11-28 21:48:23:4823 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 21:48:23:4823 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 21:48:23:4823 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-11-28 21:48:25:4825 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 21:48:25:4825 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-11-28 21:48:25:4825 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-11-28 21:48:25:4825 [31merror[39m: [31mError: Internal server error[39m
+2025-11-28 21:48:25:4825 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-11-28 21:48:25:4825 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-11-28 21:53:27:5327 [32minfo[39m: [32mSupabase admin client initialized[39m
+2025-11-28 21:53:27:5327 [37mdebug[39m: [37mExtracting audio duration from buffer[39m
+2025-11-28 21:53:27:5327 [32minfo[39m: [32mAudio duration extracted: 255000ms (255s)[39m
+2025-11-28 21:53:27:5327 [32minfo[39m: [32mUsing duration: 255000ms for song "Sawaal Puchdi"[39m
+2025-11-28 21:53:27:5327 [32minfo[39m: [32mR2 S3 client initialized successfully[39m
+2025-11-28 21:53:33:5333 [32minfo[39m: [32mFile uploaded successfully: original/1764347007804-f02cec7b957e160d-Sawaal_Puchdi__Official_Video______Yo_Yo_Honey_Singh_____Bohemia_____51_Glorious_Days_____Bhushan_Kumar__472GGh5D_h8_.mp3[39m
+2025-11-28 21:55:43:5543 [37mdebug[39m: [37mCache MISS: search:sawaal pu:page:1:limit:20[39m
+2025-11-28 21:55:43:5543 [37mdebug[39m: [37mCache MISS: Searching for "Sawaal Pu" in database[39m
+2025-11-28 21:55:43:5543 [37mdebug[39m: [37mCache MISS: search:sawaal:page:1:limit:20[39m
+2025-11-28 21:55:43:5543 [37mdebug[39m: [37mCache MISS: Searching for "Sawaal" in database[39m
+2025-11-28 21:55:46:5546 [37mdebug[39m: [37mCache MISS: search:sawaal puchdi:page:1:limit:20[39m
+2025-11-28 21:55:46:5546 [37mdebug[39m: [37mCache MISS: Searching for "Sawaal Puchdi" in database[39m
+2025-11-28 21:55:58:5558 [37mdebug[39m: [37mCache MISS: search:sawaal puchd:page:1:limit:20[39m
+2025-11-28 21:55:58:5558 [37mdebug[39m: [37mCache MISS: Searching for "Sawaal Puchd" in database[39m
+2025-11-28 21:55:59:5559 [37mdebug[39m: [37mCache MISS: search:sawaal:page:1:limit:20[39m
+2025-11-28 21:55:59:5559 [37mdebug[39m: [37mCache MISS: Searching for "Sawaal" in database[39m
+2025-11-28 21:56:04:564 [37mdebug[39m: [37mCache MISS: search:one:page:1:limit:20[39m
+2025-11-28 21:56:04:564 [37mdebug[39m: [37mCache MISS: Searching for "One" in database[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32mSupabase client initialized[39m
+2025-11-28 21:57:16:5716 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
