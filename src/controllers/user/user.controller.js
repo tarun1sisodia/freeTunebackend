@@ -6,7 +6,7 @@ import { logger } from "../../utils/logger.js";
 import cacheHelper from "../../utils/cacheHelper.js";
 
 // Hardcoded user ID for testing purposes until authentication is implemented
-const TEST_USER_ID = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"; 
+// const TEST_USER_ID = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"; 
 
 /**
  * @description Get user preferences
@@ -24,13 +24,13 @@ const getUserPreferences = async (req, res) => {
     );
   }
 
-  const userId = req.user?.id || TEST_USER_ID; // Use authenticated user ID or test ID
+  const userId = req.user?.id; // Use authenticated user ID or test ID
 
   try {
     // Try cache first
     const cacheKey = `user:prefs:${userId}`;
     const cached = await cacheHelper.get(cacheKey);
-    
+
     if (cached) {
       logger.debug(`Cache HIT: ${cacheKey}`);
       return successResponse(
