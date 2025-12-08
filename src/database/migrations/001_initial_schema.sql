@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS songs (
     title VARCHAR(255) NOT NULL,
     artist VARCHAR(255) NOT NULL,
     album VARCHAR(255),
-    album_art_url VARCHAR(500),
+    album_art_url VARCHAR(500), -- URL to album artwork stored in R2 or external CDN
     duration_ms INTEGER NOT NULL,
     r2_key VARCHAR(500) NOT NULL, -- canonical storage path (R2 key)
     file_sizes JSONB DEFAULT '{}', -- e.g. {"original": 28946239, "high": 7123241, "medium": 3232401, "low": 1583230}

@@ -20,7 +20,6 @@ import { ENVIRONMENTS } from "./utils/constants.js";
 
 // Initialize Express app
 const app = express();
-
 // ============================================================================
 // TRUST PROXY (for deployment behind reverse proxy)
 // ============================================================================
