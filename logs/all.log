@@ -7371,3 +7371,99 @@
 2025-11-25 20:48:42:4842 [31merror[39m: [31mError: Invalid or expired token[39m
 2025-11-25 20:50:13:5013 [32minfo[39m: [32m[39m
 [32mSIGINT received. Starting graceful shutdown...[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: Route /api/v1/songs/123/stream-url not found[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: Route /api/v1/nonexistent not found[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: Route /api/v1 not found[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: Route /api/v1/nonexistent not found[39m
+2025-12-10 19:29:16:2916 [31merror[39m: [31mError: Validation failed[39m
+2025-12-10 19:29:17:2917 [31merror[39m: [31mError: Validation failed[39m
+2025-12-10 19:29:17:2917 [31merror[39m: [31mError: Validation failed[39m
+2025-12-10 19:29:17:2917 [31merror[39m: [31mError: Validation failed[39m
+2025-12-10 19:29:17:2917 [31merror[39m: [31mError: Validation failed[39m
+2025-12-10 19:29:17:2917 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:18:3018 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:30:40:3040 [31merror[39m: [31mError getting personalized recommendations: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:30:40:3040 [31merror[39m: [31mError: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:30:40:3040 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-10 19:30:40:3040 [33mwarn[39m: [33mCache disabled: Redis client not available[39m
+2025-12-10 19:30:50:3050 [31merror[39m: [31mError getting similar songs: Operation `song_features.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:30:50:3050 [31merror[39m: [31mError: Operation `song_features.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:00:310 [31merror[39m: [31mError getting mood-based recommendations: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:00:310 [31merror[39m: [31mError: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:10:3110 [31merror[39m: [31mError getting trending songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:10:3110 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:20:3120 [31merror[39m: [31mError getting user stats: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:20:3120 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:30:3130 [31merror[39m: [31mError getting user top songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:30:3130 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:55:3155 [31merror[39m: [31mError getting personalized recommendations: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:55:3155 [31merror[39m: [31mError: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:31:55:3155 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-10 19:31:55:3155 [33mwarn[39m: [33mCache disabled: Redis client not available[39m
+2025-12-10 19:32:05:325 [31merror[39m: [31mError getting similar songs: Operation `song_features.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:05:325 [31merror[39m: [31mError: Operation `song_features.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:15:3215 [31merror[39m: [31mError getting mood-based recommendations: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:15:3215 [31merror[39m: [31mError: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:25:3225 [31merror[39m: [31mError getting trending songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:25:3225 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:35:3235 [31merror[39m: [31mError getting user stats: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:35:3235 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:45:3245 [31merror[39m: [31mError getting user top songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:32:45:3245 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:03:333 [31merror[39m: [31mError tracking listening pattern: ListeningPattern validation failed: completionRate: Cast to Number failed for value "NaN" (type number) at path "completionRate", userId: Path `userId` is required., playDuration: Path `playDuration` is required., source: Path `source` is required.[39m
+2025-12-10 19:33:03:333 [31merror[39m: [31mError: ListeningPattern validation failed: completionRate: Cast to Number failed for value "NaN" (type number) at path "completionRate", userId: Path `userId` is required., playDuration: Path `playDuration` is required., source: Path `source` is required.[39m
+2025-12-10 19:33:13:3313 [31merror[39m: [31mError getting user stats: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:13:3313 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:23:3323 [31merror[39m: [31mError getting user top songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:23:3323 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:33:3333 [31merror[39m: [31mError getting user time patterns: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:33:3333 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:43:3343 [31merror[39m: [31mError getting user genre preferences: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:43:3343 [31merror[39m: [31mError: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:53:3353 [31merror[39m: [31mError getting user mood preferences: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:33:53:3353 [31merror[39m: [31mError: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError tracking listening pattern: ListeningPattern validation failed: completionRate: Cast to Number failed for value "NaN" (type number) at path "completionRate", userId: Path `userId` is required., playDuration: Path `playDuration` is required., source: Path `source` is required.[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: ListeningPattern validation failed: completionRate: Cast to Number failed for value "NaN" (type number) at path "completionRate", userId: Path `userId` is required., playDuration: Path `playDuration` is required., source: Path `source` is required.[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:09:359 [31merror[39m: [31mError: No token provided[39m
+2025-12-10 19:35:19:3519 [31merror[39m: [31mError getting personalized recommendations: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:19:3519 [31merror[39m: [31mError: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:19:3519 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-10 19:35:19:3519 [33mwarn[39m: [33mCache disabled: Redis client not available[39m
+2025-12-10 19:35:19:3519 [31merror[39m: [31mError getting user stats: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:19:3519 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:29:3529 [31merror[39m: [31mError getting similar songs: Operation `song_features.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:29:3529 [31merror[39m: [31mError: Operation `song_features.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:29:3529 [31merror[39m: [31mError getting user top songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:29:3529 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:39:3539 [31merror[39m: [31mError getting mood-based recommendations: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:39:3539 [31merror[39m: [31mError: Operation `recommendation_cache.findOne()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:39:3539 [31merror[39m: [31mError getting user time patterns: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:39:3539 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:49:3549 [31merror[39m: [31mError getting trending songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:49:3549 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:49:3549 [31merror[39m: [31mError getting user genre preferences: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:49:3549 [31merror[39m: [31mError: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:59:3559 [31merror[39m: [31mError getting user stats: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:59:3559 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:59:3559 [31merror[39m: [31mError getting user mood preferences: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:35:59:3559 [31merror[39m: [31mError: Operation `listening_patterns.distinct()` buffering timed out after 10000ms[39m
+2025-12-10 19:36:09:369 [31merror[39m: [31mError getting user top songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:36:09:369 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:36:09:369 [31merror[39m: [31mError getting trending songs: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
+2025-12-10 19:36:09:369 [31merror[39m: [31mError: Operation `listening_patterns.aggregate()` buffering timed out after 10000ms[39m
