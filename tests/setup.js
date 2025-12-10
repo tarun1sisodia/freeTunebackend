@@ -15,15 +15,12 @@ process.env.NODE_ENV = 'test';
 global.console = {
   ...console,
   // Uncomment to silence console logs during tests
-  // log: jest.fn(),
-  // debug: jest.fn(),
-  // info: jest.fn(),
-  // warn: jest.fn(),
-  // error: jest.fn(),
+  // log: () => {},
+  // debug: () => {},
+  // info: () => {},
+  // warn: () => {},
+  // error: () => {},
 };
-
-// Increase timeout for integration tests
-jest.setTimeout(30000);
 
 // Global test utilities
 global.mockRequest = (overrides = {}) => ({
@@ -37,12 +34,13 @@ global.mockRequest = (overrides = {}) => ({
 
 global.mockResponse = () => {
   const res = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn().mockReturnValue(res);
-  res.send = jest.fn().mockReturnValue(res);
-  res.setHeader = jest.fn().mockReturnValue(res);
+  const mockFn = () => res;
+  res.status = mockFn;
+  res.json = mockFn;
+  res.send = mockFn;
+  res.setHeader = mockFn;
   return res;
 };
 
-global.mockNext = jest.fn();
+global.mockNext = () => {};
 
