@@ -314,6 +314,10 @@ const startServer = async () => {
   }
 };
 
+// Initialize Transcode Listener for background job updates
+import { initTranscodeListener } from "./listeners/transcode.listener.js";
+initTranscodeListener();
+
 // ============================================================================
 // START THE APPLICATION
 // ============================================================================

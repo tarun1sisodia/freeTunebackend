@@ -11,6 +11,7 @@ import { logger } from "../../utils/logger.js";
 import { transformSong } from "../../utils/modelTransformers.js";
 import fileUploadHelper from "../../services/audioUpload.js";
 import cacheHelper from "../../utils/cacheHelper.js";
+import { addTranscodeJob } from "../../queues/transcode.queue.js";
 
 /**
  * @description Upload song to Cloudflare R2 and save metadata to database
@@ -168,6 +169,14 @@ const uploadSong = async (req, res) => {
       CACHE_TTL.HOT_SONGS
     );
     logger.debug(`Cache SET: song:${data.id} (TTL: ${CACHE_TTL.HOT_SONGS}s)`);
+
+    // Dispatch background transcoding job
+    await addTranscodeJob({
+      songId: data.id,
+      fileKey: fileKey,
+      source: 'r2' // Indicate that the source file is in R2
+    });
+    logger.info(`Transcode job dispatched for song: ${data.id}`);
 
     return successResponse(
       res,
