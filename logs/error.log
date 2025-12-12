@@ -157,3 +157,19 @@
 2025-12-05 21:52:50:5250 [31merror[39m: [31mError: Invalid or expired token[39m
 2025-12-05 21:53:58:5358 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2025-12-05 21:53:58:5358 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 15:23:44:2344 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-12 15:24:44:2444 [31merror[39m: [31mError: Invalid email or password[39m
+2025-12-12 15:26:37:2637 [31merror[39m: [31mFile upload failed for original/1765533396823-892f59ff9a3c7b3f-Blue_Eyes_Full_Video_Song_Yo_Yo_Honey_Singh_____Blockbuster_Song_Of_2013__NbyHNASFi6U_.mp3: Unauthorized[39m
+2025-12-12 15:26:37:2637 [31merror[39m: [31mError in uploadSong controller: File upload failed[39m
+2025-12-12 15:26:37:2637 [31merror[39m: [31mError: File upload failed[39m
+2025-12-12 15:26:47:2647 [31merror[39m: [31mFile upload failed for original/1765533407254-4e742fb4155174cf-Blue_Eyes_Full_Video_Song_Yo_Yo_Honey_Singh_____Blockbuster_Song_Of_2013__NbyHNASFi6U_.mp3: Unauthorized[39m
+2025-12-12 15:26:47:2647 [31merror[39m: [31mError in uploadSong controller: File upload failed[39m
+2025-12-12 15:26:47:2647 [31merror[39m: [31mError: File upload failed[39m
+2025-12-12 15:29:51:2951 [31merror[39m: [31mFile upload failed for original/1765533590604-2e55f5248fad9f2d-MAKHNA_Video_With_Lyrics______Yo_Yo_Honey_Singh_____Neha_Kakkar__Singhsta__TDO_____Bhushan_Kumar__3fwtD3SplNM_.mp3: Unauthorized[39m
+2025-12-12 15:29:51:2951 [31merror[39m: [31mError in uploadSong controller: File upload failed[39m
+2025-12-12 15:29:51:2951 [31merror[39m: [31mError: File upload failed[39m
+2025-12-12 15:54:39:5439 [31merror[39m: [31mMongoose connection error: querySrv ESERVFAIL _mongodb._tcp.freetune.ambbuc9.mongodb.net[39m
+2025-12-12 15:54:39:5439 [31merror[39m: [31m  ❌ MongoDB (Mongoose) URI set but connection failed[39m
+2025-12-12 15:56:29:5629 [31merror[39m: [31mFile upload failed for original/1765535189198-2a214a0ef39f59b0-Afusic_-_Pal_Pal__Official_Music_Video__Prod___AliSoomroMusic__8of5w7RgcTc_.mp3: Unauthorized[39m
+2025-12-12 15:56:29:5629 [31merror[39m: [31mError in uploadSong controller: File upload failed[39m
+2025-12-12 15:56:29:5629 [31merror[39m: [31mError: File upload failed[39m
