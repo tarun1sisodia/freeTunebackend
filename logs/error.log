@@ -173,3 +173,60 @@
 2025-12-12 15:56:29:5629 [31merror[39m: [31mFile upload failed for original/1765535189198-2a214a0ef39f59b0-Afusic_-_Pal_Pal__Official_Music_Video__Prod___AliSoomroMusic__8of5w7RgcTc_.mp3: Unauthorized[39m
 2025-12-12 15:56:29:5629 [31merror[39m: [31mError in uploadSong controller: File upload failed[39m
 2025-12-12 15:56:29:5629 [31merror[39m: [31mError: File upload failed[39m
+2025-12-12 16:44:35:4435 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 16:44:35:4435 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 16:50:26:5026 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 16:50:26:5026 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 16:52:57:5257 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 16:52:57:5257 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 17:07:37:737 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 17:07:37:737 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 17:08:48:848 [31merror[39m: [31mError creating playlist: new row violates row-level security policy for table "playlists"[39m
+2025-12-12 17:08:48:848 [31merror[39m: [31mError in createPlaylist controller: Operation failed[39m
+2025-12-12 17:08:48:848 [31merror[39m: [31mError: Operation failed[39m
+2025-12-12 17:12:09:129 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 17:12:09:129 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 17:13:47:1347 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 17:13:47:1347 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 18:41:15:4115 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 18:41:15:4115 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 18:43:44:4344 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 18:43:44:4344 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 18:45:52:4552 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 18:45:52:4552 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 18:59:25:5925 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 18:59:25:5925 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 19:01:16:116 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 19:01:16:116 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 19:26:28:2628 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 19:26:28:2628 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 19:45:54:4554 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-12 19:45:54:4554 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-12 19:47:20:4720 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:48:01:481 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:52:44:5244 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:53:54:5354 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:53:54:5354 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:55:40:5540 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:56:17:5617 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:56:19:5619 [31merror[39m: [31mError: Route /favicon.ico not found[39m
+2025-12-12 19:56:26:5626 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:56:33:5633 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 19:56:39:5639 [31merror[39m: [31mError: Route /api/v1/auth/login not found[39m
+2025-12-12 19:59:21:5921 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 20:10:48:1048 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 20:10:48:1048 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 20:11:30:1130 [31merror[39m: [31mError: No token provided[39m
+2025-12-12 20:18:12:1812 [31merror[39m: [31mError: Route / not found[39m
+2025-12-12 20:18:13:1813 [31merror[39m: [31mError: Route /favicon.ico not found[39m
+2025-12-12 20:21:09:219 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 20:21:09:219 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 20:21:53:2153 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 20:21:53:2153 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 20:22:40:2240 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 20:22:40:2240 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 20:24:55:2455 [31merror[39m: [31mFile upload failed for original/1765551294741-977b40bb16c72bf9-BAROTA__MUSIC_VIDEO__SIDHU_MOOSE_WALA_____THE_KIDD_____LATEST_PUNJABI_SONGS_2025__tHVDy4vYApA_.mp3: Unauthorized[39m
+2025-12-12 20:24:55:2455 [31merror[39m: [31mError in uploadSong controller: File upload failed[39m
+2025-12-12 20:24:55:2455 [31merror[39m: [31mError: File upload failed[39m
+2025-12-12 21:06:09:69 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 21:06:09:69 [31merror[39m: [31mError: Internal server error[39m
