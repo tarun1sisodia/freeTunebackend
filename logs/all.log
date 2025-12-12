@@ -9535,3 +9535,237 @@
 2025-12-12 21:09:52:952 [37mdebug[39m: [37mGenerated signed URL for: original/1765553796840-27c9688ba796a7f3-BAROTA__MUSIC_VIDEO__SIDHU_MOOSE_WALA_____THE_KIDD_____LATEST_PUNJABI_SONGS_2025__tHVDy4vYApA_.mp3[39m
 2025-12-12 21:09:52:952 [37mdebug[39m: [37mCache SET: cdn:url:b52ffe28-935c-4869-b1b3-d7f8cac16492:high (TTL: 1800s)[39m
 2025-12-12 21:09:52:952 [32minfo[39m: [32mCached direct stream URL for song b52ffe28-935c-4869-b1b3-d7f8cac16492[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-12 21:30:22:3022 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-12 21:30:28:3028 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-12 21:30:30:3030 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-12 21:30:30:3030 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-12-12 21:30:31:3031 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  • Memory: 65MB[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-12 21:30:32:3032 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-12 21:31:00:310 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-12 21:31:01:311 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-12 21:31:01:311 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-12-12 21:31:01:311 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  • Memory: 65MB[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-12 21:31:02:312 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-12-12 21:41:48:4148 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-12 21:43:00:430 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-12-12 21:43:01:431 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:43:01:431 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:43:01:431 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-12-12 21:43:03:433 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:43:03:433 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:43:03:433 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 21:43:03:433 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 21:43:34:4334 [37mdebug[39m: [37mCache MISS: search:one:page:1:limit:20[39m
+2025-12-12 21:43:34:4334 [37mdebug[39m: [37mCache MISS: Searching for "one" in database[39m
+2025-12-12 21:43:35:4335 [37mdebug[39m: [37mCache SET: search:one:page:1:limit:20 (TTL: 1800s)[39m
+2025-12-12 21:43:35:4335 [32minfo[39m: [32mCached search results for "one" (TTL: 1800s)[39m
+2025-12-12 21:45:09:459 [32minfo[39m: [32mSupabase admin client initialized[39m
+2025-12-12 21:45:09:459 [37mdebug[39m: [37mExtracting audio duration from buffer[39m
+2025-12-12 21:45:09:459 [32minfo[39m: [32mAudio duration extracted: 248040ms (248s)[39m
+2025-12-12 21:45:09:459 [32minfo[39m: [32mR2 S3 client initialized successfully[39m
+2025-12-12 21:45:17:4517 [32minfo[39m: [32mFile uploaded successfully: original/1765556109912-22ee4c9cbcc69f04-Saiyaara_Title_Song_____Ahaan_Panday__Aneet_Padda_____Tanishk_Bagchi__Faheem_A__Arslan_N_____Irshad_Kamil__BSJa1UytM8w_.mp3[39m
+2025-12-12 21:46:04:464 [37mdebug[39m: [37mCache MISS: search:sai:page:1:limit:20[39m
+2025-12-12 21:46:04:464 [37mdebug[39m: [37mCache MISS: Searching for "Sai" in database[39m
+2025-12-12 21:46:04:464 [37mdebug[39m: [37mCache SET: search:sai:page:1:limit:20 (TTL: 1800s)[39m
+2025-12-12 21:46:04:464 [32minfo[39m: [32mCached search results for "Sai" (TTL: 1800s)[39m
+2025-12-12 21:46:04:464 [37mdebug[39m: [37mCache MISS: search:saiya:page:1:limit:20[39m
+2025-12-12 21:46:04:464 [37mdebug[39m: [37mCache MISS: Searching for "Saiya" in database[39m
+2025-12-12 21:46:05:465 [37mdebug[39m: [37mCache SET: search:saiya:page:1:limit:20 (TTL: 1800s)[39m
+2025-12-12 21:46:05:465 [32minfo[39m: [32mCached search results for "Saiya" (TTL: 1800s)[39m
+2025-12-12 21:46:05:465 [37mdebug[39m: [37mCache MISS: search:saiyaar:page:1:limit:20[39m
+2025-12-12 21:46:05:465 [37mdebug[39m: [37mCache MISS: Searching for "Saiyaar" in database[39m
+2025-12-12 21:46:05:465 [37mdebug[39m: [37mCache SET: search:saiyaar:page:1:limit:20 (TTL: 1800s)[39m
+2025-12-12 21:46:05:465 [32minfo[39m: [32mCached search results for "Saiyaar" (TTL: 1800s)[39m
+2025-12-12 21:46:06:466 [37mdebug[39m: [37mCache MISS: search:saiyaa:page:1:limit:20[39m
+2025-12-12 21:46:06:466 [37mdebug[39m: [37mCache MISS: Searching for "Saiyaa" in database[39m
+2025-12-12 21:46:07:467 [37mdebug[39m: [37mCache SET: search:saiyaa:page:1:limit:20 (TTL: 1800s)[39m
+2025-12-12 21:46:07:467 [32minfo[39m: [32mCached search results for "Saiyaa" (TTL: 1800s)[39m
+2025-12-12 21:47:19:4719 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:47:21:4721 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:47:21:4721 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-12 21:47:21:4721 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 21:47:21:4721 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 21:59:22:5922 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-12 21:59:22:5922 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-12 22:00:27:027 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-12 22:00:29:029 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-12 22:00:35:035 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-12 22:00:35:035 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-12-12 22:00:42:042 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  • Memory: 63MB[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-12 22:00:45:045 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m

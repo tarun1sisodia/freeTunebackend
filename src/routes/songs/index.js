@@ -73,7 +73,10 @@ router.get("/:id", authMiddleware, asyncHandler(getSongById));
 router.post(
   "/upload",
   authMiddleware,
-  upload.single("audio"),
+  upload.fields([
+    { name: "audio", maxCount: 1 },
+    { name: "image", maxCount: 1 },
+  ]),
   asyncHandler(uploadSong)
 );
 

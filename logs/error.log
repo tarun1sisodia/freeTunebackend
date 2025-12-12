@@ -230,3 +230,8 @@
 2025-12-12 20:24:55:2455 [31merror[39m: [31mError: File upload failed[39m
 2025-12-12 21:06:09:69 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2025-12-12 21:06:09:69 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 21:41:48:4148 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-12 21:43:03:433 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 21:43:03:433 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 21:47:21:4721 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 21:47:21:4721 [31merror[39m: [31mError: Internal server error[39m
