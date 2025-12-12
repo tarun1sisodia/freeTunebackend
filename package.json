@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Ultra-performance music streaming backend with zero-cost architecture",
   "main": "src/index.js",
-  "type": "module", 
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
@@ -52,6 +52,7 @@
   "devDependencies": {
     "@types/node": "^20.10.6",
     "eslint": "^8.56.0",
+    "form-data": "^4.0.5",
     "jest": "^30.2.0",
     "node-fetch": "^2.6.1",
     "nodemon": "^3.1.11",
