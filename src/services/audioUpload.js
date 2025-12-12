@@ -115,6 +115,24 @@ class FileUploadHelper {
   }
 
   /**
+   * Validate image file type and size
+   * @param {string} mimeType - File MIME type
+   * @param {number} fileSize - File size in bytes
+   * @throws {ApiError} If validation fails
+   */
+  validateImage(mimeType, fileSize) {
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(mimeType)) {
+      throw ApiError.badRequest(
+        `Unsupported image type: ${mimeType}. Supported formats: JPEG, PNG, WEBP`,
+      );
+    }
+
+    if (fileSize > 5 * 1024 * 1024) { // 5MB limit
+      throw ApiError.badRequest('Image too large. Maximum size: 5MB');
+    }
+  }
+
+  /**
    * Extract audio duration from buffer
    * @param {Buffer} fileBuffer - Audio file buffer
    * @param {string} mimeType - File MIME type
@@ -124,13 +142,13 @@ class FileUploadHelper {
     try {
       logger.debug('Extracting audio duration from buffer');
       const metadata = await parseBuffer(fileBuffer, mimeType);
-      
+
       if (metadata.format.duration) {
         const durationMs = Math.round(metadata.format.duration * 1000);
         logger.info(`Audio duration extracted: ${durationMs}ms (${Math.round(metadata.format.duration)}s)`);
         return durationMs;
       }
-      
+
       logger.warn('Could not extract duration from audio file, using default');
       return 180000; // 3 minutes default
     } catch (error) {
