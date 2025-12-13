@@ -1,9 +1,12 @@
 import { Router } from "express";
 import { asyncHandler } from "../../utils/asyncHandler.js";
-import { getUserPreferences, updateUserPreferences } from "../../controllers/user/user.controller.js";
+import { authMiddleware } from "../../middleware/auth.js";
+import { getUserPreferences, updateUserPreferences, getUploadedSongs } from "../../controllers/user/user.controller.js";
 
 const router = Router();
 
-router.route("/preferences").get(asyncHandler(getUserPreferences)).put(asyncHandler(updateUserPreferences));
+router.route("/preferences").get(authMiddleware, asyncHandler(getUserPreferences)).put(authMiddleware, asyncHandler(updateUserPreferences));
+
+router.get("/songs", authMiddleware, asyncHandler(getUploadedSongs));
 
 export default router;

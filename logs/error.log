@@ -252,3 +252,5 @@
 2025-12-13 12:19:47:1947 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2025-12-13 12:19:47:1947 [31merror[39m: [31mError: Internal server error[39m
 2025-12-13 12:21:39:2139 [31merror[39m: [31mFailed to update HLS URL for song 49b2880e-bcbb-45d1-985f-3fef41886610: Could not find the 'hls_url' column of 'songs' in the schema cache[39m
+2025-12-13 13:48:14:4814 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 13:48:14:4814 [31merror[39m: [31mError: Internal server error[39m

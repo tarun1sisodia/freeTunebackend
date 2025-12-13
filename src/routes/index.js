@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import healthCheckRouter from './healthcheck/index.js';
 import authRouter from './user/auth.routes.js';
+import userRouter from './user/index.js';
 import songsRouter from './songs/index.js';
 import playlistsRouter from './playlists/index.js';
 import recommendationsRouter from './recommendations/index.js';
@@ -13,6 +14,9 @@ router.use('/healthcheck', healthCheckRouter);
 
 // Mount auth routes
 router.use('/auth', authRouter);
+
+// Mount user routes (profile, preferences, uploaded songs)
+router.use('/user', userRouter);
 
 // Mount songs routes (includes upload & streaming)
 router.use('/songs', songsRouter);
