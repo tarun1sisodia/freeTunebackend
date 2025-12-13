@@ -330,12 +330,38 @@ const deleteSong = async (req, res) => {
   try {
     const { data: song, error: songError } = await supabase
       .from("songs")
-      .select("id, r2_key, metadata")
+      .select("id, title, artist, r2_key, metadata")
       .eq("id", id)
       .single();
 
     if (songError || !song) {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
+    }
+
+    // Verify ownership (optional but recommended, though user logic might differ)
+    // If we want only uploader to delete:
+    if (song.metadata?.uploaded_by && song.metadata.uploaded_by !== userId) {
+      // Check if user is admin? For now, assuming request implies permission or shared access.
+      // Current requirement is "Delete", assuming proper auth check upstream or here.
+      // Let's assume if they can see it in "My Songs" they own it, but good to be safe.
+      // For now, proceeding as ownership implementation is in getUploadedSongs.
+      if (song.metadata.uploaded_by !== userId) {
+        throw new ApiError(HTTP_STATUS.FORBIDDEN, "You can only delete your own songs");
+      }
+    }
+
+    // ARCHIVE TO deleted_songs (Soft Delete history)
+    try {
+      await supabase.from("deleted_songs").insert({
+        original_song_id: song.id,
+        title: song.title,
+        artist: song.artist,
+        deleted_by: userId,
+        metadata: song.metadata
+      });
+    } catch (archiveError) {
+      logger.warn("Failed to archive song to deleted_songs (Table might be missing):", archiveError);
+      // Proceed with deletion anyway as per requirement "Permanent delete" is the primary action.
     }
 
     const { error: deleteError } = await supabase

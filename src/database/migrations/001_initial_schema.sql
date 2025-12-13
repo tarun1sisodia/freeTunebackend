@@ -106,3 +106,22 @@ CREATE TRIGGER update_user_preferences_updated_at
 -- 2. For streaming and search performance, hot/cold logic/caching is pushed to Upstash Redis, not represented here.
 -- 3. For future features: if collaborative playlists, friend graph, or in-depth listening analytics are desired, new tables can be added.
 -- 4. For personal/private use and maximum performance, this schema fully aligns with the MEMO.md's architectural intent and constraints. No further normalization or sharding is needed.
+CREATE TABLE IF NOT EXISTS deleted_songs (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    original_song_id UUID,
+    title TEXT,
+    artist TEXT,
+    deleted_at TIMESTAMPTZ DEFAULT NOW(),
+    deleted_by UUID,
+    metadata JSONB
+);
+
+-- Add RLS policies if needed, but for now we'll keep it simple as it's an audit log.
+-- Only admin or authenticated users might read/write.
+ALTER TABLE deleted_songs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Enable insert for authenticated users" ON deleted_songs
+    FOR INSERT WITH CHECK (auth.uid() = deleted_by);
+
+CREATE POLICY "Enable select for users who deleted" ON deleted_songs
+    FOR SELECT USING (auth.uid() = deleted_by);

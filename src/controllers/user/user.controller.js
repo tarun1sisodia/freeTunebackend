@@ -136,7 +136,76 @@ const updateUserPreferences = async (req, res) => {
       HTTP_STATUS.OK,
     );
   } catch (error) {
-    logger.error(`Error in updateUserPreferences controller for user ${userId}:`, error);
+    throw new ApiError(
+      HTTP_STATUS.INTERNAL_SERVER_ERROR,
+      ERROR_MESSAGES.INTERNAL_ERROR,
+    );
+  }
+};
+
+/**
+ * @description Get songs uploaded by the user
+ * @param {object} req - Express request object
+ * @param {object} res - Express response object
+ */
+const getUploadedSongs = async (req, res) => {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    throw new ApiError(
+      HTTP_STATUS.INTERNAL_SERVER_ERROR,
+      ERROR_MESSAGES.OPERATION_FAILED,
+      ["Supabase client not initialized"],
+    );
+  }
+
+  const userId = req.user?.id; // Use authenticated user ID
+  if (!userId) {
+    throw new ApiError(
+      HTTP_STATUS.UNAUTHORIZED,
+      ERROR_MESSAGES.UNAUTHORIZED,
+    );
+  }
+
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 50;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit - 1;
+
+  try {
+    // Querying existing songs table where metadata->>uploaded_by equals userId
+    // Note: This relies on the convention established in upload.controller.js
+    const { data, error, count } = await supabase
+      .from("songs")
+      .select("*", { count: "exact" })
+      .eq("metadata->>uploaded_by", userId)
+      .order("created_at", { ascending: false })
+      .range(startIndex, endIndex);
+
+    if (error) {
+      logger.error(`Error fetching uploaded songs for user ${userId}:`, error);
+      throw new ApiError(
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        ERROR_MESSAGES.OPERATION_FAILED,
+        [error.message],
+      );
+    }
+
+    return successResponse(
+      res,
+      {
+        songs: data,
+        pagination: {
+          page,
+          limit,
+          total: count,
+          totalPages: Math.ceil(count / limit),
+        }
+      },
+      "Uploaded songs fetched successfully",
+      HTTP_STATUS.OK,
+    );
+  } catch (error) {
+    logger.error(`Error in getUploadedSongs controller for user ${userId}:`, error);
     if (error instanceof ApiError) {
       throw error;
     }
@@ -147,4 +216,4 @@ const updateUserPreferences = async (req, res) => {
   }
 };
 
-export { getUserPreferences, updateUserPreferences };
+export { getUserPreferences, updateUserPreferences, getUploadedSongs };
