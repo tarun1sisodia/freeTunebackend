@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS songs (
     album VARCHAR(255),
     album_art_url VARCHAR(500), -- URL to album artwork stored in R2 or external CDN
     duration_ms INTEGER NOT NULL,
-    r2_key VARCHAR(500) NOT NULL, -- canonical storage path (R2 key)
+    r2_key VARCHAR(500), -- canonical storage path (R2 key) - Nullable if HLS is used and original deleted
+    hls_url VARCHAR(500), -- HLS streaming URL (m3u8)
     file_sizes JSONB DEFAULT '{}', -- e.g. {"original": 28946239, "high": 7123241, "medium": 3232401, "low": 1583230}
     play_count INTEGER DEFAULT 0,
     last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),

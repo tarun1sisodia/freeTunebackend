@@ -1,8 +1,9 @@
-import { Worker } from "bullmq";
-import { getRedisClient } from "../database/connections/redis.js";
+import { Worker, QueueEvents } from "bullmq";
+import getQueueConnection from "../database/connections/redisQueue.js";
 import { getSupabaseAdmin } from "../database/connections/supabase.js";
 import { logger } from "../utils/logger.js";
 import cacheHelper from "../utils/cacheHelper.js";
+import fileUploadHelper from "../services/audioUpload.js";
 
 let uploadWorker = null;
 
@@ -19,10 +20,9 @@ let uploadWorker = null;
  * Or, simpler: Ytdlp(UploadWorker) could fire a webhook or we listen to the queue events.
  * Since we share Redis, we can just attach a QueueEvents listener.
  */
-import { QueueEvents } from "bullmq";
 
 export const initTranscodeListener = () => {
-    const connection = getRedisClient();
+    const connection = getQueueConnection();
     if (!connection) {
         logger.warn("Redis not available, Transcode Listener not initialized");
         return;
