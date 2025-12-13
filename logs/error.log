@@ -235,3 +235,20 @@
 2025-12-12 21:43:03:433 [31merror[39m: [31mError: Internal server error[39m
 2025-12-12 21:47:21:4721 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2025-12-12 21:47:21:4721 [31merror[39m: [31mError: Internal server error[39m
+2025-12-12 23:04:59:459 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:05:46:546 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:07:44:744 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:12:40:1240 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:13:12:1312 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:13:29:1329 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:15:52:1552 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-12 23:16:14:1614 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:16:23:1623 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-12 23:16:32:1632 [31merror[39m: [31mError: Invalid email or password[39m
+2025-12-12 23:19:06:196 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-12 23:19:06:196 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 12:17:47:1747 [31merror[39m: [31m❌ Port 3000 is already in use[39m
+2025-12-13 12:19:22:1922 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-13 12:19:47:1947 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 12:19:47:1947 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 12:21:39:2139 [31merror[39m: [31mFailed to update HLS URL for song 49b2880e-bcbb-45d1-985f-3fef41886610: Could not find the 'hls_url' column of 'songs' in the schema cache[39m

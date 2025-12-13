@@ -1,12 +1,12 @@
 import { Queue } from "bullmq";
-import { getRedisClient } from "../database/connections/redis.js";
+import getQueueConnection from "../database/connections/redisQueue.js";
 import { logger } from "../utils/logger.js";
 
 let transcodeQueue = null;
 
 export const getTranscodeQueue = () => {
     if (!transcodeQueue) {
-        const connection = getRedisClient();
+        const connection = getQueueConnection();
         if (connection) {
             transcodeQueue = new Queue("transcode-queue", {
                 connection,
