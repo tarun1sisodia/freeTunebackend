@@ -11238,3 +11238,94 @@
 2025-12-13 14:28:46:2846 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
 2025-12-13 14:28:46:2846 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
 [32m[39m
+2025-12-13 14:42:59:4259 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:43:02:432 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:43:02:432 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:43:02:432 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 14:43:02:432 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 14:43:41:4341 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:43:41:4341 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:44:13:4413 [31merror[39m: [31mError creating playlist: new row violates row-level security policy for table "playlists"[39m
+2025-12-13 14:44:13:4413 [31merror[39m: [31mError in createPlaylist controller: Operation failed[39m
+2025-12-13 14:44:13:4413 [31merror[39m: [31mError: Operation failed[39m
+2025-12-13 14:46:54:4654 [37mdebug[39m: [37mCache MISS: cdn:url:49b2880e-bcbb-45d1-985f-3fef41886610:high[39m
+2025-12-13 14:46:54:4654 [37mdebug[39m: [37mCache MISS: Generating direct stream URL for song 49b2880e-bcbb-45d1-985f-3fef41886610[39m
+2025-12-13 14:46:54:4654 [32minfo[39m: [32mR2 S3 client initialized successfully[39m
+2025-12-13 14:46:55:4655 [37mdebug[39m: [37mGenerated signed URL for: original/1765608637023-0d5c0dece7d2d887-White_Brown_Black_-_Avvy_Sra_____Karan_Aujla_____Jaani_____Amanninder_Singh_____Desi_Melodies__BtQp2U6hJII_.mp3[39m
+2025-12-13 14:46:55:4655 [37mdebug[39m: [37mCache SET: cdn:url:49b2880e-bcbb-45d1-985f-3fef41886610:high (TTL: 1800s)[39m
+2025-12-13 14:46:55:4655 [32minfo[39m: [32mCached direct stream URL for song 49b2880e-bcbb-45d1-985f-3fef41886610[39m
+2025-12-13 14:49:42:4942 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-13 14:50:05:505 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-12-13 14:50:06:506 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:50:07:507 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:50:07:507 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-12-13 14:50:13:5013 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:50:13:5013 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:50:13:5013 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 14:50:13:5013 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 14:50:22:5022 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:50:22:5022 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:50:36:5036 [37mdebug[39m: [37mCache DEL: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:50:36:5036 [37mdebug[39m: [37mCache invalidated: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec (new playlist created)[39m
+2025-12-13 14:52:58:5258 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:53:01:531 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:53:01:531 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:53:01:531 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 14:53:01:531 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 14:53:07:537 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:53:07:537 [37mdebug[39m: [37mCache MISS: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1[39m
+2025-12-13 14:53:08:538 [37mdebug[39m: [37mCache SET: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1 (TTL: 3600s)[39m
+2025-12-13 14:53:08:538 [37mdebug[39m: [37mCache SET: user:playlists:a7db039c-7535-4265-9954-3e4464d74eec:page:1 (TTL: 3600s)[39m
+2025-12-13 14:53:53:5353 [32minfo[39m: [32mSupabase admin client initialized[39m
+2025-12-13 14:53:53:5353 [37mdebug[39m: [37mExtracting audio duration from buffer[39m
+2025-12-13 14:53:53:5353 [32minfo[39m: [32mAudio duration extracted: 242736ms (243s)[39m
+2025-12-13 14:53:59:5359 [32minfo[39m: [32mFile uploaded successfully: original/1765617833640-4047a95fac581ee5-Blue_Eyes_Full_Video_Song_Yo_Yo_Honey_Singh_____Blockbuster_Song_Of_2013__NbyHNASFi6U_.mp3[39m
+2025-12-13 14:54:01:541 [37mdebug[39m: [37mCache SET: song:e4c4599b-08bc-476b-93c9-dcca640dd203 (TTL: 3600s)[39m
+2025-12-13 14:54:01:541 [37mdebug[39m: [37mCache SET: song:e4c4599b-08bc-476b-93c9-dcca640dd203 (TTL: 3600s)[39m
+2025-12-13 14:54:01:541 [32minfo[39m: [32mTranscode Queue initialized[39m
+2025-12-13 14:54:01:541 [32minfo[39m: [32mTranscode job dispatched for song: e4c4599b-08bc-476b-93c9-dcca640dd203[39m
+2025-12-13 14:54:54:5454 [32minfo[39m: [32mUpload job 3 completed. Result: {"uploaded":true,"keyPrefix":"songs/e4c4599b-08bc-476b-93c9-dcca640dd203","url":"https://music.r2.cloudflarestorage.com/songs/e4c4599b-08bc-476b-93c9-dcca640dd203/master.m3u8"}[39m
+2025-12-13 14:54:55:5455 [32minfo[39m: [32mUpdated HLS URL for song e4c4599b-08bc-476b-93c9-dcca640dd203[39m
+2025-12-13 14:54:56:5456 [37mdebug[39m: [37mCache DEL: song:e4c4599b-08bc-476b-93c9-dcca640dd203[39m
+2025-12-13 14:56:10:5610 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:56:13:5613 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:56:13:5613 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 14:56:13:5613 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 14:56:13:5613 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 14:56:14:5614 [37mdebug[39m: [37mCache MISS: popular:songs:page:1:limit:20[39m
+2025-12-13 14:56:14:5614 [37mdebug[39m: [37mCache MISS: Fetching popular songs page 1 from DB[39m
+2025-12-13 14:56:15:5615 [37mdebug[39m: [37mCache SET: popular:songs:page:1:limit:20 (TTL: 3600s)[39m
+2025-12-13 14:56:15:5615 [32minfo[39m: [32mCached popular songs page 1 (TTL: 3600s)[39m
+2025-12-13 14:57:41:5741 [37mdebug[39m: [37mCache MISS: cdn:url:e4c4599b-08bc-476b-93c9-dcca640dd203:high[39m
+2025-12-13 14:57:41:5741 [37mdebug[39m: [37mCache MISS: Generating direct stream URL for song e4c4599b-08bc-476b-93c9-dcca640dd203[39m
+2025-12-13 14:57:41:5741 [37mdebug[39m: [37mGenerated signed URL for: original/1765617833640-4047a95fac581ee5-Blue_Eyes_Full_Video_Song_Yo_Yo_Honey_Singh_____Blockbuster_Song_Of_2013__NbyHNASFi6U_.mp3[39m
+2025-12-13 14:57:42:5742 [37mdebug[39m: [37mCache SET: cdn:url:e4c4599b-08bc-476b-93c9-dcca640dd203:high (TTL: 1800s)[39m
+2025-12-13 14:57:42:5742 [32minfo[39m: [32mCached direct stream URL for song e4c4599b-08bc-476b-93c9-dcca640dd203[39m
+2025-12-13 15:01:57:157 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-13 15:02:45:245 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-12-13 15:02:46:246 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:02:46:246 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:02:46:246 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-12-13 15:02:48:248 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:02:48:248 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:02:48:248 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 15:02:48:248 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 15:03:12:312 [37mdebug[39m: [37mCache HIT: cdn:url:e4c4599b-08bc-476b-93c9-dcca640dd203:high[39m
+2025-12-13 15:03:12:312 [32minfo[39m: [32mCache HIT: Direct stream for song e4c4599b-08bc-476b-93c9-dcca640dd203[39m
+2025-12-13 15:07:00:70 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-13 15:09:32:932 [37mdebug[39m: [37mCache MISS: cdn:url:12ecc212-e85b-4c4a-b31a-0d3739000ba6:high[39m
+2025-12-13 15:09:32:932 [37mdebug[39m: [37mCache MISS: Generating new stream URL for song 12ecc212-e85b-4c4a-b31a-0d3739000ba6[39m
+2025-12-13 15:09:33:933 [37mdebug[39m: [37mGenerated signed URL for: original/1765609118384-be6df09dff1d3321-LAAL_PARI__Song_____Yo_Yo_Honey_Singh_____Sajid_Nadiadwala_____Tarun_Mansukhani_____Housefull_5__KGn-erOG-Bs_.mp3[39m
+2025-12-13 15:09:33:933 [37mdebug[39m: [37mCache SET: cdn:url:12ecc212-e85b-4c4a-b31a-0d3739000ba6:high (TTL: 1800s)[39m
+2025-12-13 15:09:33:933 [32minfo[39m: [32mCached stream URL for song 12ecc212-e85b-4c4a-b31a-0d3739000ba6 (TTL: 1800s)[39m
+2025-12-13 15:09:35:935 [37mdebug[39m: [37mCache HIT: cdn:url:49b2880e-bcbb-45d1-985f-3fef41886610:high[39m
+2025-12-13 15:09:35:935 [32minfo[39m: [32mCache HIT: Stream URL for song 49b2880e-bcbb-45d1-985f-3fef41886610 (high)[39m
+2025-12-13 15:10:37:1037 [37mdebug[39m: [37mCache HIT: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:10:40:1040 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:10:40:1040 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-13 15:10:40:1040 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-13 15:10:40:1040 [31merror[39m: [31mError: Internal server error[39m
+2025-12-13 15:11:01:111 [37mdebug[39m: [37mCache HIT: cdn:url:e4c4599b-08bc-476b-93c9-dcca640dd203:high[39m
+2025-12-13 15:11:01:111 [32minfo[39m: [32mCache HIT: Stream URL for song e4c4599b-08bc-476b-93c9-dcca640dd203 (high)[39m
+2025-12-13 15:11:17:1117 [37mdebug[39m: [37mCache HIT: cdn:url:12ecc212-e85b-4c4a-b31a-0d3739000ba6:high[39m
+2025-12-13 15:11:17:1117 [32minfo[39m: [32mCache HIT: Stream URL for song 12ecc212-e85b-4c4a-b31a-0d3739000ba6 (high)[39m
