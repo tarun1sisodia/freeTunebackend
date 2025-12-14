@@ -125,3 +125,51 @@ CREATE POLICY "Enable insert for authenticated users" ON deleted_songs
 
 CREATE POLICY "Enable select for users who deleted" ON deleted_songs
     FOR SELECT USING (auth.uid() = deleted_by);
+    
+-- Fix for "new row violates row-level security policy for table playlists"
+-- Includes policies for Playlists and User Interactions
+
+-- 1. Ensure RLS is enabled (if not already)
+ALTER TABLE playlists ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_interactions ENABLE ROW LEVEL SECURITY;
+
+-- 2. Policies for PLAYLISTS
+
+-- Allow users to view their own playlists OR public playlists
+CREATE POLICY "Enable read access for owners and public" ON playlists
+FOR SELECT
+USING (auth.uid() = user_id OR is_public = true);
+
+-- Allow authenticated users to create playlists (user_id must match)
+CREATE POLICY "Enable insert for authenticated users" ON playlists
+FOR INSERT
+WITH CHECK (auth.uid() = user_id);
+
+-- Allow users to update their own playlists
+CREATE POLICY "Enable update for owners" ON playlists
+FOR UPDATE
+USING (auth.uid() = user_id)
+WITH CHECK (auth.uid() = user_id);
+
+-- Allow users to delete their own playlists
+CREATE POLICY "Enable delete for owners" ON playlists
+FOR DELETE
+USING (auth.uid() = user_id);
+
+
+-- 3. Policies for USER INTERACTIONS (Likes, Plays)
+
+-- Allow users to view their own interactions
+CREATE POLICY "Enable read access for owners" ON user_interactions
+FOR SELECT
+USING (auth.uid() = user_id);
+
+-- Allow authenticated users to insert interactions (play/like)
+CREATE POLICY "Enable insert for authenticated users" ON user_interactions
+FOR INSERT
+WITH CHECK (auth.uid() = user_id);
+
+-- Allow users to delete their own interactions (unlike)
+CREATE POLICY "Enable delete for owners" ON user_interactions
+FOR DELETE
+USING (auth.uid() = user_id);
