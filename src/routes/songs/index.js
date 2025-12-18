@@ -26,6 +26,8 @@ import {
   deleteSong,
 } from "../../controllers/songs/upload.controller.js";
 
+import { importSong } from "../../controllers/songs/import.controller.js";
+
 import {
   getStreamUrl,
   streamSong,
@@ -78,6 +80,13 @@ router.post(
     { name: "image", maxCount: 1 },
   ]),
   asyncHandler(uploadSong)
+);
+
+// POST /api/v1/songs/import - Import song from YouTube
+router.post(
+  "/import",
+  authMiddleware,
+  asyncHandler(importSong)
 );
 
 // PATCH /api/v1/songs/:id/metadata - Update song metadata
