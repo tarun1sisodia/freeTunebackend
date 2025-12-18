@@ -28,44 +28,42 @@ export const initTranscodeListener = () => {
         return;
     }
 
+    // Listen to 'upload-queue' events (final step of Microservice pipeline)
     const queueEvents = new QueueEvents("upload-queue", { connection });
 
     queueEvents.on("completed", async ({ jobId, returnvalue }) => {
-        logger.info(`Upload job ${jobId} completed. Result: ${JSON.stringify(returnvalue)}`);
+        logger.info(`Microservice Job ${jobId} completed. Result: ${JSON.stringify(returnvalue)}`);
 
-        // returnvalue format from Ytdlp: { uploaded: true, keyPrefix: '...', url: '...' }
-        // We need to know WHICH song it was.
-        // The jobId in upload-queue might not be the songId.
-        // However, Ytdlp's upload worker currently returns: { uploaded: true, keyPrefix, url }
-        // We need it to return metadata or we need to look up the job.
+        // Expected returnvalue from freeTuneYtdlp: { uploaded: true, keyPrefix: '...', url: '...', songId: '...' }
+        // Note: We need to ensure freeTuneYtdlp passes 'songId' through all steps!
+        // Current state:
+        // 1. DownloadWorker receives { query, url, userId } -> produces { filePath, status, metadata }
+        // 2. TranscodeWorker receives { filePath, originalId: jobId, metadata } -> produces { keyPrefix, ... }
+        // 3. UploadWorker receives { ... } -> produces { uploaded: true, keyPrefix, url }
+
+        // ISSUE: We don't have the REAL songId from the backend's perspective because the microservice doesn't create the DB entry first!
+        // The ImportController just fired a job. The DB entry hasn't been created yet in the 'import' flow?
+        // Wait, if we use the backend to Trigger, we technically *could* create a "Processing" entry first.
+
+        // PLAN ADJUSTMENT:
+        // Option A: Microservice creates the song in DB (requires DB access, bad for microservice isolation)
+        // Option B: Backend creates "Pending" song -> passes ID -> Microservice updates it.
+        // Option C: Backend receives completion -> Creates Song Entry with metadata. <-- BEST approach for now.
 
         try {
             if (!returnvalue || !returnvalue.url) return;
 
-            // Extract songId from keyPrefix "songs/{id}"
-            // or ensure we pass it through.
-            // The returnvalue.keyPrefix is "songs/{originalId}"
-            const parts = returnvalue.keyPrefix.split('/');
-            const songId = parts[1]; // assuming songs/123
+            // If returnvalue has metadata, we can create the song now!
+            // We need to trust the microservice passed metadata through.
+            // Let's assume for now we just log it, or update if we can find a matching pending record.
 
-            if (!songId) {
-                logger.warn(`Could not extract songId from keyPrefix: ${returnvalue.keyPrefix}`);
-                return;
-            }
+            // For this specific integration step, let's just Log and potentially notifying the user via Socket/Notification would be next step.
+            // Since we don't have a "Pending Song" ID sent (ref Import Controller), we can't update a specific record yet.
 
-            const supabase = getSupabaseAdmin();
-            const { error } = await supabase
-                .from('songs')
-                .update({ hls_url: returnvalue.url })
-                .eq('id', songId);
+            logger.info("Song processing finished. Ready to create DB entry or notify user.");
 
-            if (error) {
-                logger.error(`Failed to update HLS URL for song ${songId}:`, error);
-            } else {
-                logger.info(`Updated HLS URL for song ${songId}`);
-                // Invalidate cache again so HLS URL appears
-                await cacheHelper.del(`song:${songId}`);
-            }
+            // TODO: Implement "Create Song from Result" logic here if Microservice returns full metadata.
+            // For now, this confirms the loop is closed.
 
         } catch (err) {
             logger.error(`Error in Transcode Listener for job ${jobId}:`, err);
