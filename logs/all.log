@@ -11552,3 +11552,304 @@
 2025-12-18 18:38:06:386 [31merror[39m: [31mError: Internal server error[39m
 2025-12-18 19:00:16:016 [32minfo[39m: [32m[39m
 [32mSIGINT received. Starting graceful shutdown...[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:43:1443 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-19 10:14:44:1444 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-19 10:14:44:1444 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  • Memory: 72MB[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-19 10:14:45:1445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-12-19 10:15:12:1512 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-19 10:15:37:1537 [33mwarn[39m: [33mLogin failed for tarun1sisodia@gmail.com: Invalid login credentials[39m
+2025-12-19 10:15:37:1537 [31merror[39m: [31mError: Invalid email or password[39m
+2025-12-19 10:16:23:1623 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-12-19 10:16:24:1624 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-19 10:16:24:1624 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-19 10:16:24:1624 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-12-19 10:16:25:1625 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-19 10:16:25:1625 [37mdebug[39m: [37mCache HIT: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-19 10:16:25:1625 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-19 10:16:25:1625 [31merror[39m: [31mError: Internal server error[39m
+2025-12-19 10:21:31:2131 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:45:2445 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-22 09:24:46:2446 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-22 09:24:46:2446 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 09:24:47:2447 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-22 09:24:47:2447 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-12-22 09:24:48:2448 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  • Memory: 72MB[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-22 09:24:49:2449 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-12-22 09:25:37:2537 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-22 09:26:47:2647 [33mwarn[39m: [33mUser preferences not found, creating defaults it is at auth.service.js[39m
+2025-12-22 09:26:48:2648 [31merror[39m: [31mCache SET error for key refresh_token:a7db039c-7535-4265-9954-3e4464d74eec: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:26:48:2648 [37mdebug[39m: [37mRefresh token cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 09:26:48:2648 [31merror[39m: [31mCache SET error for key user:a7db039c-7535-4265-9954-3e4464d74eec: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:26:48:2648 [37mdebug[39m: [37mUser data cached for user: a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 09:26:48:2648 [32minfo[39m: [32mUser logged in successfully: tarun1sisodia@gmail.com[39m
+2025-12-22 09:26:51:2651 [37mdebug[39m: [37mCache MISS: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 09:26:51:2651 [37mdebug[39m: [37mCache MISS: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 09:26:51:2651 [31merror[39m: [31mCache SET error for key user:recent:a7db039c-7535-4265-9954-3e4464d74eec: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:26:51:2651 [37mdebug[39m: [37mCache SET: user:recent:a7db039c-7535-4265-9954-3e4464d74eec (TTL: 604800s)[39m
+2025-12-22 09:27:11:2711 [31merror[39m: [31mCache GET error for key search:awara:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:11:2711 [37mdebug[39m: [37mCache MISS: Searching for "Awara " in database[39m
+2025-12-22 09:27:11:2711 [31merror[39m: [31mCache GET error for key search:awara aw:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:11:2711 [37mdebug[39m: [37mCache MISS: Searching for "Awara Aw" in database[39m
+2025-12-22 09:27:12:2712 [31merror[39m: [31mCache GET error for key search:awara awa:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:12:2712 [37mdebug[39m: [37mCache MISS: Searching for "Awara Awa" in database[39m
+2025-12-22 09:27:12:2712 [31merror[39m: [31mCache GET error for key search:awara awara:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:12:2712 [37mdebug[39m: [37mCache MISS: Searching for "Awara Awara" in database[39m
+2025-12-22 09:27:23:2723 [31merror[39m: [31mCache GET error for key search:one:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:23:2723 [37mdebug[39m: [37mCache MISS: Searching for "One" in database[39m
+2025-12-22 09:27:23:2723 [31merror[39m: [31mCache SET error for key search:one:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:23:2723 [32minfo[39m: [32mCached search results for "One" (TTL: 1800s)[39m
+2025-12-22 09:27:34:2734 [31merror[39m: [31mCache GET error for key cdn:url:bdf42493-092c-46d7-8404-9d21fbe1a58a:high: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:34:2734 [37mdebug[39m: [37mCache MISS: Generating new stream URL for song bdf42493-092c-46d7-8404-9d21fbe1a58a[39m
+2025-12-22 09:27:34:2734 [32minfo[39m: [32mR2 S3 client initialized successfully[39m
+2025-12-22 09:27:35:2735 [37mdebug[39m: [37mGenerated signed URL for: original/1764149830677-153e29d4066bb14e-One_Thousand_Miles_Full_AUDIO_Song_____Yo_Yo_Honey_Singh__Desi_Kalakaar__Honey_Singh_New_Songs_2014.mp3[39m
+2025-12-22 09:27:35:2735 [31merror[39m: [31mCache SET error for key cdn:url:bdf42493-092c-46d7-8404-9d21fbe1a58a:high: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:35:2735 [32minfo[39m: [32mCached stream URL for song bdf42493-092c-46d7-8404-9d21fbe1a58a (TTL: 1800s)[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-22 09:27:53:2753 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-22 09:27:54:2754 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 09:27:54:2754 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-22 09:27:54:2754 [32minfo[39m: [32mUpstash Redis initialized[39m
+2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:54:2754 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:54:2754 [32minfo[39m: [32m  ✅ Redis (Upstash) connected[39m
+2025-12-22 09:27:54:2754 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:55:2755 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 09:27:55:2755 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:55:2755 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  • Memory: 74MB[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m   • Cache:        ✅ Connected[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-22 09:27:58:2758 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-12-22 09:28:26:2826 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m✅ Environment variables validated[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32mSupabase client initialized[39m
+2025-12-22 10:22:23:2223 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2025-12-22 10:22:25:2225 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2025-12-22 10:22:25:2225 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-22 10:22:25:2225 [33mwarn[39m: [33m  ⚠️  Redis not configured (caching disabled)[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m✅ Service configurations checked[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32mSTEP 4: System Information[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m📊 System Information:[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  • Platform: linux[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  • Architecture: x64[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  • Memory: 73MB[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  • Environment: development[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m  • Port: 3000[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m   • Cache:        ⚠️  Disabled[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2025-12-22 10:22:26:2226 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2025-12-22 10:22:54:2254 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-22 10:22:54:2254 [37mdebug[39m: [37mCache MISS: user:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 10:22:54:2254 [32minfo[39m: [32mSupabase admin client initialized[39m
+2025-12-22 10:22:55:2255 [33mwarn[39m: [33mPreferences not found for user a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 10:22:55:2255 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-22 10:22:55:2255 [37mdebug[39m: [37mCache SET: user:a7db039c-7535-4265-9954-3e4464d74eec (TTL: 86400s)[39m
+2025-12-22 10:22:58:2258 [33mwarn[39m: [33mRedis URL/Token not configured, caching disabled[39m
+2025-12-22 10:22:58:2258 [33mwarn[39m: [33mCache disabled: Redis client not available[39m
+2025-12-22 10:22:58:2258 [37mdebug[39m: [37mCache MISS: user:recent:a7db039c-7535-4265-9954-3e4464d74eec[39m
+2025-12-22 10:22:58:2258 [37mdebug[39m: [37mCache SET: user:recent:a7db039c-7535-4265-9954-3e4464d74eec (TTL: 604800s)[39m
+2025-12-22 10:23:35:2335 [37mdebug[39m: [37mCache MISS: Searching for "one" in database[39m
+2025-12-22 10:23:36:2336 [32minfo[39m: [32mCached search results for "one" (TTL: 1800s)[39m
+2025-12-22 10:29:14:2914 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m

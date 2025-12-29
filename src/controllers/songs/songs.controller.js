@@ -162,12 +162,15 @@ const searchSongs = async (req, res) => {
     );
   }
 
+  // Sanitize query
+  const sanitizedQuery = q.trim().slice(0, 100);
+
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit - 1;
 
   try {
     // Generate cache key (normalize query)
-    const normalizedQuery = q.toLowerCase().trim();
+    const normalizedQuery = sanitizedQuery.toLowerCase();
     const cacheKey = `search:${normalizedQuery}:page:${page}:limit:${limit}`;
 
     // Try cache first (only for first page)
@@ -187,14 +190,41 @@ const searchSongs = async (req, res) => {
 
     logger.debug(`Cache MISS: Searching for "${q}" in database`);
 
-    const { data, error, count } = await supabase
+    // Create search promise
+    const searchPromise = supabase
       .from("songs")
       .select("*", { count: "exact" })
-      .or(`title.ilike.%${q}%,artist.ilike.%${q}%,album.ilike.%${q}%`)
+      .or(`title.ilike.%${sanitizedQuery}%,artist.ilike.%${sanitizedQuery}%,album.ilike.%${sanitizedQuery}%`)
       .range(startIndex, endIndex);
+
+    // Create timeout promise (10 seconds)
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Search timeout')), 10000)
+    );
+
+    // Race them
+    const { data, error, count } = await Promise.race([
+      searchPromise,
+      timeoutPromise
+    ]);
 
     if (error) {
       logger.error("Error searching songs:", error);
+
+      // Fallback: Return cached results even if stale
+      const staleCache = await cacheHelper.get(cacheKey, { ignoreExpiry: true });
+      if (staleCache) {
+        logger.info(`Returning stale cache for "${q}" due to DB error`);
+        return res.json({
+          success: true,
+          data: staleCache.data,
+          pagination: staleCache.pagination,
+          message: "Search results from cache (database unavailable)",
+          cached: true,
+          stale: true,
+        });
+      }
+
       throw new ApiError(
         HTTP_STATUS.INTERNAL_SERVER_ERROR,
         ERROR_MESSAGES.OPERATION_FAILED,
@@ -232,6 +262,15 @@ const searchSongs = async (req, res) => {
     if (error instanceof ApiError) {
       throw error;
     }
+
+    // Handle timeout specifically if possible, or generic
+    if (error.message === 'Search timeout') {
+      throw new ApiError(
+        HTTP_STATUS.GATEWAY_TIMEOUT,
+        "Search request timed out. Please try again.",
+      );
+    }
+
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.INTERNAL_ERROR,

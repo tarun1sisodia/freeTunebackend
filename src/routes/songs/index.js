@@ -7,6 +7,7 @@ import { Router } from "express";
 import multer from "multer";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { authMiddleware } from "../../middleware/auth.js";
+import { searchLimiter } from "../../middleware/rateLimiter.js";
 
 // Import controllers
 import {
@@ -53,7 +54,7 @@ const upload = multer({
 router.get("/", authMiddleware, asyncHandler(getSongs));
 
 // GET /api/v1/songs/search - Search songs
-router.get("/search", authMiddleware, asyncHandler(searchSongs));
+router.get("/search", authMiddleware, searchLimiter, asyncHandler(searchSongs));
 
 // GET /api/v1/songs/popular - Get popular/trending songs
 router.get("/popular", authMiddleware, asyncHandler(getPopularSongs));

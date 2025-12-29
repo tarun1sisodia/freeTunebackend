@@ -282,3 +282,23 @@
 2025-12-18 18:37:47:3747 [31merror[39m: [31mError: Invalid email or password[39m
 2025-12-18 18:38:06:386 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2025-12-18 18:38:06:386 [31merror[39m: [31mError: Internal server error[39m
+2025-12-19 10:15:12:1512 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-19 10:15:37:1537 [31merror[39m: [31mError: Invalid email or password[39m
+2025-12-19 10:16:25:1625 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2025-12-19 10:16:25:1625 [31merror[39m: [31mError: Internal server error[39m
+2025-12-22 09:25:37:2537 [31merror[39m: [31mError: Invalid or expired token[39m
+2025-12-22 09:26:48:2648 [31merror[39m: [31mCache SET error for key refresh_token:a7db039c-7535-4265-9954-3e4464d74eec: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:26:48:2648 [31merror[39m: [31mCache SET error for key user:a7db039c-7535-4265-9954-3e4464d74eec: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:26:51:2651 [31merror[39m: [31mCache SET error for key user:recent:a7db039c-7535-4265-9954-3e4464d74eec: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:11:2711 [31merror[39m: [31mCache GET error for key search:awara:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:11:2711 [31merror[39m: [31mCache GET error for key search:awara aw:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:12:2712 [31merror[39m: [31mCache GET error for key search:awara awa:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:12:2712 [31merror[39m: [31mCache GET error for key search:awara awara:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:23:2723 [31merror[39m: [31mCache GET error for key search:one:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:23:2723 [31merror[39m: [31mCache SET error for key search:one:page:1:limit:20: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:34:2734 [31merror[39m: [31mCache GET error for key cdn:url:bdf42493-092c-46d7-8404-9d21fbe1a58a:high: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:35:2735 [31merror[39m: [31mCache SET error for key cdn:url:bdf42493-092c-46d7-8404-9d21fbe1a58a:high: Command failed: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2025-12-22 09:27:55:2755 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
