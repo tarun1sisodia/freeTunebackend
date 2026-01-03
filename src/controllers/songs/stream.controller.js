@@ -11,6 +11,7 @@ import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import fileUploadHelper from "../../services/audioUpload.js";
 import cacheHelper from "../../utils/cacheHelper.js";
+import { triggerDownload } from "../../queues/download.queue.js";
 
 /**
  * @description Get presigned URL for streaming a song
@@ -77,12 +78,30 @@ const getStreamUrl = async (req, res) => {
     }
 
     // Check if file exists in R2
+    // Check if file exists in R2
     const fileExists = await fileUploadHelper.fileExists(song.r2_key);
     if (!fileExists) {
-      logger.error(`File not found in R2: ${song.r2_key}`);
+      logger.warn(`File not found in R2: ${song.r2_key}. Triggering re-download.`);
+
+      // Trigger download job
+      const triggered = await triggerDownload({
+        query: `${song.title} ${song.artist} audio`,
+        songId: song.id,
+        // We don't have the original URL easily available unless it's in metadata
+        // but title+artist query is sufficient for ytdlp service fallback
+      });
+
+      if (triggered) {
+        return errorResponse(
+          res,
+          "Song content is being restored. Please try again shortly.",
+          HTTP_STATUS.ACCEPTED, // 202 Accepted
+        );
+      }
+
       throw new ApiError(
         HTTP_STATUS.NOT_FOUND,
-        "Audio file not found in storage",
+        "Audio file not found in storage and restoration failed",
       );
     }
 
@@ -170,6 +189,18 @@ const streamSong = async (req, res) => {
 
     if (songError || !song) {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
+    }
+
+    // Check availability first
+    const fileExists = await fileUploadHelper.fileExists(song.r2_key);
+    if (!fileExists) {
+      logger.warn(`Direct stream: File missing ${song.r2_key}. Triggering download.`);
+      await triggerDownload({
+        query: `${song.title || 'Unknown Song'} ${song.artist || ''} audio`,
+        songId: song.id,
+      });
+      // Return 404 with standard message for browser/player to handle
+      return res.status(HTTP_STATUS.NOT_FOUND).send("Content restoring... please refresh shortly.");
     }
 
     // Generate signed URL
