@@ -6,7 +6,7 @@
 
 import { successResponse, errorResponse } from "../../utils/apiResponse.js";
 import { HTTP_STATUS, ERROR_MESSAGES, CACHE_TTL, CACHE_KEYS } from "../../utils/constants.js";
-import { getSupabaseClient } from "../../database/connections/supabase.js";
+import { getSupabaseClient, getSupabaseAdmin } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import fileUploadHelper from "../../services/audioUpload.js";
@@ -41,10 +41,10 @@ const getStreamUrl = async (req, res) => {
   try {
     // Generate cache key for this specific song and quality
     const cacheKey = CACHE_KEYS.CDN_URL(id, quality);
-    
+
     // Try to get from cache first
     const cachedUrl = await cacheHelper.get(cacheKey);
-    
+
     if (cachedUrl) {
       logger.info(`Cache HIT: Stream URL for song ${id} (${quality})`);
       return successResponse(
@@ -150,10 +150,10 @@ const streamSong = async (req, res) => {
   try {
     // Generate cache key
     const cacheKey = CACHE_KEYS.CDN_URL(id, quality);
-    
+
     // Try cache first
     const cachedUrl = await cacheHelper.get(cacheKey);
-    
+
     if (cachedUrl) {
       logger.info(`Cache HIT: Direct stream for song ${id}`);
       return res.redirect(cachedUrl);
@@ -199,11 +199,13 @@ const streamSong = async (req, res) => {
  */
 const trackPlayback = async (req, res) => {
   const supabase = getSupabaseClient();
-  if (!supabase) {
+  const supabaseAdmin = getSupabaseAdmin();
+
+  if (!supabase || !supabaseAdmin) {
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.OPERATION_FAILED,
-      ["Supabase client not initialized"],
+      ["Supabase client(s) not initialized"],
     );
   }
 
@@ -236,7 +238,7 @@ const trackPlayback = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
-    const { error: interactionError } = await supabase
+    const { error: interactionError } = await supabaseAdmin
       .from("user_interactions")
       .insert({
         user_id: userId,

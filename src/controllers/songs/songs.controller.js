@@ -1,7 +1,8 @@
 import { successResponse, errorResponse, paginatedResponse } from "../../utils/apiResponse.js";
 import { HTTP_STATUS, ERROR_MESSAGES, PAGINATION, CACHE_TTL } from "../../utils/constants.js";
-import { getSupabaseClient } from "../../database/connections/supabase.js";
+
 import ApiError from "../../utils/apiError.js";
+import { getSupabaseClient, getSupabaseAdmin } from "../../database/connections/supabase.js";
 import { logger } from "../../utils/logger.js";
 import { transformSong, transformArray } from "../../utils/modelTransformers.js";
 import cacheHelper from "../../utils/cacheHelper.js";
@@ -444,11 +445,13 @@ const getFavorites = async (req, res) => {
  */
 const toggleFavorite = async (req, res) => {
   const supabase = getSupabaseClient();
-  if (!supabase) {
+  const supabaseAdmin = getSupabaseAdmin();
+
+  if (!supabase || !supabaseAdmin) {
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.OPERATION_FAILED,
-      ["Supabase client not initialized"],
+      ["Supabase client(s) not initialized"],
     );
   }
 
@@ -491,7 +494,7 @@ const toggleFavorite = async (req, res) => {
     }
 
     if (existing) {
-      const { error: deleteError } = await supabase
+      const { error: deleteError } = await supabaseAdmin
         .from("user_interactions")
         .delete()
         .eq("id", existing.id);
@@ -512,7 +515,7 @@ const toggleFavorite = async (req, res) => {
         HTTP_STATUS.OK,
       );
     } else {
-      const { error: insertError } = await supabase
+      const { error: insertError } = await supabaseAdmin
         .from("user_interactions")
         .insert({
           user_id: userId,
@@ -554,14 +557,11 @@ const toggleFavorite = async (req, res) => {
  * @param {object} res - Express response object
  */
 const trackPlay = async (req, res) => {
-  const supabase = getSupabaseClient();
-  if (!supabase) {
-    throw new ApiError(
-      HTTP_STATUS.INTERNAL_SERVER_ERROR,
-      ERROR_MESSAGES.OPERATION_FAILED,
-      ["Supabase client not initialized"],
-    );
-  }
+
+
+
+  const { id: songId } = req.params;
+  const { session_id, metadata = {} } = req.body;
 
   const userId = req.user?.id;
   if (!userId) {
@@ -571,11 +571,18 @@ const trackPlay = async (req, res) => {
     );
   }
 
-  const { id: songId } = req.params;
-  const { session_id, metadata = {} } = req.body;
+  // Use Admin client to bypass RLS for server-side recording
+  const supabaseAdmin = getSupabaseAdmin();
+  if (!supabaseAdmin) {
+    throw new ApiError(
+      HTTP_STATUS.INTERNAL_SERVER_ERROR,
+      ERROR_MESSAGES.OPERATION_FAILED,
+      ["Supabase admin client not initialized"],
+    );
+  }
 
   try {
-    const { data: song, error: songError } = await supabase
+    const { data: song, error: songError } = await supabaseAdmin
       .from("songs")
       .select("id, play_count")
       .eq("id", songId)
@@ -585,7 +592,7 @@ const trackPlay = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
-    const { error: interactionError } = await supabase
+    const { error: interactionError } = await supabaseAdmin
       .from("user_interactions")
       .insert({
         user_id: userId,
@@ -604,7 +611,7 @@ const trackPlay = async (req, res) => {
       );
     }
 
-    const { error: updateError } = await supabase
+    const { error: updateError } = await supabaseAdmin
       .from("songs")
       .update({
         play_count: song.play_count + 1,

@@ -302,3 +302,44 @@
 2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
 2025-12-22 09:27:54:2754 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
 2025-12-22 09:27:55:2755 [31merror[39m: [31mRedis Queue Connection Error: ERR max requests limit exceeded. Limit: 500000, Usage: 500005. See https://upstash.com/docs/redis/troubleshooting/max_requests_limit for details[39m
+2026-01-03 18:06:20:620 [31merror[39m: [31mError: Invalid or expired token[39m
+2026-01-03 18:26:58:2658 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-03 18:26:58:2658 [31merror[39m: [31mError: Internal server error[39m
+2026-01-03 18:27:28:2728 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-03 18:27:28:2728 [31merror[39m: [31mError: Internal server error[39m
+2026-01-03 18:45:47:4547 [31merror[39m: [31mError recording play: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:45:47:4547 [31merror[39m: [31mError in trackPlay controller: Operation failed[39m
+2026-01-03 18:45:47:4547 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:46:37:4637 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:46:37:4637 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:46:37:4637 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:47:08:478 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:47:08:478 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:47:08:478 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:47:37:4737 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:47:37:4737 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:47:37:4737 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:48:07:487 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:48:07:487 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:48:07:487 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:48:37:4837 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:48:37:4837 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:48:37:4837 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:48:39:4839 [31merror[39m: [31mError recording play: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:48:39:4839 [31merror[39m: [31mError in trackPlay controller: Operation failed[39m
+2026-01-03 18:48:39:4839 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:49:08:498 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:49:08:498 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:49:08:498 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:49:38:4938 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:49:38:4938 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:49:38:4938 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:50:07:507 [31merror[39m: [31mError tracking playback: new row violates row-level security policy for table "user_interactions"[39m
+2026-01-03 18:50:07:507 [31merror[39m: [31mError in trackPlayback controller: Operation failed[39m
+2026-01-03 18:50:07:507 [31merror[39m: [31mError: Operation failed[39m
+2026-01-03 18:50:46:5046 [31merror[39m: [31mError in trackPlay controller: userId is not defined[39m
+2026-01-03 18:50:46:5046 [31merror[39m: [31mError: ApiError is not defined[39m
+2026-01-03 18:51:49:5149 [31merror[39m: [31mError in trackPlay controller: userId is not defined[39m
+2026-01-03 18:51:49:5149 [31merror[39m: [31mError: ApiError is not defined[39m
+2026-01-03 18:51:56:5156 [31merror[39m: [31mError in trackPlay controller: userId is not defined[39m
+2026-01-03 18:51:56:5156 [31merror[39m: [31mError: ApiError is not defined[39m
