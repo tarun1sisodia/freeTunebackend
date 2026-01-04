@@ -77,11 +77,20 @@ const getStreamUrl = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
+  
     // Check if file exists in R2
-    // Check if file exists in R2
-    const fileExists = await fileUploadHelper.fileExists(song.r2_key);
+    // Smart check: If r2_key ends with an audio extension, treat as direct file.
+    // Otherwise, assume it's an HLS directory and look for master.m3u8.
+    let fileKey = song.r2_key;
+    const isDirectFile = /\.(mp3|m4a|wav|flac|ogg)$/i.test(song.r2_key);
+
+    if (!isDirectFile && !song.r2_key.endsWith('.m3u8')) {
+      fileKey = `${song.r2_key}/master.m3u8`;
+    }
+
+    const fileExists = await fileUploadHelper.fileExists(fileKey);
     if (!fileExists) {
-      logger.warn(`File not found in R2: ${song.r2_key}. Triggering re-download.`);
+      logger.warn(`File not found in R2: ${fileKey}. Triggering re-download.`);
 
       // Trigger download job
       const triggered = await triggerDownload({
@@ -106,7 +115,7 @@ const getStreamUrl = async (req, res) => {
     }
 
     // Generate signed URL (expires in 30 minutes)
-    const signedUrl = await fileUploadHelper.getSignedUrl(song.r2_key, 1800);
+    const signedUrl = await fileUploadHelper.getSignedUrl(fileKey, 1800);
 
     // Cache the URL for 25 minutes (before it expires)
     await cacheHelper.set(cacheKey, signedUrl, CACHE_TTL.CDN_URLS);
@@ -192,9 +201,16 @@ const streamSong = async (req, res) => {
     }
 
     // Check availability first
-    const fileExists = await fileUploadHelper.fileExists(song.r2_key);
+    let fileKey = song.r2_key;
+    const isDirectFile = /\.(mp3|m4a|wav|flac|ogg)$/i.test(song.r2_key);
+
+    if (!isDirectFile && !song.r2_key.endsWith('.m3u8')) {
+      fileKey = `${song.r2_key}/master.m3u8`;
+    }
+
+    const fileExists = await fileUploadHelper.fileExists(fileKey);
     if (!fileExists) {
-      logger.warn(`Direct stream: File missing ${song.r2_key}. Triggering download.`);
+      logger.warn(`Direct stream: File missing ${fileKey}. Triggering download.`);
       await triggerDownload({
         query: `${song.title || 'Unknown Song'} ${song.artist || ''} audio`,
         songId: song.id,
@@ -204,7 +220,7 @@ const streamSong = async (req, res) => {
     }
 
     // Generate signed URL
-    const signedUrl = await fileUploadHelper.getSignedUrl(song.r2_key, 1800);
+    const signedUrl = await fileUploadHelper.getSignedUrl(fileKey, 1800);
 
     // Cache it
     await cacheHelper.set(cacheKey, signedUrl, CACHE_TTL.CDN_URLS);
