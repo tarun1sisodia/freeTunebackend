@@ -12560,3 +12560,77 @@
 2026-01-03 22:32:57:3257 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
 2026-01-03 22:32:57:3257 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
 [32m[39m
+2026-01-03 22:52:23:5223 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m✅ Environment variables validated[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2026-01-04 12:19:15:1915 [32minfo[39m: [32mSupabase client initialized[39m
+2026-01-04 12:19:16:1916 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
+2026-01-04 12:19:17:1917 [32minfo[39m: [32m  ✅ Supabase (PostgreSQL) connected[39m
+2026-01-04 12:19:17:1917 [33mwarn[39m: [33mREDIS_DISABLED is set to true. Caching is disabled.[39m
+2026-01-04 12:19:17:1917 [33mwarn[39m: [33m  ⚠️  Redis not configured (caching disabled)[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32mMongoose (MongoDB) connected successfully[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  ✅ MongoDB (Mongoose) connected[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32mSTEP 3: Service Configuration[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m🔧 Checking service configurations...[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  ✅ Cloudflare R2 configured[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  ✅ JWT authentication configured[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  ✅ CORS configured (2 origins)[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m✅ Service configurations checked[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32mSTEP 4: System Information[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m📊 System Information:[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  • Node.js: v22.20.0[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  • Platform: linux[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  • Architecture: x64[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  • Memory: 73MB[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  • Environment: development[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m  • Port: 3000[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32mSTEP 5: Starting HTTP Server[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m🚀 Server started successfully![39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m📍 Endpoints:[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m   • Health Check: http://localhost:3000/health[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m   • API Info:     http://localhost:3000/api[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m   • API Base:     http://localhost:3000/api/*[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m🔧 Services Status:[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m   • Database:     ✅ Connected[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m   • Cache:        ⚠️  Disabled[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m   • Analytics:    ✅ Connected[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m✅ FreeTune Backend is ready to serve requests![39m
+2026-01-04 12:19:20:1920 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+[32m[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32mTranscode Listener (Upload Queue Events) initialized[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32mSTEP 1: Environment Validation[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m🔍 Validating environment variables...[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m✅ Environment variables validated[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m[39m
+[32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32mSTEP 2: Database Connections[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32m🔌 Checking database connections...[39m
+2026-01-04 12:21:13:2113 [32minfo[39m: [32mSupabase client initialized[39m
+2026-01-04 12:21:14:2114 [32minfo[39m: [32mRedis Queue Connection Established (IORedis)[39m
