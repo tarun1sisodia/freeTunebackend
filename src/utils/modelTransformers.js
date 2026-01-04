@@ -46,7 +46,7 @@ const transformSong = (song) => {
     title: song.title,
     artist: song.artist,
     album: song.album,
-    albumArtUrl: song.album_art_url || null,
+    albumArtUrl: song.album_art_url || song.albumArtUrl || null,
     durationMs: song.duration_ms,
     r2Key: song.r2_key,
     fileSizes: song.file_sizes || {},

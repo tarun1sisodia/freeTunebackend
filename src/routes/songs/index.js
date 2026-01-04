@@ -7,6 +7,7 @@ import { Router } from "express";
 import multer from "multer";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { authMiddleware } from "../../middleware/auth.js";
+import { searchLimiter } from "../../middleware/rateLimiter.js";
 
 // Import controllers
 import {
@@ -25,6 +26,8 @@ import {
   updateSongMetadata,
   deleteSong,
 } from "../../controllers/songs/upload.controller.js";
+
+import { importSong } from "../../controllers/songs/import.controller.js";
 
 import {
   getStreamUrl,
@@ -51,7 +54,7 @@ const upload = multer({
 router.get("/", authMiddleware, asyncHandler(getSongs));
 
 // GET /api/v1/songs/search - Search songs
-router.get("/search", authMiddleware, asyncHandler(searchSongs));
+router.get("/search", authMiddleware, searchLimiter, asyncHandler(searchSongs));
 
 // GET /api/v1/songs/popular - Get popular/trending songs
 router.get("/popular", authMiddleware, asyncHandler(getPopularSongs));
@@ -73,8 +76,18 @@ router.get("/:id", authMiddleware, asyncHandler(getSongById));
 router.post(
   "/upload",
   authMiddleware,
-  upload.single("audio"),
+  upload.fields([
+    { name: "audio", maxCount: 1 },
+    { name: "image", maxCount: 1 },
+  ]),
   asyncHandler(uploadSong)
+);
+
+// POST /api/v1/songs/import - Import song from YouTube
+router.post(
+  "/import",
+  authMiddleware,
+  asyncHandler(importSong)
 );
 
 // PATCH /api/v1/songs/:id/metadata - Update song metadata
@@ -85,7 +98,7 @@ router.delete("/:id", authMiddleware, asyncHandler(deleteSong));
 
 /**
  * Streaming Routes
- 
+ */
 
 // GET /api/v1/songs/:id/stream-url - Get presigned streaming URL
 router.get("/:id/stream-url", authMiddleware, asyncHandler(getStreamUrl));

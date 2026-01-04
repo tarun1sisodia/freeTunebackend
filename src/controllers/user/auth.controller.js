@@ -106,9 +106,10 @@ export const refreshToken = asyncHandler(async (req, res) => {
  * POST /api/v1/auth/logout
  */
 export const logout = asyncHandler(async (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  // Get userId from authenticated request (set by auth middleware)
+  const userId = req.user?.id;
 
-  await authService.logoutUser(token);
+  await authService.logoutUser(userId);
 
   successResponse(res, null, "Logout successful", 200);
 });

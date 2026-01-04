@@ -1,14 +1,17 @@
 /**
  * Stream Controller
  * Handles audio streaming via Cloudflare R2 presigned URLs
+ * with Redis caching for performance
  */
 
 import { successResponse, errorResponse } from "../../utils/apiResponse.js";
-import { HTTP_STATUS, ERROR_MESSAGES } from "../../utils/constants.js";
-import { getSupabaseClient } from "../../database/connections/supabase.js";
+import { HTTP_STATUS, ERROR_MESSAGES, CACHE_TTL, CACHE_KEYS } from "../../utils/constants.js";
+import { getSupabaseClient, getSupabaseAdmin } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
 import fileUploadHelper from "../../services/audioUpload.js";
+import cacheHelper from "../../utils/cacheHelper.js";
+import { triggerDownload } from "../../queues/download.queue.js";
 
 /**
  * @description Get presigned URL for streaming a song
@@ -37,6 +40,33 @@ const getStreamUrl = async (req, res) => {
   const { quality = "high" } = req.query;
 
   try {
+    // Generate cache key for this specific song and quality
+    const cacheKey = CACHE_KEYS.CDN_URL(id, quality);
+
+    // Try to get from cache first
+    const cachedUrl = await cacheHelper.get(cacheKey);
+
+    if (cachedUrl) {
+      logger.info(`Cache HIT: Stream URL for song ${id} (${quality})`);
+      return successResponse(
+        res,
+        {
+          streamUrl: cachedUrl,
+          song: {
+            id,
+          },
+          quality,
+          expiresIn: await cacheHelper.ttl(cacheKey),
+          cached: true,
+        },
+        "Stream URL retrieved from cache",
+        HTTP_STATUS.OK,
+      );
+    }
+
+    logger.debug(`Cache MISS: Generating new stream URL for song ${id}`);
+
+    // Cache miss - fetch from database
     const { data: song, error: songError } = await supabase
       .from("songs")
       .select("id, r2_key, title, artist, file_sizes")
@@ -47,16 +77,40 @@ const getStreamUrl = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
+    // Check if file exists in R2
+    // Check if file exists in R2
     const fileExists = await fileUploadHelper.fileExists(song.r2_key);
     if (!fileExists) {
-      logger.error(`File not found in R2: ${song.r2_key}`);
+      logger.warn(`File not found in R2: ${song.r2_key}. Triggering re-download.`);
+
+      // Trigger download job
+      const triggered = await triggerDownload({
+        query: `${song.title} ${song.artist} audio`,
+        songId: song.id,
+        // We don't have the original URL easily available unless it's in metadata
+        // but title+artist query is sufficient for ytdlp service fallback
+      });
+
+      if (triggered) {
+        return errorResponse(
+          res,
+          "Song content is being restored. Please try again shortly.",
+          HTTP_STATUS.ACCEPTED, // 202 Accepted
+        );
+      }
+
       throw new ApiError(
         HTTP_STATUS.NOT_FOUND,
-        "Audio file not found in storage",
+        "Audio file not found in storage and restoration failed",
       );
     }
 
-    const signedUrl = await fileUploadHelper.getSignedUrl(song.r2_key, 3600);
+    // Generate signed URL (expires in 30 minutes)
+    const signedUrl = await fileUploadHelper.getSignedUrl(song.r2_key, 1800);
+
+    // Cache the URL for 25 minutes (before it expires)
+    await cacheHelper.set(cacheKey, signedUrl, CACHE_TTL.CDN_URLS);
+    logger.info(`Cached stream URL for song ${id} (TTL: ${CACHE_TTL.CDN_URLS}s)`);
 
     return successResponse(
       res,
@@ -68,7 +122,8 @@ const getStreamUrl = async (req, res) => {
           artist: song.artist,
         },
         quality,
-        expiresIn: 3600,
+        expiresIn: 1800,
+        cached: false,
       },
       "Stream URL generated successfully",
       HTTP_STATUS.OK,
@@ -109,8 +164,23 @@ const streamSong = async (req, res) => {
   }
 
   const { id } = req.params;
+  const { quality = "high" } = req.query;
 
   try {
+    // Generate cache key
+    const cacheKey = CACHE_KEYS.CDN_URL(id, quality);
+
+    // Try cache first
+    const cachedUrl = await cacheHelper.get(cacheKey);
+
+    if (cachedUrl) {
+      logger.info(`Cache HIT: Direct stream for song ${id}`);
+      return res.redirect(cachedUrl);
+    }
+
+    logger.debug(`Cache MISS: Generating direct stream URL for song ${id}`);
+
+    // Cache miss - fetch from database
     const { data: song, error: songError } = await supabase
       .from("songs")
       .select("id, r2_key")
@@ -121,7 +191,24 @@ const streamSong = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
-    const signedUrl = await fileUploadHelper.getSignedUrl(song.r2_key, 3600);
+    // Check availability first
+    const fileExists = await fileUploadHelper.fileExists(song.r2_key);
+    if (!fileExists) {
+      logger.warn(`Direct stream: File missing ${song.r2_key}. Triggering download.`);
+      await triggerDownload({
+        query: `${song.title || 'Unknown Song'} ${song.artist || ''} audio`,
+        songId: song.id,
+      });
+      // Return 404 with standard message for browser/player to handle
+      return res.status(HTTP_STATUS.NOT_FOUND).send("Content restoring... please refresh shortly.");
+    }
+
+    // Generate signed URL
+    const signedUrl = await fileUploadHelper.getSignedUrl(song.r2_key, 1800);
+
+    // Cache it
+    await cacheHelper.set(cacheKey, signedUrl, CACHE_TTL.CDN_URLS);
+    logger.info(`Cached direct stream URL for song ${id}`);
 
     res.redirect(signedUrl);
   } catch (error) {
@@ -143,11 +230,13 @@ const streamSong = async (req, res) => {
  */
 const trackPlayback = async (req, res) => {
   const supabase = getSupabaseClient();
-  if (!supabase) {
+  const supabaseAdmin = getSupabaseAdmin();
+
+  if (!supabase || !supabaseAdmin) {
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.OPERATION_FAILED,
-      ["Supabase client not initialized"],
+      ["Supabase client(s) not initialized"],
     );
   }
 
@@ -180,7 +269,7 @@ const trackPlayback = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
-    const { error: interactionError } = await supabase
+    const { error: interactionError } = await supabaseAdmin
       .from("user_interactions")
       .insert({
         user_id: userId,

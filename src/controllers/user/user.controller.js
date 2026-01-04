@@ -1,14 +1,16 @@
 import { successResponse, errorResponse } from "../../utils/apiResponse.js";
-import { HTTP_STATUS, ERROR_MESSAGES } from "../../utils/constants.js";
+import { HTTP_STATUS, ERROR_MESSAGES, CACHE_TTL } from "../../utils/constants.js";
 import { getSupabaseClient } from "../../database/connections/supabase.js";
 import ApiError from "../../utils/apiError.js";
 import { logger } from "../../utils/logger.js";
+import cacheHelper from "../../utils/cacheHelper.js";
 
 // Hardcoded user ID for testing purposes until authentication is implemented
-const TEST_USER_ID = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"; 
+// const TEST_USER_ID = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"; 
 
 /**
  * @description Get user preferences
+ * With Redis caching for fast access (checked on every request)
  * @param {object} req - Express request object
  * @param {object} res - Express response object
  */
@@ -22,9 +24,25 @@ const getUserPreferences = async (req, res) => {
     );
   }
 
-  const userId = req.user?.id || TEST_USER_ID; // Use authenticated user ID or test ID
+  const userId = req.user?.id; // Use authenticated user ID or test ID
 
   try {
+    // Try cache first
+    const cacheKey = `user:prefs:${userId}`;
+    const cached = await cacheHelper.get(cacheKey);
+
+    if (cached) {
+      logger.debug(`Cache HIT: ${cacheKey}`);
+      return successResponse(
+        res,
+        JSON.parse(cached),
+        "User preferences fetched from cache",
+        HTTP_STATUS.OK,
+      );
+    }
+
+    logger.debug(`Cache MISS: ${cacheKey}`);
+
     const { data, error } = await supabase
       .from("user_preferences")
       .select("*")
@@ -49,6 +67,10 @@ const getUserPreferences = async (req, res) => {
       );
     }
 
+    // Cache user preferences (1 day TTL - users rarely change preferences)
+    await cacheHelper.set(cacheKey, JSON.stringify(data), CACHE_TTL.USER_PREFERENCES);
+    logger.debug(`Cache SET: ${cacheKey} (TTL: ${CACHE_TTL.USER_PREFERENCES}s)`);
+
     return successResponse(
       res,
       data,
@@ -69,6 +91,7 @@ const getUserPreferences = async (req, res) => {
 
 /**
  * @description Update or create user preferences
+ * With cache invalidation
  * @param {object} req - Express request object
  * @param {object} res - Express response object
  */
@@ -101,6 +124,11 @@ const updateUserPreferences = async (req, res) => {
       );
     }
 
+    // Invalidate preferences cache to ensure fresh data on next request
+    const cacheKey = `user:prefs:${userId}`;
+    await cacheHelper.del(cacheKey);
+    logger.debug(`Cache invalidated: ${cacheKey}`);
+
     return successResponse(
       res,
       data,
@@ -108,7 +136,76 @@ const updateUserPreferences = async (req, res) => {
       HTTP_STATUS.OK,
     );
   } catch (error) {
-    logger.error(`Error in updateUserPreferences controller for user ${userId}:`, error);
+    throw new ApiError(
+      HTTP_STATUS.INTERNAL_SERVER_ERROR,
+      ERROR_MESSAGES.INTERNAL_ERROR,
+    );
+  }
+};
+
+/**
+ * @description Get songs uploaded by the user
+ * @param {object} req - Express request object
+ * @param {object} res - Express response object
+ */
+const getUploadedSongs = async (req, res) => {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    throw new ApiError(
+      HTTP_STATUS.INTERNAL_SERVER_ERROR,
+      ERROR_MESSAGES.OPERATION_FAILED,
+      ["Supabase client not initialized"],
+    );
+  }
+
+  const userId = req.user?.id; // Use authenticated user ID
+  if (!userId) {
+    throw new ApiError(
+      HTTP_STATUS.UNAUTHORIZED,
+      ERROR_MESSAGES.UNAUTHORIZED,
+    );
+  }
+
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 50;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit - 1;
+
+  try {
+    // Querying existing songs table where metadata->>uploaded_by equals userId
+    // Note: This relies on the convention established in upload.controller.js
+    const { data, error, count } = await supabase
+      .from("songs")
+      .select("*", { count: "exact" })
+      .eq("metadata->>uploaded_by", userId)
+      .order("created_at", { ascending: false })
+      .range(startIndex, endIndex);
+
+    if (error) {
+      logger.error(`Error fetching uploaded songs for user ${userId}:`, error);
+      throw new ApiError(
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        ERROR_MESSAGES.OPERATION_FAILED,
+        [error.message],
+      );
+    }
+
+    return successResponse(
+      res,
+      {
+        songs: data,
+        pagination: {
+          page,
+          limit,
+          total: count,
+          totalPages: Math.ceil(count / limit),
+        }
+      },
+      "Uploaded songs fetched successfully",
+      HTTP_STATUS.OK,
+    );
+  } catch (error) {
+    logger.error(`Error in getUploadedSongs controller for user ${userId}:`, error);
     if (error instanceof ApiError) {
       throw error;
     }
@@ -119,4 +216,4 @@ const updateUserPreferences = async (req, res) => {
   }
 };
 
-export { getUserPreferences, updateUserPreferences };
+export { getUserPreferences, updateUserPreferences, getUploadedSongs };
