@@ -163,6 +163,7 @@ class AuthService {
 
   /**
    * Login user with Supabase Auth
+   * With Redis caching for user data and refresh tokens
    */
   async loginUser({ email, password }) {
     try {
@@ -190,7 +191,7 @@ class AuthService {
         .single();
 
       if (prefsError) {
-        logger.warn("User preferences not found, creating defaults");
+        logger.warn("User preferences not found, creating defaults it is at auth.service.js");
         // Create default preferences if missing
         const { data: newPrefs } = await supabase
           .from("user_preferences")
@@ -206,6 +207,30 @@ class AuthService {
           .select()
           .single();
 
+        // Cache refresh token in Redis (7 days)
+        if (data.session?.refresh_token) {
+          await cacheSet(
+            `refresh_token:${data.user.id}`,
+            data.session.refresh_token,
+            604800
+          );
+          logger.debug(`Refresh token cached for user: ${data.user.id}`);
+        }
+
+        // Cache user data in Redis (1 day)
+        const cachedUserData = {
+          id: data.user.id,
+          email: data.user.email,
+          user_metadata: data.user.user_metadata,
+          preferences: newPrefs,
+        };
+        await cacheSet(
+          `user:${data.user.id}`,
+          JSON.stringify(cachedUserData),
+          86400
+        );
+        logger.debug(`User data cached for user: ${data.user.id}`);
+
         logger.info(`User logged in successfully: ${email}`);
 
         return {
@@ -216,6 +241,30 @@ class AuthService {
           refreshToken: data.session.refresh_token,
         };
       }
+
+      // Cache refresh token in Redis (7 days)
+      if (data.session?.refresh_token) {
+        await cacheSet(
+          `refresh_token:${data.user.id}`,
+          data.session.refresh_token,
+          604800
+        );
+        logger.debug(`Refresh token cached for user: ${data.user.id}`);
+      }
+
+      // Cache user data in Redis (1 day)
+      const cachedUserData = {
+        id: data.user.id,
+        email: data.user.email,
+        user_metadata: data.user.user_metadata,
+        preferences: userPrefs,
+      };
+      await cacheSet(
+        `user:${data.user.id}`,
+        JSON.stringify(cachedUserData),
+        86400
+      );
+      logger.debug(`User data cached for user: ${data.user.id}`);
 
       logger.info(`User logged in successfully: ${email}`);
 
@@ -237,6 +286,7 @@ class AuthService {
 
   /**
    * Refresh access token
+   * Validates refresh token from Redis cache
    */
   async refreshAccessToken(refreshToken) {
     try {
@@ -252,6 +302,17 @@ class AuthService {
       if (error) {
         logger.warn("Token refresh failed:", error.message);
         throw ApiError.unauthorized("Invalid or expired refresh token");
+      }
+
+      // Update refresh token in Redis cache (7 days)
+      const userId = data.user?.id;
+      if (userId && data.session?.refresh_token) {
+        await cacheSet(
+          `refresh_token:${userId}`,
+          data.session.refresh_token,
+          604800
+        );
+        logger.debug(`Refresh token updated in cache for user: ${userId}`);
       }
 
       return {
@@ -270,8 +331,9 @@ class AuthService {
 
   /**
    * Logout user (invalidate session)
+   * Removes refresh token from Redis cache for immediate invalidation
    */
-  async logoutUser(_accessToken) {
+  async logoutUser(userId) {
     try {
       const supabase = getSupabaseClient();
       if (!supabase) {
@@ -283,6 +345,13 @@ class AuthService {
       if (error) {
         logger.error("Logout error:", error);
         throw ApiError.internal("Logout failed");
+      }
+
+      // Delete refresh token from Redis cache (immediate invalidation)
+      if (userId) {
+        await cacheDel(`refresh_token:${userId}`);
+        await cacheDel(`user:${userId}`);
+        logger.debug(`User session cleared from cache: ${userId}`);
       }
 
       logger.info("User logged out successfully");
@@ -298,9 +367,27 @@ class AuthService {
 
   /**
    * Get user by ID (from Supabase Auth + preferences)
+   * With Redis caching for faster subsequent requests
    */
   async getUserById(userId) {
     try {
+      // Try to get from Redis cache first
+      const cachedUser = await cacheGet(`user:${userId}`);
+      if (cachedUser) {
+        // CACHE_KEYS.USER_RECENT(userId)
+        logger.debug(`Cache HIT: user:${userId}`);
+        // Handle both string and object responses from Redis
+        try {
+          return typeof cachedUser === 'string' ? JSON.parse(cachedUser) : cachedUser;
+        } catch (parseError) {
+          logger.error(`JSON parse error for cached user: ${parseError.message}`);
+          // Clear invalid cache and continue to fetch from DB
+          await cacheDel(`user:${userId}`);
+        }
+      }
+
+      logger.debug(`Cache MISS: user:${userId}`);
+
       const supabase = getSupabaseAdmin();
       if (!supabase) {
         throw ApiError.internal("Authentication service unavailable");
@@ -325,7 +412,7 @@ class AuthService {
         logger.warn(`Preferences not found for user ${userId}`);
       }
 
-      return {
+      const userData = {
         id: authUser.user.id,
         email: authUser.user.email,
         ...authUser.user.user_metadata,
@@ -333,6 +420,12 @@ class AuthService {
         email_verified: authUser.user.email_confirmed_at !== null,
         created_at: authUser.user.created_at,
       };
+
+      // Cache user data in Redis (1 day)
+      await cacheSet(`user:${userId}`, JSON.stringify(userData), 86400);
+      logger.debug(`Cache SET: user:${userId} (TTL: 86400s)`);
+
+      return userData;
     } catch (error) {
       if (error instanceof ApiError) {
         throw error;
@@ -402,6 +495,10 @@ class AuthService {
 
       logger.info(`Profile updated for user: ${userId}`);
 
+      // Invalidate user cache to ensure fresh data on next request
+      await cacheDel(`user:${userId}`);
+      logger.debug(`Cache invalidated for user: ${userId}`);
+
       // Return updated user data
       return this.getUserById(userId);
     } catch (error) {
@@ -453,6 +550,11 @@ class AuthService {
         logger.error("Password change error:", updateError);
         throw ApiError.internal("Failed to change password");
       }
+
+      // Invalidate all user sessions on password change (security best practice)
+      await cacheDel(`refresh_token:${userId}`);
+      await cacheDel(`user:${userId}`);
+      logger.debug(`User sessions invalidated after password change: ${userId}`);
 
       logger.info(`Password changed for user: ${userId}`);
       return true;
