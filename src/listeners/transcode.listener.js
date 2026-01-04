@@ -34,36 +34,51 @@ export const initTranscodeListener = () => {
     queueEvents.on("completed", async ({ jobId, returnvalue }) => {
         logger.info(`Microservice Job ${jobId} completed. Result: ${JSON.stringify(returnvalue)}`);
 
-        // Expected returnvalue from freeTuneYtdlp: { uploaded: true, keyPrefix: '...', url: '...', songId: '...' }
-        // Note: We need to ensure freeTuneYtdlp passes 'songId' through all steps!
-        // Current state:
-        // 1. DownloadWorker receives { query, url, userId } -> produces { filePath, status, metadata }
-        // 2. TranscodeWorker receives { filePath, originalId: jobId, metadata } -> produces { keyPrefix, ... }
-        // 3. UploadWorker receives { ... } -> produces { uploaded: true, keyPrefix, url }
-
-        // ISSUE: We don't have the REAL songId from the backend's perspective because the microservice doesn't create the DB entry first!
-        // The ImportController just fired a job. The DB entry hasn't been created yet in the 'import' flow?
-        // Wait, if we use the backend to Trigger, we technically *could* create a "Processing" entry first.
-
-        // PLAN ADJUSTMENT:
-        // Option A: Microservice creates the song in DB (requires DB access, bad for microservice isolation)
-        // Option B: Backend creates "Pending" song -> passes ID -> Microservice updates it.
-        // Option C: Backend receives completion -> Creates Song Entry with metadata. <-- BEST approach for now.
-
         try {
             if (!returnvalue || !returnvalue.url) return;
 
-            // If returnvalue has metadata, we can create the song now!
-            // We need to trust the microservice passed metadata through.
-            // Let's assume for now we just log it, or update if we can find a matching pending record.
+            const { url, keyPrefix, originalId, metadata } = returnvalue;
 
-            // For this specific integration step, let's just Log and potentially notifying the user via Socket/Notification would be next step.
-            // Since we don't have a "Pending Song" ID sent (ref Import Controller), we can't update a specific record yet.
+            // Validate essential metadata
+            if (!metadata || !metadata.title) {
+                logger.warn(`Job ${jobId} completed but missing metadata. Skipping DB creation.`);
+                return;
+            }
 
-            logger.info("Song processing finished. Ready to create DB entry or notify user.");
+            logger.info(`Creating DB entry for song: ${metadata.title}`);
 
-            // TODO: Implement "Create Song from Result" logic here if Microservice returns full metadata.
-            // For now, this confirms the loop is closed.
+            const supabase = getSupabaseAdmin();
+
+            // Prepare song data
+            // Note: Adjust fields to match your 'songs' table schema
+            const songData = {
+                title: metadata.title,
+                artist: metadata.artist || metadata.uploader || "Unknown Artist",
+                album: metadata.album || "Unknown Album",
+                album_art_url: metadata.thumbnail || null, // Mapped to album_art_url
+                duration_ms: Math.floor((metadata.duration || 0) * 1000),
+                hls_url: url, // Mapped to hls_url
+                r2_key: keyPrefix, // Mapped to r2_key
+                metadata: metadata, // Store raw metadata in JSONB column
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            };
+
+            // Insert into Supabase
+            const { data, error } = await supabase
+                .from("songs")
+                .insert(songData)
+                .select()
+                .single();
+
+            if (error) {
+                logger.error(`Failed to insert song into DB: ${error.message}`);
+            } else {
+                logger.info(`✅ Song created successfully in DB: ${data.title} (ID: ${data.id})`);
+
+                // Optional: Invalidate cache so it shows up in "Recently Added" or searches
+                await cacheHelper.del("songs:*");
+            }
 
         } catch (err) {
             logger.error(`Error in Transcode Listener for job ${jobId}:`, err);
