@@ -46,4 +46,21 @@ const getQueueConnection = () => {
     return queueConnection;
 };
 
+// Export options so listeners can create their own connections (Subscriber mode)
+export const getQueueConnectionOptions = () => {
+    if (!config.redis.url) return null;
+    const url = new URL(config.redis.url);
+    const options = {
+        host: url.hostname,
+        port: parseInt(url.port) || 6379,
+        password: config.redis.token,
+        maxRetriesPerRequest: null,
+        enableReadyCheck: false,
+    };
+    if (config.redis.url.startsWith('https')) {
+        options.tls = { servername: url.hostname };
+    }
+    return options;
+};
+
 export default getQueueConnection;

@@ -22,14 +22,15 @@ let uploadWorker = null;
  */
 
 export const initTranscodeListener = () => {
-    const connection = getQueueConnection();
-    if (!connection) {
+    const connectionOptions = getQueueConnectionOptions();
+    if (!connectionOptions) {
         logger.warn("Redis not available, Transcode Listener not initialized");
         return;
     }
 
-    // Listen to 'upload-queue' events (final step of Microservice pipeline)
-    const queueEvents = new QueueEvents("upload-queue", { connection });
+    // Listen to 'upload-queue' events
+    // MUST use a new connection for events (Subscriber mode blocks the connection)
+    const queueEvents = new QueueEvents("upload-queue", { connection: connectionOptions });
 
     queueEvents.on("completed", async ({ jobId, returnvalue }) => {
         logger.info(`Microservice Job ${jobId} completed. Result: ${JSON.stringify(returnvalue)}`);
