@@ -17,7 +17,12 @@ export const getTranscodeQueue = () => {
                         delay: 1000,
                     },
                     removeOnComplete: true,
-                    removeOnFail: false,
+                    removeOnFail: { count: 100 },
+                },
+                opts: {
+                    metrics: {
+                        maxDataPoints: 0, // Disable metrics
+                    },
                 },
             });
             logger.info("Transcode Queue initialized");
