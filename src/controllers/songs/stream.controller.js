@@ -12,6 +12,7 @@ import { logger } from "../../utils/logger.js";
 import fileUploadHelper from "../../services/audioUpload.js";
 import cacheHelper from "../../utils/cacheHelper.js";
 import { triggerDownload } from "../../queues/download.queue.js";
+import config from "../../config/index.js";
 
 /**
  * @description Get presigned URL for streaming a song
@@ -77,7 +78,7 @@ const getStreamUrl = async (req, res) => {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.SONG_NOT_FOUND);
     }
 
-  
+
     // Check if file exists in R2
     // Smart check: If r2_key ends with an audio extension, treat as direct file.
     // Otherwise, assume it's an HLS directory and look for master.m3u8.
@@ -111,6 +112,32 @@ const getStreamUrl = async (req, res) => {
       throw new ApiError(
         HTTP_STATUS.NOT_FOUND,
         "Audio file not found in storage and restoration failed",
+      );
+    }
+
+    // Check if we can use Public URL (Preferred for HLS to avoid signature issues on segments)
+    const publicUrlBase = config.r2.publicUrl;
+    if (publicUrlBase && !isDirectFile) {
+      // For HLS, returning the public URL of the master playlist is safer
+      // because relative links inside will resolve correctly against the public domain.
+      const publicStreamUrl = `${publicUrlBase}/${fileKey}`;
+      logger.info(`Using Public URL for stream: ${publicStreamUrl}`);
+
+      return successResponse(
+        res,
+        {
+          streamUrl: publicStreamUrl,
+          song: {
+            id: song.id,
+            title: song.title,
+            artist: song.artist,
+          },
+          quality,
+          expiresIn: null, // Public URLs don't expire
+          cached: false,
+        },
+        "Stream URL generated successfully",
+        HTTP_STATUS.OK,
       );
     }
 
@@ -219,14 +246,21 @@ const streamSong = async (req, res) => {
       return res.status(HTTP_STATUS.NOT_FOUND).send("Content restoring... please refresh shortly.");
     }
 
-    // Generate signed URL
-    const signedUrl = await fileUploadHelper.getSignedUrl(fileKey, 1800);
+    // Generate signed URL or use Public URL
+    let finalUrl;
+    const publicUrlBase = config.r2.publicUrl;
 
-    // Cache it
-    await cacheHelper.set(cacheKey, signedUrl, CACHE_TTL.CDN_URLS);
-    logger.info(`Cached direct stream URL for song ${id}`);
+    if (publicUrlBase && !isDirectFile) {
+      finalUrl = `${publicUrlBase}/${fileKey}`;
+      logger.info(`Redirecting to Public URL: ${finalUrl}`);
+    } else {
+      finalUrl = await fileUploadHelper.getSignedUrl(fileKey, 1800);
+      // Cache it
+      await cacheHelper.set(cacheKey, finalUrl, CACHE_TTL.CDN_URLS);
+      logger.info(`Cached direct stream URL for song ${id}`);
+    }
 
-    res.redirect(signedUrl);
+    res.redirect(finalUrl);
   } catch (error) {
     logger.error("Error in streamSong controller:", error);
     if (error instanceof ApiError) {
