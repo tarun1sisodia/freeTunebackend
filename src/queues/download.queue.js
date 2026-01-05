@@ -21,8 +21,13 @@ const getDownloadQueue = () => {
                 type: "exponential",
                 delay: 1000,
             },
-            removeOnComplete: true,
-            removeOnFail: false,
+            removeOnComplete: true, // Keep Redis clean
+            removeOnFail: { count: 100 }, // Keep last 100 failed jobs
+        },
+        opts: {
+            metrics: {
+                maxDataPoints: 0, // Disable metrics
+            },
         },
     });
 
