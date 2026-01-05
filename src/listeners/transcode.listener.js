@@ -4,6 +4,7 @@ import { getSupabaseAdmin } from "../database/connections/supabase.js";
 import { logger } from "../utils/logger.js";
 import cacheHelper from "../utils/cacheHelper.js";
 import fileUploadHelper from "../services/audioUpload.js";
+import { CACHE_KEYS } from "../utils/constants.js";
 
 let uploadWorker = null;
 
@@ -51,34 +52,63 @@ export const initTranscodeListener = () => {
             const supabase = getSupabaseAdmin();
 
             // Prepare song data
-            // Note: Adjust fields to match your 'songs' table schema
             const songData = {
                 title: metadata.title,
                 artist: metadata.artist || metadata.uploader || "Unknown Artist",
                 album: metadata.album || "Unknown Album",
-                album_art_url: metadata.thumbnail || null, // Mapped to album_art_url
+                album_art_url: metadata.thumbnail || null,
                 duration_ms: Math.floor((metadata.duration || 0) * 1000),
-                hls_url: url, // Mapped to hls_url
-                r2_key: keyPrefix, // Mapped to r2_key
-                metadata: metadata, // Store raw metadata in JSONB column
-                created_at: new Date().toISOString(),
+                hls_url: url,
+                r2_key: keyPrefix,
+                metadata: metadata,
                 updated_at: new Date().toISOString()
             };
 
-            // Insert into Supabase
-            const { data, error } = await supabase
-                .from("songs")
-                .insert(songData)
-                .select()
-                .single();
+            let data, error;
+            let action = "created";
+
+            // If we have a valid UUID as songId, try to UPDATE
+            if (returnvalue.songId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(returnvalue.songId)) {
+                logger.info(`Restoration detected. Updating existing song ID: ${returnvalue.songId}`);
+
+                const { data: updated, error: updateError } = await supabase
+                    .from("songs")
+                    .update(songData)
+                    .eq("id", returnvalue.songId)
+                    .select()
+                    .single();
+
+                if (!updateError) {
+                    data = updated;
+                    action = "restored";
+                } else {
+                    logger.warn(`Failed to update song ${returnvalue.songId}, falling back to create: ${updateError.message}`);
+                }
+            }
+
+            // Fallback: Create NEW song if update failed or no ID provided
+            if (!data) {
+                const { data: inserted, error: insertError } = await supabase
+                    .from("songs")
+                    .insert({
+                        ...songData,
+                        created_at: new Date().toISOString()
+                    })
+                    .select()
+                    .single();
+
+                data = inserted;
+                error = insertError;
+            }
 
             if (error) {
-                logger.error(`Failed to insert song into DB: ${error.message}`);
+                logger.error(`Failed to save song to DB: ${error.message}`);
             } else {
-                logger.info(`✅ Song created successfully in DB: ${data.title} (ID: ${data.id})`);
-
-                // Optional: Invalidate cache so it shows up in "Recently Added" or searches
+                logger.info(`✅ Song ${action} successfully in DB: ${data.title} (ID: ${data.id})`);
                 await cacheHelper.del("songs:*");
+                if (action === "restored") {
+                    await cacheHelper.del(CACHE_KEYS.CDN_URL(data.id, "high")); // Invalidate specific cache
+                }
             }
 
         } catch (err) {
