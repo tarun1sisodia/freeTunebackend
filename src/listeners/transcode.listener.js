@@ -1,5 +1,5 @@
 import { Worker, QueueEvents } from "bullmq";
-import getQueueConnection from "../database/connections/redisQueue.js";
+import getQueueConnection, { getQueueConnectionOptions } from "../database/connections/redisQueue.js";
 import { getSupabaseAdmin } from "../database/connections/supabase.js";
 import { logger } from "../utils/logger.js";
 import cacheHelper from "../utils/cacheHelper.js";
@@ -42,8 +42,12 @@ export const initTranscodeListener = () => {
             const { url, keyPrefix, originalId, metadata } = returnvalue;
 
             // Validate essential metadata
-            if (!metadata || !metadata.title) {
-                logger.warn(`Job ${jobId} completed but missing metadata. Skipping DB creation.`);
+            // If we have a songId (update mode), we can proceed even if metadata is partial
+            // If no songId (create mode), we strictly need title
+            const isUpdate = !!(returnvalue.songId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(returnvalue.songId));
+
+            if (!isUpdate && (!metadata || !metadata.title)) {
+                logger.warn(`Job ${jobId} completed but missing metadata and no songId. Skipping DB creation.`);
                 return;
             }
 

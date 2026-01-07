@@ -174,7 +174,15 @@ const uploadSong = async (req, res) => {
     await addTranscodeJob({
       songId: data.id,
       fileKey: fileKey,
-      source: 'r2' // Indicate that the source file is in R2
+      source: 'r2', // Indicate that the source file is in R2
+      userId: userId,
+      metadata: {
+        title: title.trim(),
+        artist: artist.trim(),
+        album: album?.trim() || null,
+        duration: finalDuration,
+        thumbnail: albumArtUrl
+      }
     });
     logger.info(`Transcode job dispatched for song: ${data.id}`);
 
