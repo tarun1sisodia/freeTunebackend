@@ -243,15 +243,33 @@ const searchSongs = async (req, res) => {
       const queueService = (await import('../../services/queue.service.js')).default;
 
       // Check if we already have a pending job for this query to avoid spam
-      // For MVP, just fire it. The queue de-duplication can handle identical job IDs if we constructed them that way,
-      // but here we use timestamp. Worker side locking is better.
+      // Use a Redis lock/flag to prevent duplicate jobs for the same query
+      const lockKey = `job:lock:search:${normalizedQuery}`;
+      const isLocked = await cacheHelper.exists(lockKey);
+
+      if (isLocked) {
+        logger.info(`Job already pending for "${sanitizedQuery}", skipping duplicate trigger.`);
+        // Return without triggering new job
+        return res.status(200).json({
+          success: true,
+          data: [],
+          pagination: { page, limit, total: 0, totalPages: 0 },
+          message: "Search is being processed in background. Please check back shortly.",
+          background_job_initiated: true
+        });
+      }
 
       try {
         await queueService.addDownloadJob({
           query: sanitizedQuery,
-          userId: req.user?.id || 'anonymous', // careful with anonymous limits
+          userId: req.user?.id || 'anonymous',
           source: 'ondemand_search'
         });
+
+        // Set lock for 5 minutes (average job time?)
+        // If it fails, lock expires. If it succeeds, listener could potentially clear it,
+        // or we just let it expire to act as a cooldown.
+        await cacheHelper.set(lockKey, 'processing', 300);
 
         // Return a special status? Or just empty list with a message?
         // "Accepted" (202) is technically correct for background processing,

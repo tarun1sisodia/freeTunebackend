@@ -109,9 +109,22 @@ export const initTranscodeListener = () => {
                 logger.error(`Failed to save song to DB: ${error.message}`);
             } else {
                 logger.info(`✅ Song ${action} successfully in DB: ${data.title} (ID: ${data.id})`);
-                await cacheHelper.del("songs:*");
-                if (action === "restored") {
-                    await cacheHelper.del(CACHE_KEYS.CDN_URL(data.id, "high")); // Invalidate specific cache
+                // Targeted Cache Invalidation
+                // We avoid wildcard deletions to save costs/ops.
+                // We only invalidate the first pages of lists where this new song might appear immediately.
+                await cacheHelper.delMany([
+                    "songs:page:1:limit:20", // Assuming default pagination
+                    "songs:page:1:limit:50",
+                    "popular:songs:page:1:limit:20",
+                    "popular:songs:page:1:limit:50"
+                ]);
+
+                // If it was a restoration/update
+                if (action === "restored" || action === "updated") {
+                    await cacheHelper.del(`song:${data.id}`);
+                    await cacheHelper.del(CACHE_KEYS.CDN_URL(data.id, "high"));
+                    await cacheHelper.del(CACHE_KEYS.CDN_URL(data.id, "medium"));
+                    await cacheHelper.del(CACHE_KEYS.CDN_URL(data.id, "low"));
                 }
             }
 
