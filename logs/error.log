@@ -343,3 +343,6 @@
 2026-01-03 18:51:49:5149 [31merror[39m: [31mError: ApiError is not defined[39m
 2026-01-03 18:51:56:5156 [31merror[39m: [31mError in trackPlay controller: userId is not defined[39m
 2026-01-03 18:51:56:5156 [31merror[39m: [31mError: ApiError is not defined[39m
+2026-01-07 15:21:54:2154 [31merror[39m: [31mUpload job 1 failed: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined[39m
+2026-01-07 15:37:13:3713 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-07 15:37:13:3713 [31merror[39m: [31mError: Internal server error[39m

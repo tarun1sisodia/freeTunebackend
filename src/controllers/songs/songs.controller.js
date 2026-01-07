@@ -235,6 +235,47 @@ const searchSongs = async (req, res) => {
 
     const transformedData = transformArray(data, transformSong);
 
+    // --- FALLBACK LOGIC: If no songs found, Trigger yt-dlp ---
+    if (count === 0 && page === 1) {
+      logger.info(`No results found for "${q}". Triggering yt-dlp Fallback.`);
+
+      // Import Queue Service dynamically to avoid circular issues if any, or just standard import at top
+      const queueService = (await import('../../services/queue.service.js')).default;
+
+      // Check if we already have a pending job for this query to avoid spam
+      // For MVP, just fire it. The queue de-duplication can handle identical job IDs if we constructed them that way,
+      // but here we use timestamp. Worker side locking is better.
+
+      try {
+        await queueService.addDownloadJob({
+          query: sanitizedQuery,
+          userId: req.user?.id || 'anonymous', // careful with anonymous limits
+          source: 'ondemand_search'
+        });
+
+        // Return a special status? Or just empty list with a message?
+        // "Accepted" (202) is technically correct for background processing,
+        // but frontend expects list. Let's return empty list but with a specific status flag.
+        return res.status(200).json({
+          success: true,
+          data: [],
+          pagination: {
+            page,
+            limit,
+            total: 0,
+            totalPages: 0
+          },
+          message: "No songs found. A background search has been initiated. Please check back shortly.",
+          background_job_initiated: true
+        });
+
+      } catch (queueError) {
+        logger.error('Failed to trigger background download:', queueError);
+        // Fallthrough to return empty list
+      }
+    }
+    // ---------------------------------------------------------
+
     // Cache first page results
     if (page === 1 && transformedData.length > 0) {
       const cacheData = {
@@ -275,6 +316,7 @@ const searchSongs = async (req, res) => {
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.INTERNAL_ERROR,
+      [error.message]
     );
   }
 };
