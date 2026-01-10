@@ -95,6 +95,13 @@ export const initTranscodeListener = () => {
 
             // Fallback: Create NEW song if update failed or no ID provided
             if (!data) {
+                // If we attempted an update but failed, mark this as a fallback creation
+                if (action === "created" && returnvalue.songId) {
+                    action = "created (fallback - ID not found)";
+                } else {
+                    action = "created (new)";
+                }
+
                 const { data: inserted, error: insertError } = await supabase
                     .from("songs")
                     .insert({
