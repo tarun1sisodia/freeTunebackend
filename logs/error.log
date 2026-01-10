@@ -362,3 +362,32 @@
 2026-01-07 17:03:01:31 [31merror[39m: [31mError: Internal server error[39m
 2026-01-07 17:10:52:1052 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
 2026-01-07 17:10:52:1052 [31merror[39m: [31mError: Internal server error[39m
+2026-01-07 17:20:52:2052 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-07 17:20:52:2052 [31merror[39m: [31mError: Internal server error[39m
+2026-01-07 18:21:40:2140 [31merror[39m: [31mError: Invalid or expired token[39m
+2026-01-07 18:22:26:2226 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-07 18:22:26:2226 [31merror[39m: [31mError: Internal server error[39m
+2026-01-07 23:50:33:5033 [31merror[39m: [31mError: Invalid or expired token[39m
+2026-01-07 23:51:17:5117 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-07 23:51:17:5117 [31merror[39m: [31mError: Internal server error[39m
+2026-01-08 17:47:47:4747 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-08 17:47:47:4747 [31merror[39m: [31mError: Internal server error[39m
+2026-01-08 17:48:50:4850 [31merror[39m: [31mError in getStreamUrl controller: Song not found[39m
+2026-01-08 17:48:50:4850 [31merror[39m: [31mError: Song not found[39m
+2026-01-08 17:53:47:5347 [31merror[39m: [31mError in getStreamUrl controller: Song not found[39m
+2026-01-08 17:53:47:5347 [31merror[39m: [31mError: Song not found[39m
+2026-01-08 17:54:06:546 [31merror[39m: [31mError in trackPlayback controller: Song not found[39m
+2026-01-08 17:54:06:546 [31merror[39m: [31mError: Song not found[39m
+2026-01-08 17:54:42:5442 [31merror[39m: [31mError in getStreamUrl controller: Song not found[39m
+2026-01-08 17:54:42:5442 [31merror[39m: [31mError: Song not found[39m
+2026-01-08 19:48:53:4853 [31merror[39m: [31mError: Invalid or expired token[39m
+2026-01-08 19:49:52:4952 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-08 19:49:52:4952 [31merror[39m: [31mError: Internal server error[39m
+2026-01-08 19:53:18:5318 [31merror[39m: [31mError in getRecentlyPlayed controller: "[object Object]" is not valid JSON[39m
+2026-01-08 19:53:18:5318 [31merror[39m: [31mError: Internal server error[39m
+2026-01-08 19:55:37:5537 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
+2026-01-08 19:56:13:5613 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
+2026-01-08 19:56:50:5650 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
+2026-01-08 19:57:44:5744 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
+2026-01-08 19:58:25:5825 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
+2026-01-08 19:59:11:5911 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m

@@ -21,7 +21,7 @@ const transformKeys = (obj) => {
   if (Array.isArray(obj)) {
     return obj.map(item => transformKeys(item));
   }
-  
+
   if (obj !== null && typeof obj === 'object' && !(obj instanceof Date)) {
     return Object.keys(obj).reduce((acc, key) => {
       const camelKey = snakeToCamel(key);
@@ -29,7 +29,7 @@ const transformKeys = (obj) => {
       return acc;
     }, {});
   }
-  
+
   return obj;
 };
 
@@ -40,7 +40,7 @@ const transformKeys = (obj) => {
  */
 const transformSong = (song) => {
   if (!song) return null;
-  
+
   return {
     id: song.id,
     title: song.title,
@@ -55,6 +55,7 @@ const transformSong = (song) => {
     popularityScore: song.popularity_score || 0,
     createdAt: song.created_at,
     updatedAt: song.updated_at,
+    downloadUrl: song.download_url || null,
   };
 };
 
@@ -65,7 +66,7 @@ const transformSong = (song) => {
  */
 const transformPlaylist = (playlist) => {
   if (!playlist) return null;
-  
+
   return {
     id: playlist.id,
     name: playlist.name,
@@ -86,7 +87,7 @@ const transformPlaylist = (playlist) => {
  */
 const transformUser = (user) => {
   if (!user) return null;
-  
+
   return {
     id: user.id,
     email: user.email,
@@ -104,7 +105,7 @@ const transformUser = (user) => {
  */
 const transformUserPreferences = (prefs) => {
   if (!prefs) return null;
-  
+
   return {
     userId: prefs.user_id,
     preferredQuality: prefs.preferred_quality || 'high',
@@ -124,7 +125,7 @@ const transformUserPreferences = (prefs) => {
  */
 const transformUserInteraction = (interaction) => {
   if (!interaction) return null;
-  
+
   return {
     id: interaction.id,
     userId: interaction.user_id,
