@@ -65,6 +65,7 @@ export const initTranscodeListener = () => {
                 hls_url: url,
                 r2_key: keyPrefix,
                 metadata: metadata,
+                download_url: returnvalue.originalMp3Url || null, // Map MP3 URL to download_url
                 updated_at: new Date().toISOString()
             };
 
@@ -80,13 +81,14 @@ export const initTranscodeListener = () => {
                     .update(songData)
                     .eq("id", returnvalue.songId)
                     .select()
-                    .single();
+                    .maybeSingle();
 
-                if (!updateError) {
+                if (!updateError && updated) {
                     data = updated;
                     action = "restored";
                 } else {
-                    logger.warn(`Failed to update song ${returnvalue.songId}, falling back to create: ${updateError.message}`);
+                    const failReason = updateError ? updateError.message : "ID not found";
+                    logger.warn(`Failed to update song ${returnvalue.songId}, falling back to create: ${failReason}`);
                 }
             }
 
