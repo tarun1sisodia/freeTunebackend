@@ -373,7 +373,7 @@ const getRecentlyPlayed = async (req, res) => {
       logger.debug(`Cache HIT: ${cacheKey}`);
       return successResponse(
         res,
-        JSON.parse(cached),
+        typeof cached === 'string' ? JSON.parse(cached) : cached,
         "Recently played songs fetched from cache",
         HTTP_STATUS.OK,
       );
@@ -390,23 +390,34 @@ const getRecentlyPlayed = async (req, res) => {
       .limit(limit);
 
     if (error) {
+      // Safely handle error message
+      const errorMsg = error.message ? error.message : "Unknown database error";
       logger.error("Error fetching recently played:", error);
       throw new ApiError(
         HTTP_STATUS.INTERNAL_SERVER_ERROR,
         ERROR_MESSAGES.OPERATION_FAILED,
-        [error.message],
+        [typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)],
       );
     }
-    // We need to test how much is best or not.
-    const songs = data.map((item) => ({
-      ...item.songs,
-      played_at: item.created_at,
-    }));
 
-    const responseData = { songs, count: songs.length };
+    // Filter out items where 'songs' is null (deleted songs) and transform
+    const validSongs = (data || [])
+      .filter((item) => item && item.songs)
+      .map((item) => {
+        // Use transformer to ensure consistent frontend model
+        const transformed = transformSong(item.songs);
+        return {
+          ...transformed,
+          played_at: item.created_at, // Keep snake_case if frontend expects it, or unify?
+          // Existing code used played_at: item.created_at
+          // Frontend likely expects this.
+        };
+      });
+
+    const responseData = { songs: validSongs, count: validSongs.length };
 
     // Cache recently played (7 days TTL)
-    await cacheHelper.set(cacheKey, JSON.stringify(responseData), CACHE_TTL.USER_RECENT);
+    await cacheHelper.set(cacheKey, responseData, CACHE_TTL.USER_RECENT);
     logger.debug(`Cache SET: ${cacheKey} (TTL: ${CACHE_TTL.USER_RECENT}s)`);
 
     return successResponse(
@@ -420,9 +431,15 @@ const getRecentlyPlayed = async (req, res) => {
     if (error instanceof ApiError) {
       throw error;
     }
+
+    // Safety check for error message to avoid "[object Object]" logs
+    const msg = error.message || "Unknown internal error";
+    const safeMsg = typeof msg === 'object' ? JSON.stringify(msg) : msg;
+
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.INTERNAL_ERROR,
+      [safeMsg]
     );
   }
 };
@@ -465,18 +482,25 @@ const getFavorites = async (req, res) => {
       .range(startIndex, endIndex);
 
     if (error) {
+      const errorMsg = error.message ? error.message : "Unknown database error";
       logger.error("Error fetching favorites:", error);
       throw new ApiError(
         HTTP_STATUS.INTERNAL_SERVER_ERROR,
         ERROR_MESSAGES.OPERATION_FAILED,
-        [error.message],
+        [typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg)],
       );
     }
 
-    const songs = data.map((item) => ({
-      ...item.songs,
-      liked_at: item.created_at,
-    }));
+    // Filter out items where 'songs' is null (deleted songs) and transform
+    const songs = (data || [])
+      .filter((item) => item && item.songs)
+      .map((item) => {
+        const transformed = transformSong(item.songs);
+        return {
+          ...transformed,
+          liked_at: item.created_at, // Keep snake_case
+        };
+      });
 
     return paginatedResponse(
       res,
@@ -491,9 +515,14 @@ const getFavorites = async (req, res) => {
     if (error instanceof ApiError) {
       throw error;
     }
+
+    const msg = error.message || "Unknown internal error";
+    const safeMsg = typeof msg === 'object' ? JSON.stringify(msg) : msg;
+
     throw new ApiError(
       HTTP_STATUS.INTERNAL_SERVER_ERROR,
       ERROR_MESSAGES.INTERNAL_ERROR,
+      [safeMsg]
     );
   }
 };

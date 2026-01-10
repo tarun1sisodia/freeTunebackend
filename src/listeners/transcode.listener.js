@@ -88,7 +88,8 @@ export const initTranscodeListener = () => {
                     action = "restored";
                 } else {
                     const failReason = updateError ? updateError.message : "ID not found";
-                    logger.warn(`Failed to update song ${returnvalue.songId}, falling back to create: ${failReason}`);
+                    // Downgrade to info as this is expected for new songs
+                    logger.info(`Song ID ${returnvalue.songId} not passed or not found in DB, falling back to create new entry: ${failReason}`);
                 }
             }
 
