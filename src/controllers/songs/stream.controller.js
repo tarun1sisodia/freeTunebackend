@@ -13,6 +13,7 @@ import fileUploadHelper from "../../services/audioUpload.js";
 import cacheHelper from "../../utils/cacheHelper.js";
 import { triggerDownload } from "../../queues/download.queue.js";
 import config from "../../config/index.js";
+import { ListeningPattern, SongFeature } from "../../database/models/index.js";
 
 /**
  * @description Get presigned URL for streaming a song
@@ -344,6 +345,58 @@ const trackPlayback = async (req, res) => {
         [interactionError.message],
       );
     }
+
+    // --- MongoDB Analytics (ListeningPattern) ---
+    // Record if completed OR significant play (>30s)
+    if (userId) {
+      const isLongPlay = progress_ms > 30000;
+
+      try {
+        let shouldRecord = false;
+
+        if (completed) {
+          shouldRecord = true;
+        } else if (isLongPlay) {
+          // Check if we already recorded a "valid listen" for this song recently to avoid spam
+          const debounceKey = `analytics:recorded:${userId}:${songId}`;
+          const alreadyRecorded = await cacheHelper.get(debounceKey);
+
+          if (!alreadyRecorded) {
+            shouldRecord = true;
+            // Set debounce for 10 minutes (prevents duplicate 30s records for same session)
+            await cacheHelper.set(debounceKey, 'true', 600);
+          }
+        }
+
+        if (shouldRecord) {
+          await ListeningPattern.create({
+            userId,
+            songId,
+            playDuration: (duration_ms || 0) / 1000, // Seconds
+            completionRate: duration_ms > 0 ? Math.min(progress_ms / duration_ms, 1) : 0,
+            skipped: !completed, // If not completed event, assume skipped/stopped
+            source: 'playlist', // Default, as frontend doesn't send source yet
+            timestamp: new Date(),
+            deviceType: device_type || 'mobile',
+            quality: quality || 'high'
+          });
+          logger.debug(`Recorded ListeningPattern (completed=${completed}) for song ${songId}`);
+
+          // Also update SongFeature metrics asynchronously
+          // We can fire-and-forget this
+          SongFeature.updateMetricsFromPatterns(songId, [{
+            userId,
+            completionRate: duration_ms > 0 ? Math.min(progress_ms / duration_ms, 1) : 0,
+            skipped: !completed,
+            liked: false, // We check likes separately
+            addedToPlaylist: false
+          }]).catch(err => logger.error("Error updating SongFeature metrics:", err));
+        }
+      } catch (mongoError) {
+        logger.error("Error recording ListeningPattern in playback:", mongoError);
+      }
+    }
+    // --------------------------------------------
 
     return successResponse(
       res,
