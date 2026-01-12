@@ -391,3 +391,22 @@
 2026-01-08 19:57:44:5744 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
 2026-01-08 19:58:25:5825 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
 2026-01-08 19:59:11:5911 [31merror[39m: [31mFailed to save song to DB: Could not find the 'download_url' column of 'songs' in the schema cache[39m
+2026-01-12 13:44:07:447 [31merror[39m: [31mError: Invalid or expired token[39m
+2026-01-12 14:28:14:2814 [31merror[39m: [31mUpload job 1 failed: [39m
+2026-01-12 14:28:44:2844 [31merror[39m: [31mUpload job 2 failed: [39m
+2026-01-12 14:29:39:2939 [31merror[39m: [31mUpload job 3 failed: [39m
+2026-01-12 14:29:45:2945 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:41:19:4119 [31merror[39m: [31mUpload job 4 failed: ENOENT: no such file or directory, scandir '/home/gargi/Cursor/freeTune/freeTuneYtdlp/downloads/75e1bd7a-6bce-4d9e-bd75-4360a8461992'[39m
+2026-01-12 14:46:35:4635 [31merror[39m: [31mError: Invalid or expired token[39m
+2026-01-12 14:47:05:475 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:47:34:4734 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:48:04:484 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:48:34:4834 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:49:04:494 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:49:10:4910 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:49:10:4910 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:49:34:4934 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:50:05:505 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:50:07:507 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:51:40:5140 [31merror[39m: [31mError: No token provided[39m
+2026-01-12 14:51:42:5142 [31merror[39m: [31mError: No token provided[39m

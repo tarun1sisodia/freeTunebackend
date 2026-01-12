@@ -1,7 +1,6 @@
-/**
- * Database to Frontend Model Transformers
- * Converts snake_case database fields to camelCase for frontend consumption
- */
+import config from '../config/index.js';
+
+// ... (existing helper functions)
 
 /**
  * Convert snake_case to camelCase
@@ -33,13 +32,17 @@ const transformKeys = (obj) => {
   return obj;
 };
 
-/**
- * Transform Song model from database to frontend format
- * @param {Object} song - Song from database
- * @returns {Object} Transformed song
- */
 const transformSong = (song) => {
   if (!song) return null;
+
+  let downloadUrl = song.download_url || null;
+
+  // If no explicit download URL but public R2 is configured and we have an ID
+  if (!downloadUrl && config.r2.publicUrl && song.id) {
+    // Construct default path for original MP3
+    // Assuming structure: songs/{id}/original.mp3 which matches upload worker logic
+    downloadUrl = `${config.r2.publicUrl}/songs/${song.id}/original.mp3`;
+  }
 
   return {
     id: song.id,
@@ -55,7 +58,7 @@ const transformSong = (song) => {
     popularityScore: song.popularity_score || 0,
     createdAt: song.created_at,
     updatedAt: song.updated_at,
-    downloadUrl: song.download_url || null,
+    downloadUrl: downloadUrl,
   };
 };
 
@@ -148,7 +151,6 @@ const transformArray = (items, transformer) => {
 };
 
 export {
-  snakeToCamel,
   transformKeys,
   transformSong,
   transformPlaylist,

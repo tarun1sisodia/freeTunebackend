@@ -6,6 +6,7 @@ import { getSupabaseClient, getSupabaseAdmin } from "../../database/connections/
 import { logger } from "../../utils/logger.js";
 import { transformSong, transformArray } from "../../utils/modelTransformers.js";
 import cacheHelper from "../../utils/cacheHelper.js";
+import { ListeningPattern } from "../../database/models/index.js";
 
 /**
  * @description Get a list of songs
@@ -89,12 +90,18 @@ const getSongById = async (req, res) => {
 
     if (cached) {
       logger.debug(`Cache HIT: song:${id}`);
-      return successResponse(
-        res,
-        JSON.parse(cached),
-        "Song fetched from cache",
-        HTTP_STATUS.OK,
-      );
+      try {
+        const parsed = typeof cached === 'string' ? JSON.parse(cached) : cached;
+        return successResponse(
+          res,
+          parsed,
+          "Song fetched from cache",
+          HTTP_STATUS.OK,
+        );
+      } catch (e) {
+        logger.warn(`Failed to parse cache for song:${id}, treating as miss`);
+        await cacheHelper.del(cacheKey);
+      }
     }
 
     logger.debug(`Cache MISS: song:${id}`);
@@ -371,12 +378,18 @@ const getRecentlyPlayed = async (req, res) => {
 
     if (cached) {
       logger.debug(`Cache HIT: ${cacheKey}`);
-      return successResponse(
-        res,
-        typeof cached === 'string' ? JSON.parse(cached) : cached,
-        "Recently played songs fetched from cache",
-        HTTP_STATUS.OK,
-      );
+      try {
+        const parsed = typeof cached === 'string' ? JSON.parse(cached) : cached;
+        return successResponse(
+          res,
+          parsed,
+          "Recently played songs fetched from cache",
+          HTTP_STATUS.OK,
+        );
+      } catch (e) {
+        logger.warn(`Failed to parse cache for ${cacheKey}, treating as miss`);
+        await cacheHelper.del(cacheKey);
+      }
     }
 
     logger.debug(`Cache MISS: ${cacheKey}`);
@@ -699,6 +712,31 @@ const trackPlay = async (req, res) => {
         [interactionError.message],
       );
     }
+
+    // --- MongoDB Analytics (ListeningPattern) ---
+    try {
+      // Create listening pattern without awaiting to avoid blocking response
+      // or await if consistentcy is critical. For analytics, fire-and-forget or safe await is fine.
+      // We'll await safely to catch errors but not block the main flow significantly.
+      await ListeningPattern.create({
+        userId,
+        songId,
+        playDuration: metadata.duration || 0, // Duration in seconds or ms? Schema says Number. Assuming payload sends safe data.
+        completionRate: metadata.completionRate || 0, // 0-1
+        source: metadata.source || 'playlist',
+        deviceType: metadata.deviceType || 'mobile',
+        networkType: metadata.networkType || 'wifi',
+        quality: metadata.quality || 'high',
+        timestamp: new Date(),
+        sessionId: session_id,
+        skipped: metadata.skipped || false
+      });
+      logger.debug(`Recorded ListeningPattern for song ${songId}`);
+    } catch (mongoError) {
+      // Don't fail the request if analytics fail, just log it
+      logger.error("Error recording ListeningPattern:", mongoError);
+    }
+    // --------------------------------------------
 
     const { error: updateError } = await supabaseAdmin
       .from("songs")
