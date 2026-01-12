@@ -414,18 +414,19 @@ const getRecentlyPlayed = async (req, res) => {
     }
 
     // Filter out items where 'songs' is null (deleted songs) and transform
-    const validSongs = (data || [])
-      .filter((item) => item && item.songs)
-      .map((item) => {
-        // Use transformer to ensure consistent frontend model
+    const seenSongIds = new Set();
+    const validSongs = [];
+
+    for (const item of (data || [])) {
+      if (item && item.songs && !seenSongIds.has(item.song_id)) {
+        seenSongIds.add(item.song_id);
         const transformed = transformSong(item.songs);
-        return {
+        validSongs.push({
           ...transformed,
-          played_at: item.created_at, // Keep snake_case if frontend expects it, or unify?
-          // Existing code used played_at: item.created_at
-          // Frontend likely expects this.
-        };
-      });
+          played_at: item.created_at,
+        });
+      }
+    }
 
     const responseData = { songs: validSongs, count: validSongs.length };
 

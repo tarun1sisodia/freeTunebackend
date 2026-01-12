@@ -60,7 +60,7 @@ export const initTranscodeListener = () => {
                 title: metadata.title,
                 artist: metadata.artist || metadata.uploader || "Unknown Artist",
                 album: metadata.album || "Unknown Album",
-                album_art_url: metadata.thumbnail || null,
+                album_art_url: returnvalue.thumbnailUrl || metadata.thumbnail || null,
                 duration_ms: Math.floor((metadata.duration || 0) * 1000),
                 hls_url: url,
                 r2_key: keyPrefix,
