@@ -90,31 +90,11 @@ const getStreamUrl = async (req, res) => {
       fileKey = `${song.r2_key}/master.m3u8`;
     }
 
-    const fileExists = await fileUploadHelper.fileExists(fileKey);
-    if (!fileExists) {
-      logger.warn(`File not found in R2: ${fileKey}. Triggering re-download.`);
-
-      // Trigger download job
-      const triggered = await triggerDownload({
-        query: `${song.title} ${song.artist} audio`,
-        songId: song.id,
-        // We don't have the original URL easily available unless it's in metadata
-        // but title+artist query is sufficient for ytdlp service fallback
-      });
-
-      if (triggered) {
-        return errorResponse(
-          res,
-          "Song content is being restored. Please try again shortly.",
-          HTTP_STATUS.ACCEPTED, // 202 Accepted
-        );
-      }
-
-      throw new ApiError(
-        HTTP_STATUS.NOT_FOUND,
-        "Audio file not found in storage and restoration failed",
-      );
-    }
+    // Skip expensive file existence check on R2 to reduce latency.
+    // We trust the database record. If the file is missing, the CDN or signed URL will 404,
+    // which is the standard behavior effectively.
+    // const fileExists = await fileUploadHelper.fileExists(fileKey);
+    // if (!fileExists) { ... }
 
     // Check if we can use Public URL (Preferred for HLS to avoid signature issues on segments)
     const publicUrlBase = config.r2.publicUrl;
