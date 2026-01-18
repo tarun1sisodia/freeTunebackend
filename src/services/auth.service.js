@@ -191,7 +191,8 @@ class AuthService {
         .single();
 
       if (prefsError) {
-        logger.warn("User preferences not found, creating defaults it is at auth.service.js");
+        // Normal behavior for new users or legacy accounts - auto-healing
+        logger.info("User preferences not found, creating default preferences.");
         // Create default preferences if missing
         const { data: newPrefs } = await supabase
           .from("user_preferences")
