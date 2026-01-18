@@ -38,10 +38,21 @@ const transformSong = (song) => {
   let downloadUrl = song.download_url || null;
 
   // If no explicit download URL but public R2 is configured and we have an ID
-  if (!downloadUrl && config.r2.publicUrl && song.id) {
-    // Construct default path for original MP3
-    // Assuming structure: songs/{id}/original.mp3 which matches upload worker logic
-    downloadUrl = `${config.r2.publicUrl}/songs/${song.id}/original.mp3`;
+  if (!downloadUrl && config.r2.publicUrl && song.r2_key) {
+    // Check if r2_key is a direct file or a directory (HLS)
+    const isDirectFile = /\.(mp3|m4a|wav|flac|ogg)$/i.test(song.r2_key);
+
+    if (isDirectFile) {
+      downloadUrl = `${config.r2.publicUrl}/${song.r2_key}`;
+    } else {
+      // For HLS folders (e.g. songs/00fe084b-9f8c-4aad-988f-44b70725ca3f/master.m3u8),
+      // we default to master.m3u8, but fallback to high.m3u8 if that fails/doesn't exist logic 
+      // is usually handled by the player or we point to master.
+      // Based on existing logic in stream.controller.js, we assume master.m3u8 is the entry point.
+      // However, if the user only has specific qualities, we might need a more robust check later.
+      // For now, consistent with stream controller:
+      downloadUrl = `${config.r2.publicUrl}/${song.r2_key.endsWith('/') ? song.r2_key : song.r2_key + '/'}master.m3u8`;
+    }
   }
 
   return {

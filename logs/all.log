@@ -15657,3 +15657,5 @@
 2026-01-12 15:04:58:458 [37mdebug[39m: [37mCache MISS: Searching for "ek r" in database[39m
 2026-01-12 15:04:59:459 [37mdebug[39m: [37mCache SET: search:ek r:page:1:limit:20 (TTL: 1800s)[39m
 2026-01-12 15:04:59:459 [32minfo[39m: [32mCached search results for "ek r" (TTL: 1800s)[39m
+2026-01-12 15:09:24:924 [32minfo[39m: [32m[39m
+[32mSIGINT received. Starting graceful shutdown...[39m
