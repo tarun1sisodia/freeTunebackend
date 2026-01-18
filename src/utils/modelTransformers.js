@@ -1,4 +1,5 @@
 import config from '../config/index.js';
+import { logger } from '../utils/logger.js';
 
 // ... (existing helper functions)
 
@@ -36,6 +37,11 @@ const transformSong = (song) => {
   if (!song) return null;
 
   let downloadUrl = song.download_url || null;
+
+  if (!downloadUrl && (!config.r2.publicUrl || !song.r2_key)) {
+    logger.debug(`[Transformer] Missing config or key: PublicURL=${!!config.r2.publicUrl}, R2Key=${song.r2_key}`);
+  }
+
 
   // If no explicit download URL but public R2 is configured and we have an ID
   if (!downloadUrl && config.r2.publicUrl && song.r2_key) {
